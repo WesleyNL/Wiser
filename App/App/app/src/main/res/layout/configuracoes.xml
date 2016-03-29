@@ -1,5 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:id="@+id/rlLayout"
+    android:backgroundTint="#ffffff"
+    android:clickable="false"
+    android:minWidth="300dp">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Idioma:"
+        android:id="@+id/lblConfIdioma"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="75dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cmbConfIdioma"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="50dp"
+        android:visibility="visible"
+        android:spinnerMode="dropdown"
+        android:layout_toRightOf="@+id/lblConfIdioma" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Fluência:"
+        android:id="@+id/lblConfFluencia"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/lblConfIdioma"
+        android:layout_marginTop="120dp"
+        android:layout_marginLeft="31dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cmbConfFluencia"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Status"
+        android:id="@+id/lblConfStatus"
+        android:layout_marginTop="170dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/lblConfIdioma"
+        android:layout_marginLeft="30dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/txtConfStatus"
+        android:layout_alignTop="@+id/lblConfStatus"
+        android:layout_alignRight="@+id/cmbConfIdioma"
+        android:layout_marginTop="170dp"
+        android:layout_marginLeft="120dp"
+        android:digits="150"
+        android:editable="true"
+        android:enabled="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Salvar"
+        android:id="@+id/btnConfSalvar"
+        android:layout_marginTop="400dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/cmbConfIdioma"
+        android:layout_marginLeft="200dp"
+        android:onClick="salvar"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Desativar"
+        android:id="@+id/btnConfDesativar"
+        android:layout_marginTop="400dp"
+        android:layout_marginLeft="90dp"
+        android:onClick="desativar"/>
 </RelativeLayout>

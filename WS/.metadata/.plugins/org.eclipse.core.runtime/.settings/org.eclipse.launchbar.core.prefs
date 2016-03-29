@@ -1,0 +1,4 @@
+configDescList=org.eclipse.launchbar.core.descriptorType.default\:Tomcat v6.0 Server at localhost
+eclipse.preferences.version=1
+org.eclipse.launchbar.core.descriptorType.default\:Tomcat\ v6.0\ Server\ at\ localhost/activeLaunchMode=run
+org.eclipse.launchbar.core.descriptorType.default\:Tomcat\ v6.0\ Server\ at\ localhost/activeLaunchTarget=org.eclipse.remote.LocalServices\:Local
