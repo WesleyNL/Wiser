@@ -1,52 +1,68 @@
 package com.example.adminstrador.app;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 
-    @Override
+public class MainActivity extends Activity {
+    private static final String ACCESS_EXPIRES = "access_expires";
+    private static final String ACCESS_TOKEN = "access_token";
+
+    private static String User_ID = "";
+
+    private CallbackManager callbackManager;
+    private LoginButton loginButton;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+
+        setContentView(R.layout.login);
     }
 
+    // Quando clica no botão de Login, é iniciado uma nova Activity e este método é o retorno desta Activity
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    private void mostrarMensagem(String texto) {
+        Toast.makeText(MainActivity.this, texto, Toast.LENGTH_SHORT).show();
+    }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    private void setBtnLogin_Event() {
+        try {
+            loginButton = (LoginButton) super.findViewById(R.id.btnLogin);
+            loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    User_ID = loginResult.getAccessToken().getUserId();
+                    mostrarMensagem("User ID: " + User_ID);
+                }
+
+                @Override
+                public void onCancel() {
+                    mostrarMensagem("Login Cancelado");
+                }
+
+                @Override
+                public void onError(FacebookException e) {
+                    mostrarMensagem("Login Falhou");
+                }
+            });
         }
-
-        return super.onOptionsItemSelected(item);
+        catch (Exception e) {
+            mostrarMensagem("Erro: " + e.getMessage());
+        }
     }
 }
