@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.adminstrador.app">
+    package="br.com.app.activity"
+
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="10" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -8,16 +14,50 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <!-- Activity Principal -->
         <activity
-            android:name=".MainActivity"
+            android:name=".principal.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Activity para Logar com o Facebook -->
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:theme="@android:style/Theme.Translucent"
+            android:label="@string/app_name" />
+
+        <!-- Activity da Tela Configurações -->
+
+        <!-- Activity da Tela Contatos -->
+
+        <!-- Activity da Tela Login -->
+        <activity
+            android:name=".login.LoginActivity"
+            android:theme="@style/AppTheme" />
+
+        <!-- Activity da Tela Pesquisa -->
+        <activity
+            android:name=".pesquisa.PesquisaActivity"
+            android:theme="@android:style/Theme.Material.Light" />
+
+        <!-- Activity da Tela Sobre -->
+        <activity
+            android:name=".sobre.SobreActivity"
+            android:label="@string/sobre"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
