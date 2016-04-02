@@ -5,15 +5,9 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-<<<<<<< HEAD
         applicationId "br.com.app"
         minSdkVersion 21
         targetSdkVersion 23
-=======
-        applicationId "com.example.adminstrador.app"
-        minSdkVersion 15
-        targetSdkVersion 21
->>>>>>> origin/master
         versionCode 1
         versionName "1.0"
     }
