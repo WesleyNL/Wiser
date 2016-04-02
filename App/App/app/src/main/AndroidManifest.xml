@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     package="br.com.app.activity"
 
+=======
+    package="com.example.adminstrador.app"
+>>>>>>> origin/master
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -15,11 +19,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+<<<<<<< HEAD
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
         <!-- Activity Principal -->
+=======
+>>>>>>> origin/master
         <activity
             android:name=".principal.MainActivity"
             android:label="@string/app_name"
@@ -31,11 +38,15 @@
             </intent-filter>
         </activity>
 
+<<<<<<< HEAD
         <!-- Activity para Logar com o Facebook -->
+=======
+>>>>>>> origin/master
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges=
                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+<<<<<<< HEAD
             android:theme="@android:style/Theme.Translucent"
             android:label="@string/app_name" />
 
@@ -58,6 +69,14 @@
             android:name=".sobre.SobreActivity"
             android:label="@string/sobre"
             android:theme="@style/AppTheme.NoActionBar" />
+=======
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:label="@string/app_name" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+>>>>>>> origin/master
     </application>
 
 </manifest>
