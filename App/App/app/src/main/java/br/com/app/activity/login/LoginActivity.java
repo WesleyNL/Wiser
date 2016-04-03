@@ -10,16 +10,18 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
-import br.com.app.activity.principal.MainActivity;
+import br.com.app.activity.pesquisa.PesquisaActivity;
 import br.com.app.activity.R;
 
 import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -27,7 +29,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by Jefferson on 31/03/2016.
@@ -45,6 +46,10 @@ public class LoginActivity extends Activity{
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
 
+        if (getIntent().getBooleanExtra("LOGOUT", false)) {
+            LoginManager.getInstance().logOut();
+        }
+
         if (AccessToken.getCurrentAccessToken() != null) {
             mostrarBoasVindas(AccessToken.getCurrentAccessToken());
             encerrar();
@@ -52,7 +57,10 @@ public class LoginActivity extends Activity{
         }
 
         setContentView(R.layout.login);
+
         setBtnLogin_Event();
+        setLogout_Event();
+
     }
 
     // Quando clica no botão de LoginActivity, é iniciado uma nova Activity e este método é o retorno desta Activity
@@ -83,8 +91,7 @@ public class LoginActivity extends Activity{
             loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(LoginResult loginResult) {
-                    MainActivity.User_ID = loginResult.getAccessToken().getUserId();
-                    mostrarMensagem("User ID: " + MainActivity.User_ID);
+                    PesquisaActivity.User_ID = loginResult.getAccessToken().getUserId();
                     mostrarBoasVindas(loginResult.getAccessToken());
                     encerrar();
                 }
@@ -104,6 +111,20 @@ public class LoginActivity extends Activity{
         catch (Exception e) {
             mostrarMensagem("Erro: " + e.getMessage());
         }
+    }
+
+    private void setLogout_Event() {
+        AccessTokenTracker accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(
+                    AccessToken oldAccessToken,
+                    AccessToken currentAccessToken) {
+
+                if (currentAccessToken == null){
+                    //setButtonsForLogout();
+                }
+            }
+        };
     }
 
     private void mostrarMensagem(String texto) {
@@ -134,9 +155,10 @@ public class LoginActivity extends Activity{
     }
 
     private void encerrar() {
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, PesquisaActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.putExtra("TELA_PESQUISA", true);
         startActivity(i);
+        finish();
     }
 }

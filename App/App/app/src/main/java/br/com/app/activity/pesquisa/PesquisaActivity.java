@@ -1,21 +1,71 @@
 package br.com.app.activity.pesquisa;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import br.com.app.activity.R;
+import br.com.app.activity.configuracao.ConfiguracoesActivity;
+import br.com.app.activity.contatos.ContatosActivity;
+import br.com.app.activity.login.LoginActivity;
+import br.com.app.activity.sobre.SobreActivity;
+import br.com.app.enums.EnmTelas;
 
 /**
  * Created by Jefferson on 31/03/2016.
  */
 public class PesquisaActivity extends Activity {
+    public static String User_ID = "";
+
+    private static final String ACCESS_EXPIRES = "access_expires";
+    private static final String ACCESS_TOKEN = "access_token";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tela_pesquisa);
+
+        if (!getIntent().getBooleanExtra("TELA_PESQUISA", false)) {
+            chamarActivity(EnmTelas.LOGIN, "", false);
+        }
+    }
+
+    public void chamarActivity(EnmTelas Activity, String extras, boolean valExtras) {
+        Class classe = null;
+        int flag = 0;
+
+        switch (Activity) {
+            case CONFIGURACOES:
+                classe = ConfiguracoesActivity.class;
+                break;
+            case CONTATOS:
+                classe = ContatosActivity.class;
+                break;
+            case LOGIN:
+                classe = LoginActivity.class;
+                flag = Intent.FLAG_ACTIVITY_CLEAR_TOP;
+                break;
+            case PESQUISA:
+                classe = PesquisaActivity.class;
+                break;
+            case SOBRE:
+                classe = SobreActivity.class;
+                break;
+        }
+
+        Intent i = new Intent(this, classe);
+        if (flag != 0) {
+            i.setFlags(flag);
+        }
+        if (!extras.equals("")) {
+            i.putExtra(extras, valExtras);
+        }
+        startActivity(i);
+        if (flag == Intent.FLAG_ACTIVITY_CLEAR_TOP) {
+            finish();
+        }
     }
 
     @Override
@@ -41,20 +91,19 @@ public class PesquisaActivity extends Activity {
 
     @Override
     public boolean onMenuItemSelected(int panel, MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.item1:
-//                Toast.makeText(PesquisaActivity.this, "Item 1", Toast.LENGTH_SHORT).show();
-//                break;
-//            case R.id.item2:
-//                Toast.makeText(PesquisaActivity.this, "Item 2", Toast.LENGTH_SHORT).show();
-//                break;
-//            case R.id.item3:
-//                Toast.makeText(PesquisaActivity.this, "Item 3", Toast.LENGTH_SHORT).show();
-//                break;
-//            case R.id.item4:
-//                Toast.makeText(PesquisaActivity.this, "Item 4", Toast.LENGTH_SHORT).show();
-//                break;
-//        }
+        switch (item.getItemId()) {
+            case R.id.itmConfiguracoes:
+                chamarActivity(EnmTelas.CONFIGURACOES, "", false);
+                break;
+
+            case R.id.itmSobre:
+                chamarActivity(EnmTelas.SOBRE, "", false);
+                break;
+
+            case R.id.itmSair:
+                chamarActivity(EnmTelas.LOGIN, "LOGOUT", true);
+                break;
+        }
 
         return (true);
     }

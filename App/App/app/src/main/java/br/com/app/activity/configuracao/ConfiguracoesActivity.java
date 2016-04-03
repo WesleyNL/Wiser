@@ -2,6 +2,7 @@ package br.com.app.activity.configuracao;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import br.com.app.activity.R;
 
@@ -13,5 +14,13 @@ public class ConfiguracoesActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.configuracoes);
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        onBackPressed();
+        return true;
     }
 }

@@ -11,21 +11,21 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@android:style/Theme.Material.Light"
+        android:screenOrientation="portrait" >
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <!-- Activity Principal -->
+        <!-- Activity da Tela Pesquisa -->
         <activity
-            android:name=".principal.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".pesquisa.PesquisaActivity"
+            android:label="@string/app_name" >
 
             <intent-filter>
+                <!-- Indica que o App deve ser iniciado nesta Activity -->
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -36,28 +36,27 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges=
                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@android:style/Theme.Translucent"
             android:label="@string/app_name" />
 
         <!-- Activity da Tela Configurações -->
+        <activity
+            android:name=".configuracao.ConfiguracoesActivity"
+            android:label="@string/title_configuracoes" />
 
         <!-- Activity da Tela Contatos -->
+        <activity
+            android:name=".contatos.ContatosActivity"
+            android:label="@string/title_contatos" />
 
         <!-- Activity da Tela Login -->
         <activity
             android:name=".login.LoginActivity"
-            android:theme="@style/AppTheme" />
-
-        <!-- Activity da Tela Pesquisa -->
-        <activity
-            android:name=".pesquisa.PesquisaActivity"
-            android:theme="@android:style/Theme.Material.Light" />
+            android:theme="@android:style/Theme.Material.Light.NoActionBar" />
 
         <!-- Activity da Tela Sobre -->
         <activity
             android:name=".sobre.SobreActivity"
-            android:label="@string/sobre"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_sobre" />
 
     </application>
 
