@@ -4,10 +4,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import br.com.projeto.conexao.Conexao;
+import br.com.projeto.principal.LoginDAO;
 
 public class ConfiguracaoDAO {
+	
+	public boolean desativar(Configuracao configuracao){
+		
+		LoginDAO objLogin = new LoginDAO();
+		
+		try {
+			return objLogin.desativar(configuracao.getUserId());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
-	public Configuracao consultar(String userId) throws SQLException{
+	public Configuracao consultar(Configuracao configuracao) throws SQLException{
 
 		Configuracao objConfiguracao = null;
 		ResultSet rst = null;
@@ -18,13 +31,13 @@ public class ConfiguracaoDAO {
 						 " WHERE USER_ID = ?";
 			
 			PreparedStatement objPS = Conexao.getConexao().prepareStatement(sql);
-			objPS.setString(1, userId);
+			objPS.setString(1, configuracao.getUserId());
 			rst = objPS.executeQuery();
 			
 			if(rst.next()){
 				objConfiguracao = new Configuracao();
 				objConfiguracao.setUserId(rst.getString("USER_ID"));
-				objConfiguracao.setIdioma(rst.getString("IDIOMA"));
+				objConfiguracao.setIdioma(rst.getByte("IDIOMA"));
 				objConfiguracao.setFluencia(rst.getByte("FLUENCIA"));
 				objConfiguracao.setStatus(rst.getString("STATUS"));
 			}
@@ -42,8 +55,7 @@ public class ConfiguracaoDAO {
 	}
 	
 	/** A inserção é realizada no primeiro acesso */
-	@SuppressWarnings("finally")
-	public boolean salvar(String userId, String idioma, byte fluencia, String status) throws SQLException{
+	public boolean salvar(Configuracao configuracao) throws SQLException{
 
 		boolean retorno = false;
 		ResultSet rst = null;
@@ -57,10 +69,10 @@ public class ConfiguracaoDAO {
 						 " WHERE USER_ID = ?";
 		
 			PreparedStatement objPS = Conexao.getConexao().prepareStatement(sql);
-			objPS.setString(1, String.valueOf(idioma));
-			objPS.setString(2, String.valueOf(fluencia));
-			objPS.setString(3, String.valueOf(status));
-			objPS.setString(4, userId);
+			objPS.setByte(1, configuracao.getIdioma());
+			objPS.setByte(2, configuracao.getFluencia());
+			objPS.setString(3, configuracao.getStatus());
+			objPS.setString(4, configuracao.getUserId());
 
 			retorno = objPS.executeUpdate() == 1;
 						

@@ -1,0 +1,50 @@
+package br.com.projeto.utils;
+
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+import br.com.projeto.conexao.Conexao;
+
+public class Inicializar implements ServletContextListener{
+	
+	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	private ThreadDesativarData threadDD = null;
+
+	@Override
+	public void contextDestroyed(ServletContextEvent arg0) {
+		System.out.println(dateFormat.format(new Date()));
+		try {
+			Conexao.getConexao().close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Não foi possível fechar conexão ao encerrar servidor.");
+		}
+		System.out.println("O servidor foi desligado.");
+	}
+
+	@Override
+	public void contextInitialized(ServletContextEvent arg0) {
+		
+		inicializarParametros();
+		inicializarThreadDesativarData();
+		
+		System.out.println(dateFormat.format(new Date()));
+		System.out.println("O servidor foi iniciado.");
+	}
+
+	public void inicializarParametros(){
+		Parametros objParametros = new Parametros();
+		objParametros.carregar();
+	}
+
+	
+	public void inicializarThreadDesativarData(){
+		threadDD = new ThreadDesativarData();
+		Thread thread = new Thread(threadDD);
+		thread.start();
+	}
+}

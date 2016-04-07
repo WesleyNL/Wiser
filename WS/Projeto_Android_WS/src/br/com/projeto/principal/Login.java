@@ -1,6 +1,6 @@
 package br.com.projeto.principal;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Login {
 	

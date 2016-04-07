@@ -1,0 +1,10 @@
+package br.com.projeto.procurar;
+
+public class Procurar {
+
+	private String userId;
+	private byte idioma;
+	private byte fluencia;
+	private String distancia;
+	private LinkedHashMap<String, String> listaUsuarios = new LinkedHashMap();
+}

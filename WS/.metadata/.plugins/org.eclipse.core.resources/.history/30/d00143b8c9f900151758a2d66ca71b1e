@@ -1,0 +1,91 @@
+package br.com.projeto.configuracoes;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import br.com.projeto.conexao.Conexao;
+import br.com.projeto.principal.LoginDAO;
+
+public class ConfiguracaoDAO {
+	
+	public boolean desativar(Configuracao configuracao){
+		
+		LoginDAO objLogin = new LoginDAO();
+		
+		try {
+			return objLogin.desativar(configuracao.getUserId());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public Configuracao consultar(Configuracao configuracao) throws SQLException{
+
+		Configuracao objConfiguracao = null;
+		ResultSet rst = null;
+		
+		try {
+			
+			String sql = "SELECT * FROM USER_CONFIGURACAO" +
+						 " WHERE USER_ID = ?";
+			
+			PreparedStatement objPS = Conexao.getConexao().prepareStatement(sql);
+			objPS.setString(1, configuracao.getUserId());
+			rst = objPS.executeQuery();
+			
+			if(rst.next()){
+				objConfiguracao = new Configuracao();
+				objConfiguracao.setUserId(rst.getString("USER_ID"));
+				objConfiguracao.setIdioma(rst.getByte("IDIOMA"));
+				objConfiguracao.setFluencia(rst.getByte("FLUENCIA"));
+				objConfiguracao.setStatus(rst.getString("STATUS"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			objConfiguracao = null;
+		} finally{
+			if(rst != null){
+				rst.close();
+			}
+		}
+		
+		return objConfiguracao;
+	}
+	
+	/** A inserção é realizada no primeiro acesso */
+	@SuppressWarnings("finally")
+	public boolean salvar(Configuracao configuracao) throws SQLException{
+
+		boolean retorno = false;
+		ResultSet rst = null;
+		
+		try {
+						
+			String sql = "UPDATE USER_CONFIGURACAO" +
+						 " SET IDIOMA = ?," +
+						 " FLUENCIA = ?," +
+						 " STATUS = ?" +
+						 " WHERE USER_ID = ?";
+		
+			PreparedStatement objPS = Conexao.getConexao().prepareStatement(sql);
+			objPS.setByte(1, configuracao.getIdioma());
+			objPS.setByte(2, configuracao.getFluencia());
+			objPS.setString(3, String.valueOf(configuracao.getStatus()));
+			objPS.setString(4, configuracao.getUserId());
+
+			retorno = objPS.executeUpdate() == 1;
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+			retorno = false;
+		} finally{
+			if(rst != null){
+				rst.close();
+			}
+		}
+		
+		return retorno;
+	}
+}

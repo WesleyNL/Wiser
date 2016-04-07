@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.util.LinkedHashMap"/>
 <fullyQualifiedTypeName name="br.com.projeto.util.Constantes"/>
+<fullyQualifiedTypeName name="java.lang.Runnable"/>
+<fullyQualifiedTypeName name="br.com.projeto.util.ThreadDesativarData"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="br.com.projeto.principal.LoginDAO"/>
+<fullyQualifiedTypeName name="java.util.Calendar"/>
+<fullyQualifiedTypeName name="java.util.GregorianCalendar"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+<fullyQualifiedTypeName name="br.com.projeto.configuracoes.ConfiguracaoDAO"/>
+<fullyQualifiedTypeName name="br.com.projeto.configuracoes.Configuracao"/>
+<fullyQualifiedTypeName name="br.com.projeto.utils.Utils"/>
+<fullyQualifiedTypeName name="com.sun.xml.internal.stream.buffer.sax.Properties"/>
+<fullyQualifiedTypeName name="java.io.FileInputStream"/>
+<fullyQualifiedTypeName name="java.util.Properties"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="br.com.projeto.utils.Parametros"/>
+<fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="br.com.projeto.conexao.Conexao"/>
+<fullyQualifiedTypeName name="br.com.projeto.utils.ThreadDesativarData"/>
+<fullyQualifiedTypeName name="br.com.projeto.Sistema"/>
+<fullyQualifiedTypeName name="javax.servlet.ServletContextListener"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="br.com.projeto.utils.Constantes"/>
 </qualifiedTypeNameHistroy>

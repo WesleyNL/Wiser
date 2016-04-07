@@ -1,0 +1,12 @@
+package br.com.projeto.utils;
+
+public class Inicializar {
+
+	public void inicializarConexao(){
+		
+	}
+	
+	public void inicializarThreadDesativarData(){
+		
+	}
+}

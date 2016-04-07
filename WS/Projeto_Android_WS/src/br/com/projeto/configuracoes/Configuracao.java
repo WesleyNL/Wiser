@@ -4,7 +4,7 @@ public class Configuracao {
 
 	private int codigo;
 	private String userId;
-	private String idioma;
+	private byte idioma;
 	private byte fluencia;
 	private String status;
 	
@@ -20,10 +20,10 @@ public class Configuracao {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getIdioma() {
+	public byte getIdioma() {
 		return idioma;
 	}
-	public void setIdioma(String idioma) {
+	public void setIdioma(byte idioma) {
 		this.idioma = idioma;
 	}
 	public byte getFluencia() {

@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import br.com.projeto.Sistema;
+
 public class Conexao {
 
-	private static final String URL = "jdbc:mysql://localhost/PROJETO_ANDROID";
-	private static final String USER = "FATEC";
-	private static final String PW = "1234";
+	private static String URL = null;
+	private static final String USUARIO = Sistema.getParametro("CONEXAO.USUARIO");
+	private static final String SENHA = Sistema.getParametro("CONEXAO.SENHA");
 	private static Connection con = null;
 	
 	public static Connection getConexao() throws SQLException{
@@ -18,13 +20,24 @@ public class Conexao {
 		}
 
 		try{
-			Class.forName("com.mysql.jdbc.Driver");
+			switch(Integer.parseInt(Sistema.getParametro("CONEXAO.TIPO"))){
+			case 1:
+				URL = "jdbc:mysql://" + Sistema.getParametro("CONEXAO.SERVIDOR") + "/" + Sistema.getParametro("CONEXAO.BANCO");
+				Class.forName("com.mysql.jdbc.Driver");
+				break;
+			case 2: 
+				URL = "jdbc:sqlserver://" + Sistema.getParametro("CONEXAO.SERVIDOR") + ";databaseName=" + Sistema.getParametro("CONEXAO.BANCO");
+				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+				break;
+			default:
+				System.out.println("Banco ainda não configurado.");
+				return con;
+			}
 		} catch(ClassNotFoundException e){
 			e.printStackTrace();
 		}
 		
-		con = DriverManager.getConnection(URL, USER, PW);
+		con = DriverManager.getConnection(URL, USUARIO, SENHA);
 		return con;
 	}
-	
 }

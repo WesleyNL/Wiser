@@ -1,0 +1,43 @@
+package br.com.projeto.conexao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import br.com.projeto.utils.Parametros;
+
+public class Conexao {
+
+	private static String URL = null;
+	private static final String USER = Parametros.getParametro("CONEXAO.USUARIO");
+	private static final String PW = Parametros.getParametro("CONEXAO.SENHA");
+	private static Connection con = null;
+	
+	public static Connection getConexao() throws SQLException{
+		
+		if(con != null){
+			return con;
+		}
+
+		try{
+			switch(Integer.parseInt(Parametros.getParametro("CONEXAO.TIPO"))){
+			case 1:
+				URL = "jdbc:mysql://" + Parametros.getParametro("CONEXAO.SERVIDOR") + "/" + Parametros.getParametro("CONEXAO.BANCO");
+				Class.forName("com.mysql.jdbc.Driver");
+				break;
+			case 2: 
+				URL = "jdbc:sqlserver://" + Parametros.getParametro("CONEXAO.SERVIDOR") + "/" + Parametros.getParametro("CONEXAO.BANCO");
+				Class.forName("com.sqlserver.jdbc.Driver");
+				break;
+			default:
+				System.out.println("Banco ainda não configurado.");
+				return con;
+			}
+		} catch(ClassNotFoundException e){
+			e.printStackTrace();
+		}
+		
+		con = DriverManager.getConnection(URL, USER, PW);
+		return con;
+	}
+}

@@ -1,0 +1,11 @@
+package br.com.projeto.utils;
+
+public class Utils {
+
+	/** @return Em km*/
+    public static double calcularDistanciaGeodesica(Double latitudeP1, Double longitudeP1, Double latitudeP2, Double longitudeP2){
+        return (( Math.acos(Math.cos((90 - latitudeP1) * Math.PI / 180) * Math.cos((90 - latitudeP2) * Math.PI / 180) +
+                            Math.sin((90 - latitudeP1) * Math.PI / 180) * Math.sin((90 - latitudeP2) * Math.PI / 180) *
+                            Math.cos(Math.abs(((360 + longitudeP1) * Math.PI / 180) - ((360 + longitudeP2) * Math.PI / 180)))) ) * 6371.004);
+    }
+}

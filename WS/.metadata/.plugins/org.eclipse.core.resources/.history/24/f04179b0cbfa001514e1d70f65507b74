@@ -1,0 +1,9 @@
+package br.com.projeto.utils;
+
+public class Parametros {
+	
+	public void carregar(){
+		
+	}
+
+}

@@ -1,0 +1,43 @@
+package br.com.projeto.procurar;
+
+import java.util.LinkedHashMap;
+
+public class Procurar {
+
+	private String userId;
+	private byte idioma;
+	private byte fluencia;
+	private int distancia;
+	private LinkedHashMap<String, String> listaUsuarios = new LinkedHashMap();
+	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public byte getIdioma() {
+		return idioma;
+	}
+	public void setIdioma(byte idioma) {
+		this.idioma = idioma;
+	}
+	public byte getFluencia() {
+		return fluencia;
+	}
+	public void setFluencia(byte fluencia) {
+		this.fluencia = fluencia;
+	}
+	public int getDistancia() {
+		return distancia;
+	}
+	public void setDistancia(int distancia) {
+		this.distancia = distancia;
+	}
+	public LinkedHashMap<String, String> getListaUsuarios() {
+		return listaUsuarios;
+	}
+	public void setListaUsuarios(LinkedHashMap<String, String> listaUsuarios) {
+		this.listaUsuarios = listaUsuarios;
+	}
+}

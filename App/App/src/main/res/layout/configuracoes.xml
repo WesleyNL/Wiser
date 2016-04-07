@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:id="@+id/rlLayout"
+    android:backgroundTint="#ffffff"
+    android:clickable="false"
+    android:minWidth="300dp"
+    tools:context=".configuracao.ConfiguracoesActivity">
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cmbIdiomaConfig"
+        android:spinnerMode="dropdown"
+        android:minWidth="10dp"
+        android:layout_alignTop="@+id/lblIdioma"
+        android:layout_alignStart="@+id/cmbFluenciaConfig" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Idioma:"
+        android:id="@+id/lblIdioma"
+        android:layout_marginTop="62dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Fluência:"
+        android:id="@+id/lblFluencia"
+        android:layout_below="@+id/cmbIdiomaConfig"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="60dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cmbFluenciaConfig"
+        android:spinnerMode="dropdown"
+        android:layout_toEndOf="@+id/lblFluencia"
+        android:layout_marginTop="150dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Status:"
+        android:id="@+id/lblStatus"
+        android:layout_alignParentStart="false"
+        android:layout_marginTop="250dp"
+        android:layout_marginLeft="20dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtStatus"
+        android:layout_alignTop="@+id/lblStatus"
+        android:width="170dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="-10dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Desativar"
+        android:id="@+id/btnDesativar"
+        android:layout_marginBottom="87dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="51dp"
+        android:onClick="desativar"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Salvar"
+        android:id="@+id/btnSalvar"
+        android:layout_marginStart="51dp"
+        android:layout_alignTop="@+id/btnDesativar"
+        android:layout_toEndOf="@+id/btnDesativar"
+        android:onClick="salvar"/>
+
+</RelativeLayout>

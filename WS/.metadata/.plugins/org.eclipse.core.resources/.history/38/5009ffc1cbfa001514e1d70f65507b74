@@ -1,0 +1,12 @@
+package br.com.projeto.utils;
+
+public class Parametros {
+	
+	private static Properties config = new Properties();
+	private static String arquivo = "config.ini";
+	
+	public void carregar(){
+		
+	}
+
+}

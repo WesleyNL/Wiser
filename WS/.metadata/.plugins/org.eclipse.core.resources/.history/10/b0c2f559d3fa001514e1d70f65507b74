@@ -1,0 +1,56 @@
+package br.com.projeto.utils;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.LinkedList;
+
+import br.com.projeto.conexao.Conexao;
+import br.com.projeto.configuracoes.Configuracao;
+import br.com.projeto.configuracoes.ConfiguracaoDAO;
+import br.com.projeto.procurar.Procurar;
+
+public class Utils {
+
+	/** @return Em Km*/
+    public static double calcularDistanciaGeodesica(Double latitudeP1, Double longitudeP1, Double latitudeP2, Double longitudeP2){
+        return (( Math.acos(Math.cos((90 - latitudeP1) * Math.PI / 180) * Math.cos((90 - latitudeP2) * Math.PI / 180) +
+                            Math.sin((90 - latitudeP1) * Math.PI / 180) * Math.sin((90 - latitudeP2) * Math.PI / 180) *
+                            Math.cos(Math.abs(((360 + longitudeP1) * Math.PI / 180) - ((360 + longitudeP2) * Math.PI / 180)))) ) * 6371.004);
+    }
+    
+    public LinkedList<String> pesquisarIdiomas(Object obj) throws SQLException{
+		
+		LinkedList<Procurar> listaIdiomas = new LinkedList<Procurar>();
+		ResultSet rst = null;
+		
+		try {
+			
+			String sql = "SELECT * FROM IDIOMAS";
+			
+			PreparedStatement objPS = Conexao.getConexao().prepareStatement(sql);
+			rst = objPS.executeQuery();
+				
+			while(rst.next()){
+				
+				coordenada = rst.getString("COORDENADA_ULTIMO_ACESSO").split("-");
+				latitudeP2 = Double.parseDouble(coordenada[0]);
+				longitudeP2 = Double.parseDouble(coordenada[1]);
+				
+				if(Utils.calcularDistanciaGeodesica(latitudeP1, longitudeP1, latitudeP2, longitudeP2) <= procurar.getDistancia()){
+					objProcurar = new Procurar();
+					objProcurar.setUserId(rst.getString("USER_ID"));
+					listaProcurar .add(objProcurar);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			if(rst != null){
+				rst.close();
+			}
+		}
+		
+		return objProcurar;
+	}
+}

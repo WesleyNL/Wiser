@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<list key="0/org.eclipse.jst.ws.wsImpl.java">
+		<item value="br.com.projeto.pesquisa.PesquisaDAO"/>
+		<item value="br.com.projeto.utils.Utils"/>
+		<item value="br.com.projeto.pesquisa.Pesquisa"/>
 		<item value="br.com.projeto.configuracoes.ConfiguracaoDAO"/>
 		<item value="br.com.projeto.principal.LoginDAO"/>
 		<item value="br.com.projeto.principal.Login"/>
-		<item value="br.com.projeto.configuracoes.Configuracao"/>
 	</list>
 </section>

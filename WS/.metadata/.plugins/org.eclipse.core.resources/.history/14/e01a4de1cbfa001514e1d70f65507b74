@@ -1,0 +1,14 @@
+package br.com.projeto.utils;
+
+import com.sun.xml.internal.stream.buffer.sax.Properties;
+
+public class Parametros {
+	
+	private static Properties config = new Properties();
+	private static String arquivo = "projeto.config.ini";
+	
+	public void carregar(){
+		
+	}
+
+}

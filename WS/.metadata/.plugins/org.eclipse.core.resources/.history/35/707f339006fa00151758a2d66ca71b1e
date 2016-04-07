@@ -1,0 +1,35 @@
+package br.com.projeto.utils;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+public class Inicializar implements ServletContextListener{
+	
+	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	private ThreadDesativarData threadDD = null;
+
+	@Override
+	public void contextDestroyed(ServletContextEvent arg0) {
+		System.out.println(dateFormat.format(new Date()));
+		System.out.println("O servidor foi desligado.");
+	}
+
+	@Override
+	public void contextInitialized(ServletContextEvent arg0) {
+		System.out.println(dateFormat.format(new Date()));
+		System.out.println("O servidor foi iniciado.");
+		
+		ThreadDesativarData
+	}
+
+	public void inicializarConexao(){
+		
+	}
+	
+	public void inicializarThreadDesativarData(){
+		
+	}
+}

@@ -1,0 +1,77 @@
+package br.com.projeto.util;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+import br.com.projeto.conexao.Conexao;
+import br.com.projeto.configuracoes.Configuracao;
+import br.com.projeto.principal.LoginDAO;
+
+public class ThreadDesativarData extends Thread implements ServletContextListener{
+	
+	private Date diaExpirados = null;
+	private Calendar cal = new GregorianCalendar();
+
+	@Override
+	public void contextDestroyed(ServletContextEvent arg0) {
+		
+	}
+
+	@Override
+	public void contextInitialized(ServletContextEvent arg0) {
+		
+		start();
+	}
+	
+	@Override
+	public void run() {
+		
+		while(true){
+			desativarExpirados();
+			try {
+				Thread.sleep(86400000); // 1 Dia
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+		}
+	}
+	
+	private void desativarExpirados(){
+		
+		ResultSet rst = null;
+		
+		try {
+			
+			cal.setTime(new Date());
+			diaExpirados = cal.set(Calendar.MONTH, cal.get(Calendar.MONTH) - 1);
+			
+			String sql = "SELECT USER_ID FROM USER_LOGIN" +
+						 " WHERE DATA_ULTIMO_ACESSO = ?";
+			
+			PreparedStatement objPS = Conexao.getConexao().prepareStatement(sql);
+			objPS.setString(1, dataExpirados);
+			rst = objPS.executeQuery();
+			
+			LoginDAO objLogin = new LoginDAO();
+			
+			while(rst.next()){
+				objLogin.desativar(rst.getString("USER_ID"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			if(rst != null){
+				rst.close();
+			}
+		}
+	}
+}

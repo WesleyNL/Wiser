@@ -1,0 +1,28 @@
+package br.com.projeto.utils;
+
+import java.io.FileInputStream;
+
+import com.sun.xml.internal.stream.buffer.sax.Properties;
+
+public class Parametros {
+
+	private static Properties config = new Properties();
+	private static String arquivo = "/WebContent/projeto.config.ini";
+
+	public void carregar(){
+		try {
+			config.load(new FileInputStream(arquivo));
+			System.out.println("Iniciando processo de leitura de configurações: ");
+			System.out.println();
+			System.out.println(config.getProperty("inicial"));
+			System.out.println(config.getProperty("param1"));
+			System.out.println(config.getProperty("final"));
+			System.out.println();
+			System.out.println("Finalizando leitura!");
+		} catch (IOException ex) {
+			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+	}
+
+}

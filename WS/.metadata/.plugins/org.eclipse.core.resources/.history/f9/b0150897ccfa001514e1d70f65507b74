@@ -1,0 +1,25 @@
+package br.com.projeto.utils;
+
+import java.io.FileInputStream;
+import java.util.Properties;
+
+public class Parametros {
+
+	private static Properties config = new Properties();
+	private static String arquivo = "projeto.config.ini";
+
+	public void carregar(){
+		try {
+			config.load(new FileInputStream(arquivo));
+			System.out.println("Carregando configurações.\n");
+			System.out.println(config.getProperty("GERAL.TIPO"));
+			System.out.println(config.getProperty("param1"));
+			System.out.println(config.getProperty("final"));
+			System.out.println("Configurações carregadas.\n");
+		} catch (IOException ex) {
+			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+	}
+
+}

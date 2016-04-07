@@ -131,7 +131,7 @@
                prefix="localhost_access_log." suffix=".txt" pattern="common" resolveHosts="false"/>
         -->
 
-      <Context docBase="C:\Users\Wesley\Documents\GitHub\App-Android\WS\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="C:\Users\Wesley\Documents\GitHub\App-Android\WS\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Projeto_Android_WS" path="/Projeto_Android_WS" reloadable="true" source="org.eclipse.jst.jee.server:Projeto_Android_WS"/></Host>
+      <Context docBase="C:\Users\Wesley\Documents\App-Android\WS\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="C:\Users\Wesley\Documents\App-Android\WS\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Projeto_Android_WS" path="/Projeto_Android_WS" reloadable="true" source="org.eclipse.jst.jee.server:Projeto_Android_WS"/></Host>
     </Engine>
   </Service>
 </Server>
