@@ -1,4 +1,4 @@
-package br.com.app.Utils;
+package br.com.app.utils;
 
 import android.Manifest;
 import android.app.Activity;
@@ -18,6 +18,7 @@ import org.ksoap2.transport.HttpTransportSE;
 import java.util.LinkedList;
 import java.util.List;
 
+import br.com.app.App;
 import br.com.app.activity.configuracao.ConfiguracoesActivity;
 import br.com.app.activity.contatos.ContatosActivity;
 import br.com.app.activity.login.LoginActivity;

@@ -6,10 +6,10 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import br.com.app.Utils.App;
+import br.com.app.App;
 import br.com.app.activity.R;
 import br.com.app.enums.EnmTelas;
-import br.com.app.Utils.Utils;
+import br.com.app.utils.Utils;
 import br.com.app.telas.configuracao.ConfiguracaoDAO;
 
 import android.view.View;

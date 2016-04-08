@@ -10,12 +10,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import br.com.app.Utils.App;
+import br.com.app.App;
 import br.com.app.activity.R;
 import br.com.app.activity.contatos.ContatosActivity;
 ;
 import br.com.app.enums.EnmTelas;
-import br.com.app.Utils.Utils;
+import br.com.app.utils.Utils;
 import br.com.app.telas.login.LoginDAO;
 import br.com.app.telas.pesquisa.PesquisaDAO;
 

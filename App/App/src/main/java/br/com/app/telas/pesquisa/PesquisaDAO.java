@@ -7,7 +7,7 @@ import org.ksoap2.transport.HttpTransportSE;
 
 import java.util.Vector;
 
-import br.com.app.Utils.App;
+import br.com.app.App;
 
 /**
  * Created by Wesley on 03/04/2016.

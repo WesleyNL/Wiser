@@ -6,8 +6,7 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
-import br.com.app.Utils.App;
-import br.com.app.Utils.Utils;
+import br.com.app.App;
 
 public class ConfiguracaoDAO extends Configuracao{
 

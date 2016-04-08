@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 import android.widget.Button;
+
+import br.com.app.App;
 import br.com.app.activity.pesquisa.PesquisaActivity;
 import br.com.app.activity.R;
 import br.com.app.enums.EnmTelas;
@@ -55,7 +57,7 @@ public class LoginActivity extends Activity implements IFacebook {
     }
 
     private void encerrar() {
-        PesquisaActivity.User_ID = facebookActivity.getUser_ID();
+        App.USER_ID = facebookActivity.getUser_ID();
         mostrarMensagem("Olá, " + facebookActivity.getUser_Name() + " ;)");
 
         Intent i = new Intent(this, PesquisaActivity.class);
