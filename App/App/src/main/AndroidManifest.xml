@@ -34,7 +34,7 @@
             android:screenOrientation="portrait" >
 
             <intent-filter>
-                <!-- Indica que o App deve ser iniciado nesta Activity -->
+                <!-- Indica que o Sistema deve ser iniciado nesta Activity -->
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -50,22 +50,26 @@
         <!-- Activity da Tela Configurações -->
         <activity
             android:name=".configuracao.ConfiguracoesActivity"
-            android:label="@string/title_configuracoes" />
+            android:label="@string/title_configuracoes"
+            android:screenOrientation="portrait" />
 
         <!-- Activity da Tela Contatos -->
         <activity
             android:name=".contatos.ContatosActivity"
-            android:label="@string/title_contatos" />
+            android:label="@string/title_contatos"
+            android:screenOrientation="portrait" />
 
         <!-- Activity da Tela Login -->
         <activity
             android:name=".login.LoginActivity"
-            android:theme="@android:style/Theme.Material.Light.NoActionBar" />
+            android:theme="@android:style/Theme.Material.Light.NoActionBar"
+            android:screenOrientation="portrait" />
 
         <!-- Activity da Tela Sobre -->
         <activity
             android:name=".sobre.SobreActivity"
-            android:label="@string/title_sobre" />
+            android:label="@string/title_sobre"
+            android:screenOrientation="portrait" />
 
     </application>
 

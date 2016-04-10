@@ -6,11 +6,11 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
-import br.com.app.App;
+import br.com.app.Sistema;
 
 public class ConfiguracaoDAO extends Configuracao{
 
-    private static final String URL = "http://" + App.SERVIDOR_WS + "/Projeto_Android_WS/services/ConfiguracaoDAO?wsdl";
+    private static final String URL = "http://" + Sistema.SERVIDOR_WS + "/Projeto_Android_WS/services/ConfiguracaoDAO?wsdl";
     private static final String NAMESPACE = "http://configuracoes.projeto.com.br";
 
     private static final String SALVAR = "salvar";

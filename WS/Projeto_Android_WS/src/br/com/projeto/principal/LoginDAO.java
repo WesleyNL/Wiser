@@ -1,9 +1,9 @@
 package br.com.projeto.principal;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 import br.com.projeto.conexao.Conexao;
 import br.com.projeto.utils.Constantes;
@@ -55,7 +55,7 @@ public class LoginDAO {
 		try {
 			
 			if(existe(login.getUserId())){
-				return atualizar(login.getUserId(), login.getDataUltimoAcesso(), login.getCoordUltimoAcesso());
+				return atualizar(login.getUserId(), login.getCoordUltimoAcesso());
 			}
 			
 			String sql = "INSERT INTO USER_LOGIN" +
@@ -65,7 +65,7 @@ public class LoginDAO {
 			PreparedStatement objPS = Conexao.getConexao().prepareStatement(sql);
 			objPS.setString(1, login.getUserId());
 			objPS.setByte(2, Constantes.CODIGO_ATIVO);
-			objPS.setDate(3, (Date)login.getDataUltimoAcesso());
+			objPS.setDate(3, new java.sql.Date(new Date().getTime()));
 			objPS.setString(4, login.getCoordUltimoAcesso());
 
 			retorno = objPS.execute();
@@ -112,7 +112,7 @@ public class LoginDAO {
 		return retorno;
 	}
 	
-	public boolean atualizar(String userId, Date dataUltimoAcesso, String coordUltimoAcesso) throws SQLException{
+	public boolean atualizar(String userId, String coordUltimoAcesso) throws SQLException{
 
 		boolean retorno = false;
 		ResultSet rst = null;
@@ -126,8 +126,8 @@ public class LoginDAO {
 						 " WHERE USER_ID = ?";
 		
 			PreparedStatement objPS = Conexao.getConexao().prepareStatement(sql);
-			objPS.setDate(1, dataUltimoAcesso);
-			objPS.setByte(2, Constantes.CODIGO_ATIVO);
+			objPS.setByte(1, Constantes.CODIGO_ATIVO);
+			objPS.setDate(2, new java.sql.Date(new Date().getTime()));
 			objPS.setString(3, coordUltimoAcesso);
 			objPS.setString(4, userId);
 

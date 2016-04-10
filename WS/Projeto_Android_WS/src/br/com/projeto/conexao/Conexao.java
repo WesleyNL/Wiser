@@ -12,6 +12,7 @@ public class Conexao {
 	private static final String USUARIO = Sistema.getParametro("CONEXAO.USUARIO");
 	private static final String SENHA = Sistema.getParametro("CONEXAO.SENHA");
 	private static Connection con = null;
+	private static boolean conectado = false;
 	
 	public static Connection getConexao() throws SQLException{
 		
@@ -38,6 +39,15 @@ public class Conexao {
 		}
 		
 		con = DriverManager.getConnection(URL, USUARIO, SENHA);
+		
+		if(con != null){
+			conectado = true;
+		}
+		
 		return con;
+	}
+
+	public static boolean isConectado() {
+		return conectado;
 	}
 }

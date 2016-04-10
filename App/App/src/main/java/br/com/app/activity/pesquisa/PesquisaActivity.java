@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import br.com.app.App;
+import br.com.app.Sistema;
 import br.com.app.activity.R;
 import br.com.app.activity.contatos.ContatosActivity;
 ;
@@ -57,7 +57,7 @@ public class PesquisaActivity extends Activity {
             return;
         }
 
-        setContentView(R.layout.tela_pesquisa);
+        setContentView(R.layout.pesquisa);
 
         carregarComboIdioma();
         carregarComboFluencia();
@@ -114,7 +114,7 @@ public class PesquisaActivity extends Activity {
 
     public boolean salvar(){
 
-        objLoginDAO.setUserId(App.USER_ID);
+        objLoginDAO.setUserId(Sistema.USER_ID);
         objLoginDAO.setDataUltimoAcesso(new Date());
         objLoginDAO.setCoordUltimoAcesso(Utils.getCoordenadas(this));
 
@@ -149,7 +149,7 @@ public class PesquisaActivity extends Activity {
         Spinner cmbIdioma = (Spinner) findViewById(R.id.cmbIdiomaConfig);
         Spinner cmbFluencia = (Spinner) findViewById(R.id.cmbFluenciaConfig);
 
-        objProcDAO.setUserId(App.USER_ID);
+        objProcDAO.setUserId(Sistema.USER_ID);
         objProcDAO.setIdioma(Byte.parseByte(cmbIdioma.getSelectedItem().toString().split("-")[0].trim()));
         objProcDAO.setFluencia(Byte.parseByte(cmbFluencia.getSelectedItem().toString().split("-")[0].trim()));
         objProcDAO.setDistancia(distanciaSelecionada);

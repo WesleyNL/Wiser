@@ -7,14 +7,14 @@ import org.ksoap2.transport.HttpTransportSE;
 
 import java.util.Vector;
 
-import br.com.app.App;
+import br.com.app.Sistema;
 
 /**
  * Created by Wesley on 03/04/2016.
  */
 public class PesquisaDAO extends Pesquisa {
 
-    private static final String URL = "http://" + App.SERVIDOR_WS + "/Projeto_Android_WS/services/PesquisaDAO?wsdl";
+    private static final String URL = "http://" + Sistema.SERVIDOR_WS + "/Projeto_Android_WS/services/PesquisaDAO?wsdl";
     private static final String NAMESPACE = "http://pesquisa.projeto.com.br";
 
     private static final String PROCURAR = "procurar";

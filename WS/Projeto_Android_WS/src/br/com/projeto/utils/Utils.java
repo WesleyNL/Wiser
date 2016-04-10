@@ -23,7 +23,7 @@ public class Utils {
 		
 		try {
 			
-			String sql = "SELECT * FROM IDIOMAS";
+			String sql = "SELECT * FROM IDIOMA";
 			
 			PreparedStatement objPS = Conexao.getConexao().prepareStatement(sql);
 			rst = objPS.executeQuery();
@@ -49,7 +49,7 @@ public class Utils {
 		
 		try {
 			
-			String sql = "SELECT * FROM FLUENCIAS";
+			String sql = "SELECT * FROM FLUENCIA";
 			
 			PreparedStatement objPS = Conexao.getConexao().prepareStatement(sql);
 			rst = objPS.executeQuery();

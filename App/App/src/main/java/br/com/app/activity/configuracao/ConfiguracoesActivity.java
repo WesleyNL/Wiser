@@ -6,7 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import br.com.app.App;
+import br.com.app.Sistema;
 import br.com.app.activity.R;
 import br.com.app.enums.EnmTelas;
 import br.com.app.utils.Utils;
@@ -61,7 +61,7 @@ public class ConfiguracoesActivity extends Activity {
 
     public void consultar(){
 
-        objConfDAO.setUserId(App.USER_ID);
+        objConfDAO.setUserId(Sistema.USER_ID);
 
         if(objConfDAO.consultar()){
             Spinner cmbIdioma = (Spinner) findViewById(R.id.cmbIdiomaConfig);
@@ -88,7 +88,7 @@ public class ConfiguracoesActivity extends Activity {
         Spinner cmbFluencia = (Spinner) findViewById(R.id.cmbFluenciaConfig);
         TextView txtStatus = (EditText) findViewById(R.id.txtStatus);
 
-        objConfDAO.setUserId(App.USER_ID);
+        objConfDAO.setUserId(Sistema.USER_ID);
         objConfDAO.setIdioma(Byte.parseByte(cmbIdioma.getSelectedItem().toString().split("-")[0].trim()));
         objConfDAO.setFluencia(Byte.parseByte(cmbFluencia.getSelectedItem().toString().split("-")[0].trim()));
         objConfDAO.setStatus(txtStatus.getText().toString());
@@ -131,7 +131,7 @@ public class ConfiguracoesActivity extends Activity {
 
         AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
 
-        objConfDAO.setUserId(App.USER_ID);
+        objConfDAO.setUserId(Sistema.USER_ID);
 
         if(objConfDAO.desativar()){
             dialogo.setTitle("Sucesso");

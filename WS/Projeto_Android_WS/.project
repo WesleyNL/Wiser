@@ -3,6 +3,7 @@
 	<name>Projeto_Android_WS</name>
 	<comment></comment>
 	<projects>
+		<project>Servers</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

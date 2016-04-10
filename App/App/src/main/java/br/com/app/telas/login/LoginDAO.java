@@ -6,14 +6,14 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
-import br.com.app.App;
+import br.com.app.Sistema;
 
 /**
  * Created by Wesley on 03/04/2016.
  */
 public class LoginDAO extends Login{
 
-    private static final String URL = "http://" + App.SERVIDOR_WS + "/Projeto_Android_WS/services/LoginDAO?wsdl";
+    private static final String URL = "http://" + Sistema.SERVIDOR_WS + "/Projeto_Android_WS/services/LoginDAO?wsdl";
     private static final String NAMESPACE = "http://principal.projeto.com.br";
 
     private static final String SALVAR = "salvar";
@@ -24,8 +24,7 @@ public class LoginDAO extends Login{
 
         SoapObject objSalvar = new SoapObject(NAMESPACE, "login");
         objSalvar.addProperty("userId", getUserId());
-        objSalvar.addProperty("dataUltimoAcesso", getDataUltimoAcesso());
-        objSalvar.addProperty("coordUltimoAcesso", getCoordUltimoAcesso());;
+        objSalvar.addProperty("coordUltimoAcesso", String.valueOf(getCoordUltimoAcesso()));;
 
         objEnvio.addSoapObject(objSalvar);
 

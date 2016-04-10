@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import org.ksoap2.SoapEnvelope;
+import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
@@ -18,7 +20,7 @@ import org.ksoap2.transport.HttpTransportSE;
 import java.util.LinkedList;
 import java.util.List;
 
-import br.com.app.App;
+import br.com.app.Sistema;
 import br.com.app.activity.configuracao.ConfiguracoesActivity;
 import br.com.app.activity.contatos.ContatosActivity;
 import br.com.app.activity.login.LoginActivity;
@@ -30,10 +32,10 @@ import br.com.app.enums.EnmTelas;
  */
 public class Utils {
 
-    private static final String URL = "http://" + App.SERVIDOR_WS + "/Projeto_Android_WS/services/Utils?wsdl";
+    private static final String URL = "http://" + Sistema.SERVIDOR_WS + "/Projeto_Android_WS/services/Utils?wsdl";
     private static final String NAMESPACE = "http://utils.projeto.com.br";
 
-    private static final String UTILS_PESQ_IDIOMAS = "pesquisarIdioamas";
+    private static final String UTILS_PESQ_IDIOMAS = "pesquisarIdiomas";
     private static final String UTILS_PESQ_FLUENCIAS = "pesquisarFluencias";
 
     public static LinkedList<String> pesquisarIdiomas(){
@@ -41,7 +43,7 @@ public class Utils {
         LinkedList<String> listaIdiomas = null;
 
         SoapObject objPesquisar = new SoapObject(NAMESPACE, UTILS_PESQ_IDIOMAS);
-        objPesquisar.addProperty("", "");
+//        objPesquisar.addProperty("", "");
 
         SoapSerializationEnvelope objEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         objEnvelope.setOutputSoapObject(objPesquisar);
@@ -51,6 +53,8 @@ public class Utils {
 
         try{
             objHTTP.call("urn:" + UTILS_PESQ_IDIOMAS, objEnvelope);
+//            String str = ((SoapFault) objEnvelope.bodyIn).faultstring;
+//            System.out.println(str);
 
             SoapObject objResposta = (SoapObject) objEnvelope.bodyIn;
 
@@ -82,7 +86,7 @@ public class Utils {
         LinkedList<String> listaFluencias = null;
 
         SoapObject objPesquisar = new SoapObject(NAMESPACE, UTILS_PESQ_FLUENCIAS);
-        objPesquisar.addProperty("", "");
+//        objPesquisar.addProperty("", "");
 
         SoapSerializationEnvelope objEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         objEnvelope.setOutputSoapObject(objPesquisar);

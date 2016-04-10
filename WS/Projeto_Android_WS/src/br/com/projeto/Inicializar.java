@@ -8,13 +8,12 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import br.com.projeto.conexao.Conexao;
-import br.com.projeto.utils.Constantes;
 import br.com.projeto.utils.ThreadDesativarData;
 
 public class Inicializar implements ServletContextListener{
 	
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-	private ThreadDesativarData threadDD = null;
+	private Thread threadDD = null;
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
@@ -22,7 +21,12 @@ public class Inicializar implements ServletContextListener{
 		System.out.println(dateFormat.format(new Date()));
 		
 		try {
-			Conexao.getConexao().close();
+			if(threadDD.isAlive()){
+				threadDD.interrupt();
+			}
+			if(Conexao.isConectado()){
+				Conexao.getConexao().close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Não foi possível fechar conexão ao encerrar servidor.");
@@ -36,7 +40,7 @@ public class Inicializar implements ServletContextListener{
 		
 		System.out.println(dateFormat.format(new Date()));
 		
-		Sistema.PATH_CONFIG = arg0.getServletContext().getRealPath("WEB-INF\\Classes\\br\\com\\projeto\\projeto.config.ini");
+		Sistema.PATH_CONFIG = arg0.getServletContext().getRealPath("WEB-INF\\classes\\br\\com\\projeto\\projeto.config.ini");
 		
 		inicializarParametros();
 		inicializarThreadDesativarData();
@@ -50,8 +54,8 @@ public class Inicializar implements ServletContextListener{
 	}
 
 	public void inicializarThreadDesativarData(){
-		threadDD = new ThreadDesativarData();
-		Thread thread = new Thread(threadDD);
-		thread.start();
+		ThreadDesativarData thread = new ThreadDesativarData();
+		threadDD = new Thread(thread);
+		threadDD.start();
 	}
 }

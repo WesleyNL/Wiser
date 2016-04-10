@@ -1,8 +1,8 @@
 package br.com.app.activity.sobre;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import br.com.app.activity.R;
@@ -12,8 +12,6 @@ import android.widget.TextView;
  * Created by Jefferson on 30/03/2016.
  */
 public class SobreActivity extends Activity {
-
-    public static final String versao = "1.00";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +38,11 @@ public class SobreActivity extends Activity {
         TextView lblSobreTopo = (TextView) findViewById(R.id.lblSobreTopo);
 
         sobre = "    APP     ";
-        sobre += "  Versão " + versao;
-
+        try {
+            sobre += "  Versão " + getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         lblSobreTopo.setText(sobre);
 
         TextView lblSobreRodape = (TextView) findViewById(R.id.lblSobreRodape);
