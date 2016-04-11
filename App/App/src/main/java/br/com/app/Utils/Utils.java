@@ -134,12 +134,20 @@ public class Utils {
             LocationManager locMng = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
             List<String> providers = locMng.getAllProviders();
 
-            if (providers != null && providers.contains(LocationManager.NETWORK_PROVIDER)) {
+            if (providers != null && providers.contains(LocationManager.NETWORK_PROVIDER) || providers.contains(LocationManager.PASSIVE_PROVIDER) || providers.contains(LocationManager.GPS_PROVIDER)) {
 
                 Location loc = locMng.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
+                if(loc == null) {
+                    loc = locMng.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+                }
+
+                if(loc == null){
+                    loc = locMng.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                }
+
                 if (loc != null) {
-                    return loc.getLatitude() + "-" + loc.getLongitude();
+                    return loc.getLatitude() + "|" + loc.getLongitude();
                 }
             }
         }

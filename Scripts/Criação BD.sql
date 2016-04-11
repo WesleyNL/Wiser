@@ -16,9 +16,12 @@ create table USER_LOGIN(
 	user_id varchar(30) not null,
 	situacao bit(1) not null,
 	data_ultimo_acesso date not null,
-    coordenada_ultimo_acesso varchar(10) not null,
+    coordenada_ultimo_acesso varchar(50) not null,
     primary key(codigo, user_id)
 );
+
+SELECT * FROM USER_LOGIN;
+DROP TABLE USER_LOGIN;
 
 create table IDIOMA(
 	codigo int not null auto_increment,

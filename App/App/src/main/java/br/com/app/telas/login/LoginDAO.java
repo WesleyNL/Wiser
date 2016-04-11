@@ -20,11 +20,17 @@ public class LoginDAO extends Login{
 
     public boolean salvar(){
 
+        String coordUsuario = getCoordUltimoAcesso();
+
+        if(Sistema.USER_ID.trim().equals("") || coordUsuario.trim().equals("")){
+            return false;
+        }
+
         SoapObject objEnvio = new SoapObject(NAMESPACE, SALVAR);
 
         SoapObject objSalvar = new SoapObject(NAMESPACE, "login");
         objSalvar.addProperty("userId", getUserId());
-        objSalvar.addProperty("coordUltimoAcesso", String.valueOf(getCoordUltimoAcesso()));;
+        objSalvar.addProperty("coordUltimoAcesso", coordUsuario);
 
         objEnvio.addSoapObject(objSalvar);
 

@@ -51,7 +51,8 @@ public class PesquisaActivity extends Activity {
         }
 
         objLoginDAO = new LoginDAO();
-
+        objLoginDAO.setUserId(Sistema.USER_ID);
+        
         if(!salvar()){
             Utils.chamarActivity(this, this, EnmTelas.LOGIN, "LOGOUT", true);
             return;

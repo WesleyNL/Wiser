@@ -41,15 +41,15 @@ public class PesquisaDAO {
 			objPS.setByte(3, procurar.getFluencia());
 			rst = objPS.executeQuery();
 				
-			double latitudeP1 = Double.parseDouble(coordUsuario.split("-")[0]);
-			double longitudeP1 = Double.parseDouble(coordUsuario.split("-")[1]);
+			double latitudeP1 = Double.parseDouble(coordUsuario.split("|")[0]);
+			double longitudeP1 = Double.parseDouble(coordUsuario.split("|")[1]);
 			double latitudeP2 = 0;
 			double longitudeP2 = 0; 
 			String[] coordenada = new String[2];
 			
 			while(rst.next()){
 				
-				coordenada = rst.getString("COORDENADA_ULTIMO_ACESSO").split("-");
+				coordenada = rst.getString("COORDENADA_ULTIMO_ACESSO").split("|");
 				latitudeP2 = Double.parseDouble(coordenada[0]);
 				longitudeP2 = Double.parseDouble(coordenada[1]);
 				
