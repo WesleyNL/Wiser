@@ -29,7 +29,7 @@ public class LoginDAO {
 						 " SET SITUACAO = ?" +
 						 " WHERE USER_ID = ?";
 		
-			PreparedStatement objPS = Conexao.getConexao().prepareStatement(sql);
+			PreparedStatement objPS = Conexao.getInstance().getConexao().prepareStatement(sql);
 			objPS.setByte(1, opcao);
 			objPS.setString(2, userId);
 
@@ -62,7 +62,7 @@ public class LoginDAO {
 						 " (USER_ID, SITUACAO, DATA_ULTIMO_ACESSO, COORDENADA_ULTIMO_ACESSO)" +
 						 " VALUES(?,?,?,?)";
 		
-			PreparedStatement objPS = Conexao.getConexao().prepareStatement(sql);
+			PreparedStatement objPS = Conexao.getInstance().getConexao().prepareStatement(sql);
 			objPS.setString(1, login.getUserId());
 			objPS.setByte(2, Constantes.CODIGO_ATIVO);
 			objPS.setDate(3, new java.sql.Date(new Date().getTime()));
@@ -92,7 +92,7 @@ public class LoginDAO {
 			String sql = "SELECT * FROM USER_LOGIN" +
 						 " WHERE USER_ID = ?";
 			
-			PreparedStatement objPS = Conexao.getConexao().prepareStatement(sql);
+			PreparedStatement objPS = Conexao.getInstance().getConexao().prepareStatement(sql);
 			objPS.setString(1, userId);
 			rst = objPS.executeQuery();
 			
@@ -125,7 +125,7 @@ public class LoginDAO {
 						 " COORDENADA_ULTIMO_ACESSO = ?" +
 						 " WHERE USER_ID = ?";
 		
-			PreparedStatement objPS = Conexao.getConexao().prepareStatement(sql);
+			PreparedStatement objPS = Conexao.getInstance().getConexao().prepareStatement(sql);
 			objPS.setByte(1, Constantes.CODIGO_ATIVO);
 			objPS.setDate(2, new java.sql.Date(new Date().getTime()));
 			objPS.setString(3, coordUltimoAcesso);

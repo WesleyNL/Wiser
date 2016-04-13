@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 import br.com.projeto.conexao.Conexao;
-import br.com.projeto.configuracoes.Configuracao;
-import br.com.projeto.configuracoes.ConfiguracaoDAO;
 import br.com.projeto.utils.Constantes;
 import br.com.projeto.utils.Utils;
 
@@ -31,11 +29,11 @@ public class PesquisaDAO {
 		try {
 			
 			String sql = "SELECT USER_ID FROM USER_LOGIN" +
-						 " WHERE SITUACAO = ?, " +
-						 " AND IDIOMA = ?, " +
+						 " WHERE SITUACAO = ? " +
+						 " AND IDIOMA = ? " +
 						 " AND FLUENCIA = ?";
 			
-			PreparedStatement objPS = Conexao.getConexao().prepareStatement(sql);
+			PreparedStatement objPS = Conexao.getInstance().getConexao().prepareStatement(sql);
 			objPS.setByte(1, Constantes.CODIGO_ATIVO);
 			objPS.setByte(2, procurar.getIdioma());
 			objPS.setByte(3, procurar.getFluencia());
@@ -48,7 +46,6 @@ public class PesquisaDAO {
 			String[] coordenada = new String[2];
 			
 			while(rst.next()){
-				
 				coordenada = rst.getString("COORDENADA_ULTIMO_ACESSO").split("|");
 				latitudeP2 = Double.parseDouble(coordenada[0]);
 				longitudeP2 = Double.parseDouble(coordenada[1]);
@@ -79,7 +76,7 @@ public class PesquisaDAO {
 			String sql = "SELECT COORDENADA_ULTIMO_ACESSO FROM USER_LOGIN" +
 						 " WHERE USER_ID = ?";
 			
-			PreparedStatement objPS = Conexao.getConexao().prepareStatement(sql);
+			PreparedStatement objPS = Conexao.getInstance().getConexao().prepareStatement(sql);
 			objPS.setString(1, userId);
 			rst = objPS.executeQuery();
 			

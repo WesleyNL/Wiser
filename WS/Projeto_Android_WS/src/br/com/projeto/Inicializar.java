@@ -1,6 +1,5 @@
 package br.com.projeto;
 
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -20,17 +19,11 @@ public class Inicializar implements ServletContextListener{
 		
 		System.out.println(dateFormat.format(new Date()));
 		
-		try {
-			if(threadDD.isAlive()){
-				threadDD.interrupt();
-			}
-			if(Conexao.isConectado()){
-				Conexao.getConexao().close();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("Não foi possível fechar conexão ao encerrar servidor.");
+		if(threadDD.isAlive()){
+			threadDD.interrupt();
 		}
+
+		Conexao.getInstance().fecharConexao();
 		
 		System.out.println("O servidor foi desligado.");
 	}
@@ -40,7 +33,7 @@ public class Inicializar implements ServletContextListener{
 		
 		System.out.println(dateFormat.format(new Date()));
 		
-		Sistema.PATH_CONFIG = arg0.getServletContext().getRealPath("WEB-INF\\classes\\br\\com\\projeto\\projeto.config.ini");
+		Sistema.PATH_CONFIG = arg0.getServletContext().getRealPath("WEB-INF\\classes\\br\\com\\projeto\\projeto.config.ini"); //Classes
 		
 		inicializarParametros();
 		inicializarThreadDesativarData();

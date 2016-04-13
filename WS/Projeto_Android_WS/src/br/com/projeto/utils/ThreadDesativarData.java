@@ -49,7 +49,7 @@ public class ThreadDesativarData implements Runnable{
 			String sql = "SELECT USER_ID FROM USER_LOGIN" +
 						 " WHERE DATA_ULTIMO_ACESSO = ?";
 			
-			PreparedStatement objPS = Conexao.getConexao().prepareStatement(sql);
+			PreparedStatement objPS = Conexao.getInstance().getConexao().prepareStatement(sql);
 			objPS.setDate(1, new java.sql.Date(dataExpiracao.getTime()));
 			rst = objPS.executeQuery();
 			

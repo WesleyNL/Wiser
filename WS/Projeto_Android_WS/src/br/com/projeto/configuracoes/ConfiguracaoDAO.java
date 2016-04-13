@@ -30,7 +30,7 @@ public class ConfiguracaoDAO {
 			String sql = "SELECT * FROM USER_CONFIGURACAO" +
 						 " WHERE USER_ID = ?";
 			
-			PreparedStatement objPS = Conexao.getConexao().prepareStatement(sql);
+			PreparedStatement objPS = Conexao.getInstance().getConexao().prepareStatement(sql);
 			objPS.setString(1, configuracao.getUserId());
 			rst = objPS.executeQuery();
 			
@@ -61,14 +61,13 @@ public class ConfiguracaoDAO {
 		ResultSet rst = null;
 		
 		try {
-						
 			String sql = "UPDATE USER_CONFIGURACAO" +
 						 " SET IDIOMA = ?," +
 						 " FLUENCIA = ?," +
 						 " STATUS = ?" +
 						 " WHERE USER_ID = ?";
 		
-			PreparedStatement objPS = Conexao.getConexao().prepareStatement(sql);
+			PreparedStatement objPS = Conexao.getInstance().getConexao().prepareStatement(sql);
 			objPS.setByte(1, configuracao.getIdioma());
 			objPS.setByte(2, configuracao.getFluencia());
 			objPS.setString(3, configuracao.getStatus());

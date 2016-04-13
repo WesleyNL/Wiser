@@ -8,17 +8,24 @@ import br.com.projeto.Sistema;
 
 public class Conexao {
 
-	private static String URL = null;
-	private static final String USUARIO = Sistema.getParametro("CONEXAO.USUARIO");
-	private static final String SENHA = Sistema.getParametro("CONEXAO.SENHA");
-	private static Connection con = null;
-	private static boolean conectado = false;
+	private String URL = null;
+	private final String USUARIO = Sistema.getParametro("CONEXAO.USUARIO");
+	private final String SENHA = Sistema.getParametro("CONEXAO.SENHA");
 	
-	public static Connection getConexao() throws SQLException{
-		
-		if(con != null){
-			return con;
+	private Connection con = null;
+	private boolean conectado = false;
+	private static Conexao instancia = null;
+	
+	public Conexao(){
+		try {
+			abrirConexao();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Não foi possível conectar ao Banco de Dados.");
 		}
+	}
+	
+	private void abrirConexao() throws SQLException{
 
 		try{
 			switch(Integer.parseInt(Sistema.getParametro("CONEXAO.TIPO"))){
@@ -32,7 +39,6 @@ public class Conexao {
 				break;
 			default:
 				System.out.println("Banco ainda não configurado.");
-				return con;
 			}
 		} catch(ClassNotFoundException e){
 			e.printStackTrace();
@@ -43,11 +49,33 @@ public class Conexao {
 		if(con != null){
 			conectado = true;
 		}
-		
+	}
+	
+	public Connection getConexao(){
 		return con;
 	}
+	
+	public static synchronized Conexao getInstance() {
+		
+		if(instancia == null){
+			instancia = new Conexao();
+		}
+		
+		return instancia;
+	}
 
-	public static boolean isConectado() {
+	public boolean isConectado() {
 		return conectado;
+	}
+	
+	public void fecharConexao(){
+		if(con != null){
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.out.println("Não foi possível fechar a conexão.");
+			}
+		}
 	}
 }
