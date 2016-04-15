@@ -1,4 +1,4 @@
-package br.com.app.telas.contatos;
+package br.com.app.business.contatos;
 
 import android.app.Activity;
 import android.content.Context;

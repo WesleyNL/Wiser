@@ -21,7 +21,6 @@ create table USER_LOGIN(
 );
 
 SELECT * FROM USER_LOGIN;
-DROP TABLE USER_LOGIN;
 
 create table IDIOMA(
 	codigo int not null auto_increment,

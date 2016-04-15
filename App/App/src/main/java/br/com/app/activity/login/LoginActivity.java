@@ -7,49 +7,51 @@ import android.widget.Toast;
 import android.widget.Button;
 
 import br.com.app.Sistema;
-import br.com.app.activity.pesquisa.PesquisaActivity;
 import br.com.app.activity.R;
+import br.com.app.api.Facebook;
 import br.com.app.enums.EnmTelas;
+import br.com.app.utils.Utils;
 
 /**
  * Created by Jefferson on 31/03/2016.
  */
-public class LoginActivity extends Activity implements IFacebook {
-    private FacebookActivity facebookActivity;
+public class LoginActivity extends Activity {
+    private Facebook facebook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.login);
+    }
 
-        facebookActivity = new FacebookActivity(this);
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-        if (getIntent().getBooleanExtra("LOGOUT", false)) {
-            facebookActivity.logout();
+        try {
+            facebook = new Facebook(this);
+            facebook.setBtnLogin((Button) super.findViewById(R.id.btnLogin));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
 
-        if (facebookActivity.logado()) {
-
-            encerrar();
+        if (getIntent().getBooleanExtra("LOGOUT", false)) {
+            getIntent().removeExtra("LOGOUT");
+            Facebook.logout();
             return;
         }
 
-        setContentView(R.layout.login);
-        facebookActivity.setBtnLogin((Button) super.findViewById(R.id.btnLogin));
+        if (Facebook.logado()) {
+            encerrar();
+            return;
+        }
     }
 
-    // Quando clica no botão de LoginActivity, é iniciado uma nova Activity e este método é o retorno desta Activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        facebookActivity.callbackManager(requestCode, resultCode, data);
-    }
-
-    public void setResultado_Login(String resultado_Login) {
-        if (resultado_Login.equals("SUCESSO")) {
-            encerrar();
-        }
-        else {
-            mostrarMensagem(resultado_Login);
-        }
+        super.onActivityResult(requestCode, resultCode, data);
+        facebook.callbackManager(requestCode, resultCode, data);
     }
 
     private void mostrarMensagem(String texto) {
@@ -57,13 +59,9 @@ public class LoginActivity extends Activity implements IFacebook {
     }
 
     private void encerrar() {
-        Sistema.USER_ID = facebookActivity.getUser_ID();
-        mostrarMensagem("Olá, " + facebookActivity.getUser_Name() + " ;)");
+        Sistema.USER_ID = Facebook.getUserID();
+        mostrarMensagem("Olá, " + Facebook.getUserName(Sistema.USER_ID) + " ;)");
 
-        Intent i = new Intent(this, PesquisaActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        i.putExtra(EnmTelas.PESQUISA.name(), true);
-        startActivity(i);
-        finish();
+        Utils.chamarActivity(this, EnmTelas.PESQUISA, EnmTelas.PESQUISA.name(), true);
     }
 }

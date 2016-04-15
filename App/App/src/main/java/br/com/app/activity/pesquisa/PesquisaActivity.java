@@ -1,8 +1,10 @@
 package br.com.app.activity.pesquisa;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -13,11 +15,11 @@ import android.view.View;
 import br.com.app.Sistema;
 import br.com.app.activity.R;
 import br.com.app.activity.contatos.ContatosActivity;
-;
+
 import br.com.app.enums.EnmTelas;
 import br.com.app.utils.Utils;
-import br.com.app.telas.login.LoginDAO;
-import br.com.app.telas.pesquisa.PesquisaDAO;
+import br.com.app.business.login.LoginDAO;
+import br.com.app.business.pesquisa.PesquisaDAO;
 
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -41,20 +43,18 @@ public class PesquisaActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(Build.VERSION.SDK_INT > 9){
+        if (Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
 
         if (!getIntent().getBooleanExtra(EnmTelas.PESQUISA.name(), false)) {
-            Utils.chamarActivity(this, this, EnmTelas.LOGIN, "", false);
+            Utils.chamarActivity(this, EnmTelas.LOGIN);
+            return;
         }
 
-        objLoginDAO = new LoginDAO();
-        objLoginDAO.setUserId(Sistema.USER_ID);
-        
-        if(!salvar()){
-            Utils.chamarActivity(this, this, EnmTelas.LOGIN, "LOGOUT", true);
+        if (!salvar()) {
+            Utils.chamarActivity(this, EnmTelas.LOGIN, "LOGOUT", true);
             return;
         }
 
@@ -67,11 +67,9 @@ public class PesquisaActivity extends Activity {
         lblDistanciaSelecionada = (TextView) findViewById(R.id.lblDistanciaSelecionada);
 
         skrDistancia.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int distancia = 0;
-
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
-                distancia = progresValue;
+            public void onProgressChanged(SeekBar seekBar, int progressValue, boolean fromUser) {
+                lblDistanciaSelecionada.setText("Distância: " + progressValue + " Km");
             }
 
             @Override
@@ -80,10 +78,13 @@ public class PesquisaActivity extends Activity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                lblDistanciaSelecionada.setText("Distância: " + distancia + " Km");
-                distanciaSelecionada = distancia;
+                distanciaSelecionada = skrDistancia.getProgress();
             }
         });
+    }
+
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -98,23 +99,36 @@ public class PesquisaActivity extends Activity {
     public boolean onMenuItemSelected(int panel, MenuItem item) {
         switch (item.getItemId()) {
             case R.id.itmConfiguracoes:
-                Utils.chamarActivity(this, this, EnmTelas.CONFIGURACOES, "", false);
+                Utils.chamarActivity(this, EnmTelas.CONFIGURACOES);
                 break;
 
             case R.id.itmSobre:
-                Utils.chamarActivity(this, this, EnmTelas.SOBRE, "", false);
+                Utils.chamarActivity(this, EnmTelas.SOBRE);
                 break;
 
             case R.id.itmSair:
-                Utils.chamarActivity(this, this, EnmTelas.LOGIN, "LOGOUT", true);
+                Utils.chamarActivity(this, EnmTelas.LOGIN, "LOGOUT", true);
                 break;
         }
 
         return (true);
     }
 
-    public boolean salvar(){
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == Manifest.permission.ACCESS_COARSE_LOCATION.hashCode()) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                salvar();
+            }
+        }
+        else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
 
+    public boolean salvar() {
+
+        objLoginDAO = new LoginDAO();
         objLoginDAO.setUserId(Sistema.USER_ID);
         objLoginDAO.setDataUltimoAcesso(new Date());
         objLoginDAO.setCoordUltimoAcesso(Utils.getCoordenadas(this));
@@ -133,7 +147,7 @@ public class PesquisaActivity extends Activity {
 
     public void carregarComboIdioma(){
 
-        Spinner cmbIdioma = (Spinner) findViewById(R.id.cmbIdiomaConfig);
+        Spinner cmbIdioma = (Spinner) findViewById(R.id.cmbIdiomaProcurar);
 
         Utils.carregarComboIdiomas(cmbIdioma, this);
     }

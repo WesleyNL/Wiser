@@ -1,4 +1,4 @@
-package br.com.app.telas.configuracao;
+package br.com.app.business.configuracao;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;

@@ -6,23 +6,18 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
 import br.com.app.activity.R;
-import br.com.app.api.Contato;
 import br.com.app.api.Facebook;
-import br.com.app.telas.contatos.ContatosGridAdapter;
-import br.com.app.telas.contatos.Item;
+import br.com.app.business.contatos.Contato;
+import br.com.app.business.contatos.ContatosGridAdapter;
+import br.com.app.business.contatos.Item;
 
 /**
  * Created by Jefferson on 31/03/2016.
@@ -70,8 +65,8 @@ public class ContatosActivity extends Activity {
 
     public void carregar(){
 
-        Facebook objFacebook = new Facebook(this);
-        listaPerfis = objFacebook.getProfiles(listaUsuarios);
+        Facebook facebook = new Facebook(this);
+        listaPerfis = facebook.getProfiles(listaUsuarios);
 
         String nomeUsuario = "";
         Bitmap imgUsuario = null;

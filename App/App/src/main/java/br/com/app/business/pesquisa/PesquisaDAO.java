@@ -1,4 +1,4 @@
-package br.com.app.telas.pesquisa;
+package br.com.app.business.pesquisa;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;

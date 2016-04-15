@@ -1,4 +1,4 @@
-package br.com.app.api;
+package br.com.app.business.contatos;
 
 import android.graphics.Bitmap;
 

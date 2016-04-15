@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -24,6 +26,7 @@ import br.com.app.Sistema;
 import br.com.app.activity.configuracao.ConfiguracoesActivity;
 import br.com.app.activity.contatos.ContatosActivity;
 import br.com.app.activity.login.LoginActivity;
+import br.com.app.activity.pesquisa.PesquisaActivity;
 import br.com.app.activity.sobre.SobreActivity;
 import br.com.app.enums.EnmTelas;
 
@@ -123,9 +126,12 @@ public class Utils {
     }
 
     /**
-     * @return Latitude-Longitude
+     * @return Latitude|Longitude
      */
     public static String getCoordenadas(Context context) {
+
+        // TODO A partir da versao 6.0 do Android, foi incluido um novo sistema de permissões onde são solicitadas em Tempo de Execução!!!
+        verificaPermissoes((Activity) context);
 
         int status = context.getPackageManager().checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION, context.getPackageName());
 
@@ -155,42 +161,68 @@ public class Utils {
         return "";
     }
 
-    public static void chamarActivity(Context context, Activity tela, EnmTelas Activity, String extras, boolean valExtras) {
+    public static void verificaPermissoes(Activity contexto) {
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(contexto, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(contexto, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                                Manifest.permission.ACCESS_FINE_LOCATION},
+                        Manifest.permission.ACCESS_COARSE_LOCATION.hashCode());
+            }
+        }
+    }
+
+    public static void chamarActivity(Activity activity, EnmTelas enmActivity) {
+        chamarActivity(activity, enmActivity, "", false);
+    }
+
+    public static void chamarActivity(Activity activity, EnmTelas enmActivity, String extras, boolean valExtras) {
         Intent i = new Intent();
         Class classe = null;
         int flag = 0;
 
-        switch (Activity) {
-            case CONFIGURACOES:
-                classe = ConfiguracoesActivity.class;
-                break;
-            case CONTATOS:
-                classe = ContatosActivity.class;
-                break;
-            case LOGIN:
-                classe = LoginActivity.class;
-                flag = Intent.FLAG_ACTIVITY_CLEAR_TOP;
-                break;
-            case SOBRE:
-                classe = SobreActivity.class;
-                break;
+        try {
+            switch (enmActivity) {
+                case CONFIGURACOES:
+                    classe = ConfiguracoesActivity.class;
+                    break;
+                case CONTATOS:
+                    classe = ContatosActivity.class;
+                    break;
+                case LOGIN:
+                    classe = LoginActivity.class;
+                    break;
+                case PESQUISA:
+                    classe = PesquisaActivity.class;
+                    break;
+                case SOBRE:
+                    classe = SobreActivity.class;
+                    break;
+            }
+
+            i.setClass(activity, classe);
+
+            if (enmActivity == EnmTelas.LOGIN) {
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            }
+
+            if (activity instanceof LoginActivity) {
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }
+
+            if (!extras.equals("")) {
+                i.putExtra(extras, valExtras);
+            }
+
+            activity.startActivity(i);
+
+            if (enmActivity == EnmTelas.LOGIN || enmActivity == EnmTelas.PESQUISA) {
+                activity.finish();
+            }
         }
-
-        i.setClass(context, classe);
-
-        if (flag != 0) {
-            i.setFlags(flag);
-        }
-
-        if (!extras.equals("")) {
-            i.putExtra(extras, valExtras);
-        }
-
-        tela.startActivity(i);
-
-        if (flag == Intent.FLAG_ACTIVITY_CLEAR_TOP) {
-            tela.finish();
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

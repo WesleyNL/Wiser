@@ -10,7 +10,7 @@ import br.com.app.Sistema;
 import br.com.app.activity.R;
 import br.com.app.enums.EnmTelas;
 import br.com.app.utils.Utils;
-import br.com.app.telas.configuracao.ConfiguracaoDAO;
+import br.com.app.business.configuracao.ConfiguracaoDAO;
 
 import android.view.View;
 import android.widget.EditText;
@@ -149,6 +149,6 @@ public class ConfiguracoesActivity extends Activity {
     }
 
     public void logout(){
-        Utils.chamarActivity(this, this, EnmTelas.LOGIN, "LOGOUT", true);
+        Utils.chamarActivity(this, EnmTelas.LOGIN, "LOGOUT", true);
     }
 }

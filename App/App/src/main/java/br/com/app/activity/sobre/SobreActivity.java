@@ -2,7 +2,6 @@ package br.com.app.activity.sobre;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import br.com.app.activity.R;
@@ -29,8 +28,6 @@ public class SobreActivity extends Activity {
         return true;
     }
 
-
-
     public void carregar(){
 
         String sobre = "";
@@ -40,7 +37,8 @@ public class SobreActivity extends Activity {
         sobre = "    APP     ";
         try {
             sobre += "  Versão " + getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
-        }catch (Exception e){
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
         lblSobreTopo.setText(sobre);
