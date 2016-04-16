@@ -6,10 +6,21 @@ import android.graphics.Bitmap;
  * Created by Jefferson on 06/04/2016.
  */
 public class Contato {
+
     private String userID = "";
     private String userName = "";
     private String profilePictureURL = "";
     private Bitmap profilePicture;
+
+    public Contato(){
+
+    }
+
+    public Contato(Bitmap img, String nome) {
+        super();
+        this.profilePicture = img;
+        this.userName = nome;
+    }
 
     public String getUserID() {
         return userID;

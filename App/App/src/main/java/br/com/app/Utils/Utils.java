@@ -180,7 +180,6 @@ public class Utils {
     public static void chamarActivity(Activity activity, EnmTelas enmActivity, String extras, boolean valExtras) {
         Intent i = new Intent();
         Class classe = null;
-        int flag = 0;
 
         try {
             switch (enmActivity) {

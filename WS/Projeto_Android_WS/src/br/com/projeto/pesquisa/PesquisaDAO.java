@@ -11,7 +11,7 @@ import br.com.projeto.utils.Utils;
 
 public class PesquisaDAO {
 	
-	public Pesquisa procurar(Pesquisa procurar) throws SQLException{
+	public LinkedList<String> procurar(Pesquisa procurar) throws SQLException{
 		
 		String coordUsuario = "";
 		
@@ -21,39 +21,39 @@ public class PesquisaDAO {
 			e.printStackTrace();
 			return null;
 		}
-		
-		Pesquisa objProcurar = null;
-		LinkedList<Pesquisa> listaProcurar = new LinkedList<Pesquisa>();
+
+		LinkedList<String> listaProcurar = new LinkedList<String>();
 		ResultSet rst = null;
 		
 		try {
-			
-			String sql = "SELECT USER_ID FROM USER_LOGIN" +
+			String sql = "SELECT l.USER_ID, l.COORDENADA_ULTIMO_ACESSO FROM USER_LOGIN l" +
+						 " INNER JOIN USER_CONFIGURACAO c" +
+						 " ON l.USER_ID = c.USER_ID" +
 						 " WHERE SITUACAO = ? " +
 						 " AND IDIOMA = ? " +
-						 " AND FLUENCIA = ?";
+						 " AND FLUENCIA = ? " +
+						 " AND l.USER_ID <> ?";
 			
 			PreparedStatement objPS = Conexao.getInstance().getConexao().prepareStatement(sql);
 			objPS.setByte(1, Constantes.CODIGO_ATIVO);
 			objPS.setByte(2, procurar.getIdioma());
 			objPS.setByte(3, procurar.getFluencia());
+			objPS.setString(4, procurar.getUserId());
 			rst = objPS.executeQuery();
 				
-			double latitudeP1 = Double.parseDouble(coordUsuario.split("|")[0]);
-			double longitudeP1 = Double.parseDouble(coordUsuario.split("|")[1]);
+			double latitudeP1 = Double.parseDouble(coordUsuario.split("[|]")[0]);
+			double longitudeP1 = Double.parseDouble(coordUsuario.split("[|]")[1]);
 			double latitudeP2 = 0;
 			double longitudeP2 = 0; 
 			String[] coordenada = new String[2];
 			
 			while(rst.next()){
-				coordenada = rst.getString("COORDENADA_ULTIMO_ACESSO").split("|");
+				coordenada = rst.getString("COORDENADA_ULTIMO_ACESSO").split("[|]");
 				latitudeP2 = Double.parseDouble(coordenada[0]);
 				longitudeP2 = Double.parseDouble(coordenada[1]);
 				
 				if(Utils.calcularDistanciaGeodesica(latitudeP1, longitudeP1, latitudeP2, longitudeP2) <= procurar.getDistancia()){
-					objProcurar = new Pesquisa();
-					objProcurar.setUserId(rst.getString("USER_ID"));
-					listaProcurar .add(objProcurar);
+					listaProcurar.add(rst.getString("USER_ID"));
 				}
 			}
 		} catch (SQLException e) {
@@ -64,7 +64,7 @@ public class PesquisaDAO {
 			}
 		}
 		
-		return objProcurar;
+		return listaProcurar;
 	}
 	
 	private String getCoordUsuario(String userId) throws SQLException{

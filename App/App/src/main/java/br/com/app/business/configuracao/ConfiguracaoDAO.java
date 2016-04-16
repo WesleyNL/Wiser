@@ -19,11 +19,15 @@ public class ConfiguracaoDAO extends Configuracao{
 
     public boolean consultar(){
 
-        SoapObject objConsultar = new SoapObject(NAMESPACE, CONSULTAR);
+        SoapObject objEnvio = new SoapObject(NAMESPACE, CONSULTAR);
+
+        SoapObject objConsultar = new SoapObject(NAMESPACE, "configuracao");
         objConsultar.addProperty("userId", getUserId());
 
+        objEnvio.addSoapObject(objConsultar);
+
         SoapSerializationEnvelope objEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-        objEnvelope.setOutputSoapObject(objConsultar);
+        objEnvelope.setOutputSoapObject(objEnvio);
         objEnvelope.implicitTypes = true;
 
         HttpTransportSE objHTTP = new HttpTransportSE(URL);

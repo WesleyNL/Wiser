@@ -5,6 +5,7 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import java.util.LinkedList;
 import java.util.Vector;
 
 import br.com.app.Sistema;
@@ -21,11 +22,18 @@ public class PesquisaDAO extends Pesquisa {
 
     public boolean procurar(){
 
-        SoapObject objProcurar = new SoapObject(NAMESPACE, PROCURAR);
+        SoapObject objEnvio = new SoapObject(NAMESPACE, PROCURAR);
+
+        SoapObject objProcurar = new SoapObject(NAMESPACE, "procurar");
         objProcurar.addProperty("userId", getUserId());
+        objProcurar.addProperty("idioma", String.valueOf(getIdioma()));
+        objProcurar.addProperty("fluencia", String.valueOf(getFluencia()));
+        objProcurar.addProperty("distancia", String.valueOf(getDistancia()));
+
+        objEnvio.addSoapObject(objProcurar);
 
         SoapSerializationEnvelope objEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-        objEnvelope.setOutputSoapObject(objProcurar);
+        objEnvelope.setOutputSoapObject(objEnvio);
         objEnvelope.implicitTypes = true;
 
         HttpTransportSE objHTTP = new HttpTransportSE(URL);
@@ -33,10 +41,10 @@ public class PesquisaDAO extends Pesquisa {
         try{
             objHTTP.call("urn:" + PROCURAR, objEnvelope);
 
-            Vector<SoapObject> objResposta = (Vector<SoapObject>) objEnvelope.getResponse();
+            SoapObject objResposta = (SoapObject) objEnvelope.bodyIn;
 
-            for(SoapObject soapObject : objResposta){
-                getListaUsuarios().add(soapObject.getProperty("userId").toString());
+            for(int i=0; i<objResposta.getPropertyCount(); i++){
+                getListaUsuarios().add(objResposta.getPropertyAsString(i));
             }
         } catch(Exception e){
             e.printStackTrace();

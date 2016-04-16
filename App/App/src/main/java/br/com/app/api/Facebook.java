@@ -9,6 +9,7 @@ import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;

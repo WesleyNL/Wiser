@@ -3,6 +3,8 @@ package br.com.app.activity.pesquisa;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -24,6 +26,7 @@ import br.com.app.business.pesquisa.PesquisaDAO;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Date;
 
@@ -81,8 +84,11 @@ public class PesquisaActivity extends Activity {
                 distanciaSelecionada = skrDistancia.getProgress();
             }
         });
+
+        objProcDAO = new PesquisaDAO();
     }
 
+    @Override
     protected void onResume() {
         super.onResume();
     }
@@ -130,15 +136,11 @@ public class PesquisaActivity extends Activity {
 
         objLoginDAO = new LoginDAO();
         objLoginDAO.setUserId(Sistema.USER_ID);
-        objLoginDAO.setDataUltimoAcesso(new Date());
         objLoginDAO.setCoordUltimoAcesso(Utils.getCoordenadas(this));
 
-        if(!objLoginDAO.salvar()){
-            AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
-            dialogo.setTitle("Erro");
-            dialogo.setMessage("Não foi possível acessar o sistema.");
-            dialogo.setNeutralButton("OK", null);
-            dialogo.show();
+        if (!objLoginDAO.salvar()) {
+            Toast t = Toast.makeText(this, "Não foi possível acessar o sistema.", Toast.LENGTH_LONG);
+            t.show();
             return false;
         }
 
@@ -161,8 +163,8 @@ public class PesquisaActivity extends Activity {
 
     public void procurar(View view){
 
-        Spinner cmbIdioma = (Spinner) findViewById(R.id.cmbIdiomaConfig);
-        Spinner cmbFluencia = (Spinner) findViewById(R.id.cmbFluenciaConfig);
+        Spinner cmbIdioma = (Spinner) findViewById(R.id.cmbIdiomaProcurar);
+        Spinner cmbFluencia = (Spinner) findViewById(R.id.cmbFluenciaProcurar);
 
         objProcDAO.setUserId(Sistema.USER_ID);
         objProcDAO.setIdioma(Byte.parseByte(cmbIdioma.getSelectedItem().toString().split("-")[0].trim()));

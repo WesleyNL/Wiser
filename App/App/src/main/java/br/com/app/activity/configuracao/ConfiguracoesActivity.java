@@ -65,10 +65,10 @@ public class ConfiguracoesActivity extends Activity {
 
         if(objConfDAO.consultar()){
             Spinner cmbIdioma = (Spinner) findViewById(R.id.cmbIdiomaConfig);
-            cmbIdioma.setSelection(objConfDAO.getIdioma());
+            cmbIdioma.setSelection(objConfDAO.getIdioma() - 1);
 
-            Spinner cmbFluencia = (Spinner) findViewById(R.id.cmbIdiomaConfig);
-            cmbFluencia.setSelection(objConfDAO.getFluencia());
+            Spinner cmbFluencia = (Spinner) findViewById(R.id.cmbFluenciaConfig);
+            cmbFluencia.setSelection(objConfDAO.getFluencia() - 1);
 
             TextView txtStatus = (EditText) findViewById(R.id.txtStatus);
             txtStatus.setText(objConfDAO.getStatus());
@@ -102,8 +102,8 @@ public class ConfiguracoesActivity extends Activity {
                 salvar();
             }
         });
-        dialogo.setNegativeButton("Não", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int id){
+        dialogo.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
 
             }
         });
@@ -129,23 +129,41 @@ public class ConfiguracoesActivity extends Activity {
 
     public void desativar(View view){
 
-        AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
+        final AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
 
-        objConfDAO.setUserId(Sistema.USER_ID);
+        AlertDialog.Builder confirmar = new AlertDialog.Builder(this);
+        confirmar.setTitle("Confirmar");
+        confirmar.setMessage("Você deseja realmente desativar esta conta?");
 
-        if(objConfDAO.desativar()){
-            dialogo.setTitle("Sucesso");
-            dialogo.setMessage("Conta desativada com sucesso.");
-        }
-        else{
-            dialogo.setTitle("Erro");
-            dialogo.setMessage("Não foi possível desativar a conta.");
-        }
+        confirmar.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
 
-        dialogo.setNeutralButton("OK", null);
-        dialogo.show();
+                objConfDAO.setUserId(Sistema.USER_ID);
 
-        logout();
+                if (objConfDAO.desativar()) {
+                    dialogo.setTitle("Sucesso");
+                    dialogo.setMessage("Conta desativada com sucesso.");
+                    dialogo.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            logout();
+                        }
+                    });
+                } else {
+                    dialogo.setTitle("Erro");
+                    dialogo.setMessage("Não foi possível desativar a conta.");
+                    dialogo.setNeutralButton("OK", null);
+                }
+
+                dialogo.show();
+            }
+        });
+        confirmar.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                return;
+            }
+        });
+
+        confirmar.show();
     }
 
     public void logout(){

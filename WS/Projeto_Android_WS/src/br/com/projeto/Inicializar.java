@@ -18,10 +18,6 @@ public class Inicializar implements ServletContextListener{
 	public void contextDestroyed(ServletContextEvent arg0) {
 		
 		System.out.println(dateFormat.format(new Date()));
-		
-		if(threadDD.isAlive()){
-			threadDD.interrupt();
-		}
 
 		Conexao.getInstance().fecharConexao();
 		

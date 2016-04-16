@@ -11,13 +11,11 @@ import android.widget.GridView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 import br.com.app.activity.R;
 import br.com.app.api.Facebook;
 import br.com.app.business.contatos.Contato;
 import br.com.app.business.contatos.ContatosGridAdapter;
-import br.com.app.business.contatos.Item;
 
 /**
  * Created by Jefferson on 31/03/2016.
@@ -26,8 +24,8 @@ public class ContatosActivity extends Activity {
 
     private GridView grdResultado = null;
     private ContatosGridAdapter objCustomGridAdapter = null;
-    private LinkedList<String> listaUsuarios = null;
-    private ArrayList<Item> listaItemContatos = null;
+    private ArrayList<String> listaUsuarios = null;
+    private ArrayList<Contato> listaItemContatos = null;
     private static HashMap<String, Contato> listaPerfis = null;
     private Bitmap imgPerfilIndisponivel = null;
     private String lblNomeIndisponivel = "Usuário";
@@ -39,10 +37,10 @@ public class ContatosActivity extends Activity {
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        listaUsuarios = (LinkedList) getIntent().getExtras().get("listaUsuarios");
+        listaUsuarios = (ArrayList<String>) getIntent().getExtras().get("listaUsuarios");
         grdResultado = (GridView) findViewById(R.id.grdResultado);
 
-        listaItemContatos = new ArrayList<Item>();
+        listaItemContatos = new ArrayList<Contato>();
         imgPerfilIndisponivel = BitmapFactory.decodeResource(getResources(), R.drawable.com_facebook_profile_picture_blank_portrait);
 
         carregar();
@@ -74,7 +72,7 @@ public class ContatosActivity extends Activity {
         for(Contato contato : listaPerfis.values()){
             nomeUsuario = contato.getUserName().trim().equals("") ? lblNomeIndisponivel : contato.getUserName();
             imgUsuario = contato.getProfilePicture() == null ? imgPerfilIndisponivel : contato.getProfilePicture();
-            listaItemContatos.add(new Item(imgUsuario, nomeUsuario));
+            listaItemContatos.add(new Contato(imgUsuario, nomeUsuario));
         }
 
         objCustomGridAdapter = new ContatosGridAdapter(this, R.layout.contatos_grid, listaItemContatos);

@@ -16,13 +16,13 @@ import br.com.app.activity.R;
 /**
  * Created by Wesley on 08/04/2016.
  */
-public class ContatosGridAdapter extends ArrayAdapter<Item> {
+public class ContatosGridAdapter extends ArrayAdapter<Contato> {
 
     Context context;
     int layoutResourceId;
-    ArrayList<Item> listaItemContatos = null;
+    ArrayList<Contato> listaItemContatos = null;
 
-    public ContatosGridAdapter(Context context, int layoutResourceId, ArrayList<Item> data) {
+    public ContatosGridAdapter(Context context, int layoutResourceId, ArrayList<Contato> data) {
         super(context, layoutResourceId, data);
         this.context = context;
         this.layoutResourceId = layoutResourceId;
@@ -47,9 +47,9 @@ public class ContatosGridAdapter extends ArrayAdapter<Item> {
             objHolder = (RecordHolder) objView.getTag();
         }
 
-        Item item = listaItemContatos.get(position);
-        objHolder.txtNome.setText(item.getNomeContato());
-        objHolder.imgPerfil.setImageBitmap(item.getImgContato());
+        Contato item = listaItemContatos.get(position);
+        objHolder.txtNome.setText(item.getUserName());
+        objHolder.imgPerfil.setImageBitmap(item.getProfilePicture());
 
         return objView;
     }

@@ -11,6 +11,9 @@ create table USER_CONFIGURACAO(
     primary key(codigo, user_id)
 );
 
+SELECT * FROM USER_CONFIGURACAO;
+INSERT INTO USER_CONFIGURACAO (USER_ID, idioma, fluencia, status) VALUES (4, 1, 1, '...');
+
 create table USER_LOGIN(
 	codigo int not null auto_increment,
 	user_id varchar(30) not null,
@@ -21,6 +24,7 @@ create table USER_LOGIN(
 );
 
 SELECT * FROM USER_LOGIN;
+INSERT INTO USER_LOGIN (USER_ID, SITUACAO, DATA_ULTIMO_ACESSO, coordenada_ultimo_acesso) VALUES (4, 1, '2016-04-14', '-23.5192|-46.8367'); -- Carapicuiba
 
 create table IDIOMA(
 	codigo int not null auto_increment,
