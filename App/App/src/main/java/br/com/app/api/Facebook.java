@@ -296,7 +296,7 @@ public class Facebook {
 
         Bundle parametros = new Bundle();
         parametros.putString("ids", listUsersID);
-        parametros.putString("fields", "name,picture{url}");
+        parametros.putString("fields", "name,picture.width(250).height(250){url}");
         request.setParameters(parametros);
 
         new Thread() {

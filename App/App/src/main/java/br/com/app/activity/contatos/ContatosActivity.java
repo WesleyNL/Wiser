@@ -1,13 +1,19 @@
 package br.com.app.activity.contatos;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +35,7 @@ public class ContatosActivity extends Activity {
     private static HashMap<String, Contato> listaPerfis = null;
     private Bitmap imgPerfilIndisponivel = null;
     private String lblNomeIndisponivel = "Usuário";
+    private AlertDialog detalhes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +55,65 @@ public class ContatosActivity extends Activity {
         grdResultado.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Item objItem = (Item) grdResultado.getAdapter().getItem(position);
                 String userIdSelecionado = listaUsuarios.get(position);
                 Contato objSelecionado = listaPerfis.get(userIdSelecionado);
+                mostrarDetalhes(objSelecionado);
             }
         });
+    }
+
+    public void mostrarDetalhes(final Contato contato){
+        AlertDialog.Builder builderDetalhes = new AlertDialog.Builder(this);
+
+        View viewDetalhesTitulo = getLayoutInflater().inflate(R.layout.contatos_detalhes_titulo, null);
+
+        TextView lblFecharDetalhes = (TextView) viewDetalhesTitulo.findViewById(R.id.lblFecharDetalhes);
+        lblFecharDetalhes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                detalhes.cancel();
+            }
+        });
+
+        builderDetalhes.setCustomTitle(viewDetalhesTitulo);
+
+        View viewDetalhes = getLayoutInflater().inflate(R.layout.contatos_detalhes, null);
+
+        ImageView imgPerfil = (ImageView) viewDetalhes.findViewById(R.id.imgPerfil);
+        imgPerfil.setImageBitmap(contato.getProfilePicture());
+
+        TextView lblNome = (TextView) viewDetalhes.findViewById(R.id.lblNomeDetalhe);
+        lblNome.setText(contato.getUserName());
+
+        TextView lblLinkPerfil = (TextView) viewDetalhes.findViewById(R.id.lblLinkPerfil);
+        lblLinkPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                abrirPerfilFB(contato.getUserID());
+            }
+        });
+
+        ImageView imgLinkPerfil = (ImageView) viewDetalhes.findViewById(R.id.imgLinkPerfil);
+        imgLinkPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirPerfilFB(contato.getUserID());
+            }
+        });
+
+        builderDetalhes.setView(viewDetalhes);
+
+        detalhes = builderDetalhes.create();
+        detalhes.show();
+    }
+
+    public void abrirPerfilFB(String userId){
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/" + userId));
+            startActivity(intent);
+        } catch(Exception e) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/" + userId)));
+        }
     }
 
     @Override
@@ -63,8 +124,7 @@ public class ContatosActivity extends Activity {
 
     public void carregar(){
 
-        Facebook facebook = new Facebook(this);
-        listaPerfis = facebook.getProfiles(listaUsuarios);
+        listaPerfis = Facebook.getProfiles(listaUsuarios);
 
         String nomeUsuario = "";
         Bitmap imgUsuario = null;
