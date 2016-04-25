@@ -2,10 +2,6 @@ package br.com.app;
 
 import com.facebook.AccessToken;
 
-import java.util.Arrays;
-
-import br.com.app.activity.R;
-
 /**
  * Created by Wesley on 06/04/2016.
  */
