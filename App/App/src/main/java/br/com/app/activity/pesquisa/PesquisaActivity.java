@@ -3,13 +3,12 @@ package br.com.app.activity.pesquisa;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v4.app.ActivityCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,8 +27,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Date;
-
 /**
  * Created by Jefferson on 31/03/2016.
  */
@@ -42,6 +39,8 @@ public class PesquisaActivity extends Activity {
     private PesquisaDAO objProcDAO = null;
     private LoginDAO objLoginDAO = null;
 
+    private final int ACCESS_COARSE_LOCATION = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,17 +50,80 @@ public class PesquisaActivity extends Activity {
             StrictMode.setThreadPolicy(policy);
         }
 
-        if (!getIntent().getBooleanExtra(EnmTelas.PESQUISA.name(), false)) {
-            Utils.chamarActivity(this, EnmTelas.LOGIN);
-            return;
-        }
-
-        if (!salvar()) {
-            Utils.chamarActivity(this, EnmTelas.LOGIN, "LOGOUT", true);
-            return;
-        }
-
         setContentView(R.layout.pesquisa);
+        initComponentes();
+
+        if (hasLocationPermission()) {
+            salvar();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        getMenuInflater().inflate(R.menu.menu_principal, menu);
+        return (true);
+    }
+
+    @Override
+    public boolean onMenuItemSelected(int panel, MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.itmConfiguracoes:
+                Utils.chamarActivity(this, EnmTelas.CONFIGURACOES);
+                break;
+
+            case R.id.itmSobre:
+                Utils.chamarActivity(this, EnmTelas.SOBRE);
+                break;
+
+            case R.id.itmSair:
+                encerrar();
+                break;
+        }
+
+        return (true);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == ACCESS_COARSE_LOCATION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                salvar();
+            }
+            else {
+                Toast.makeText(this, "É necessário permitir!", Toast.LENGTH_SHORT).show();
+                encerrar();
+            }
+        }
+        else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    private boolean hasLocationPermission() {
+        int status = 0;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                                Manifest.permission.ACCESS_FINE_LOCATION}, ACCESS_COARSE_LOCATION);
+                return false;
+            }
+        }
+        else {
+            status = getPackageManager().checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION, getPackageName());
+
+            if (status != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void initComponentes() {
 
         carregarComboIdioma();
         carregarComboFluencia();
@@ -88,76 +150,27 @@ public class PesquisaActivity extends Activity {
         objProcDAO = new PesquisaDAO();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-
-        getMenuInflater().inflate(R.menu.menu_principal, menu);
-        return (true);
-    }
-
-    @Override
-    public boolean onMenuItemSelected(int panel, MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.itmConfiguracoes:
-                Utils.chamarActivity(this, EnmTelas.CONFIGURACOES);
-                break;
-
-            case R.id.itmSobre:
-                Utils.chamarActivity(this, EnmTelas.SOBRE);
-                break;
-
-            case R.id.itmSair:
-                Utils.chamarActivity(this, EnmTelas.LOGIN, "LOGOUT", true);
-                break;
-        }
-
-        return (true);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == Manifest.permission.ACCESS_COARSE_LOCATION.hashCode()) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                salvar();
-            }
-        }
-        else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
-
-    public boolean salvar() {
+    public void salvar() {
 
         objLoginDAO = new LoginDAO();
         objLoginDAO.setUserId(Sistema.USER_ID);
         objLoginDAO.setCoordUltimoAcesso(Utils.getCoordenadas(this));
 
         if (!objLoginDAO.salvar()) {
-            Toast t = Toast.makeText(this, "Não foi possível acessar o sistema.", Toast.LENGTH_LONG);
-            t.show();
-            return false;
+            Toast.makeText(this, "Não foi possível acessar o sistema.", Toast.LENGTH_LONG).show();
+            encerrar();
         }
-
-        return true;
     }
 
     public void carregarComboIdioma(){
 
         Spinner cmbIdioma = (Spinner) findViewById(R.id.cmbIdiomaProcurar);
-
         Utils.carregarComboIdiomas(cmbIdioma, this);
     }
 
     public void carregarComboFluencia(){
 
         Spinner cmbFluencia = (Spinner) findViewById(R.id.cmbFluenciaProcurar);
-
         Utils.carregarComboFluencia(cmbFluencia, this);
     }
 
@@ -171,7 +184,7 @@ public class PesquisaActivity extends Activity {
         objProcDAO.setFluencia(Byte.parseByte(cmbFluencia.getSelectedItem().toString().split("-")[0].trim()));
         objProcDAO.setDistancia(distanciaSelecionada);
 
-        if(objProcDAO.procurar()){
+        if (objProcDAO.procurar()){
             Intent i = new Intent(this, ContatosActivity.class);
             i.putExtra("listaUsuarios", objProcDAO.getListaUsuarios());
             startActivity(i);
@@ -183,5 +196,9 @@ public class PesquisaActivity extends Activity {
             dialogo.setNeutralButton("OK", null);
             dialogo.show();
         }
+    }
+
+    private void encerrar() {
+        Utils.chamarActivity(this, EnmTelas.LOGIN, "LOGOUT", true);
     }
 }

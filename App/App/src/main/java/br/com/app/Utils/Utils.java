@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -19,6 +21,9 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,9 +49,7 @@ public class Utils {
     public static LinkedList<String> pesquisarIdiomas(){
 
         LinkedList<String> listaIdiomas = null;
-
         SoapObject objPesquisar = new SoapObject(NAMESPACE, UTILS_PESQ_IDIOMAS);
-//        objPesquisar.addProperty("", "");
 
         SoapSerializationEnvelope objEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         objEnvelope.setOutputSoapObject(objPesquisar);
@@ -56,9 +59,6 @@ public class Utils {
 
         try{
             objHTTP.call("urn:" + UTILS_PESQ_IDIOMAS, objEnvelope);
-//            String str = ((SoapFault) objEnvelope.bodyIn).faultstring;
-//            System.out.println(str);
-
             SoapObject objResposta = (SoapObject) objEnvelope.bodyIn;
 
             listaIdiomas = new LinkedList<String>();
@@ -66,7 +66,8 @@ public class Utils {
             for(int i=0; i<objResposta.getPropertyCount(); i++){
                 listaIdiomas.add(objResposta.getPropertyAsString(i));
             }
-        } catch(Exception e){
+        }
+        catch(Exception e) {
             e.printStackTrace();
         }
 
@@ -76,20 +77,16 @@ public class Utils {
     public static void carregarComboIdiomas(Spinner cmbIdioma, Context context) {
 
         LinkedList<String> listaIdiomas = pesquisarIdiomas();
-
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listaIdiomas);
 
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         cmbIdioma.setAdapter(dataAdapter);
     }
 
     public static LinkedList<String> pesquisarFluencias(){
 
         LinkedList<String> listaFluencias = null;
-
         SoapObject objPesquisar = new SoapObject(NAMESPACE, UTILS_PESQ_FLUENCIAS);
-//        objPesquisar.addProperty("", "");
 
         SoapSerializationEnvelope objEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         objEnvelope.setOutputSoapObject(objPesquisar);
@@ -117,11 +114,9 @@ public class Utils {
     public static void carregarComboFluencia(Spinner cmbFluencia, Context context) {
 
         LinkedList<String> listaFluencia = pesquisarFluencias();
-
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listaFluencia);
 
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         cmbFluencia.setAdapter(dataAdapter);
     }
 
@@ -129,9 +124,6 @@ public class Utils {
      * @return Latitude|Longitude
      */
     public static String getCoordenadas(Context context) {
-
-        // TODO A partir da versao 6.0 do Android, foi incluido um novo sistema de permissões onde são solicitadas em Tempo de Execução!!!
-        verificaPermissoes((Activity) context);
 
         int status = context.getPackageManager().checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION, context.getPackageName());
 
@@ -159,18 +151,6 @@ public class Utils {
         }
 
         return "";
-    }
-
-    public static void verificaPermissoes(Activity contexto) {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ActivityCompat.checkSelfPermission(contexto, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                ActivityCompat.requestPermissions(contexto, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                                Manifest.permission.ACCESS_FINE_LOCATION},
-                        Manifest.permission.ACCESS_COARSE_LOCATION.hashCode());
-            }
-        }
     }
 
     public static void chamarActivity(Activity activity, EnmTelas enmActivity) {
@@ -223,5 +203,24 @@ public class Utils {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static Bitmap carregarImagem(String url) {
+        Bitmap imagem = null;
+
+        if (!url.equals("")) {
+            try {
+                URL imgValue = new URL(url);
+                imagem = BitmapFactory.decodeStream(imgValue.openConnection().getInputStream());
+            }
+            catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return imagem;
     }
 }

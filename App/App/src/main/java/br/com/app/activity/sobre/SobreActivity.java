@@ -29,23 +29,13 @@ public class SobreActivity extends Activity {
     }
 
     public void carregar(){
+        TextView lblVersao = (TextView) findViewById(R.id.lblVersao);
 
-        String sobre = "";
-
-        TextView lblSobreTopo = (TextView) findViewById(R.id.lblSobreTopo);
-
-        sobre = "    APP     ";
         try {
-            sobre += "  Versão " + getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+            lblVersao.setText("Versão " + getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-        lblSobreTopo.setText(sobre);
-
-        TextView lblSobreRodape = (TextView) findViewById(R.id.lblSobreRodape);
-        sobre = "  © 2016-2016 FATEC CPB";
-
-        lblSobreRodape.setText(sobre);
     }
 }

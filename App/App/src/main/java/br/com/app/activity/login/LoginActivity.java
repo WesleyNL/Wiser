@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import br.com.app.Sistema;
 import br.com.app.activity.R;
-import br.com.app.api.Facebook;
+import br.com.app.api.facebook.Facebook;
 import br.com.app.enums.EnmTelas;
 import br.com.app.utils.Utils;
 
@@ -16,7 +16,6 @@ import br.com.app.utils.Utils;
  * Created by Jefferson on 31/03/2016.
  */
 public class LoginActivity extends Activity {
-    private Facebook facebook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +27,7 @@ public class LoginActivity extends Activity {
     protected void onResume() {
         super.onResume();
 
-        try {
-            facebook = new Facebook(this);
-            facebook.setBtnLogin((Button) super.findViewById(R.id.btnLogin));
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        Facebook.setBtnLogin(this, (Button) super.findViewById(R.id.btnLogin));
 
         if (getIntent().getBooleanExtra("LOGOUT", false)) {
             getIntent().removeExtra("LOGOUT");
@@ -51,7 +44,7 @@ public class LoginActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        facebook.callbackManager(requestCode, resultCode, data);
+        Facebook.callbackManager(requestCode, resultCode, data);
     }
 
     private void mostrarMensagem(String texto) {
@@ -62,6 +55,6 @@ public class LoginActivity extends Activity {
         Sistema.USER_ID = Facebook.getUserID();
         mostrarMensagem("Olá, " + Facebook.getUserName(Sistema.USER_ID) + " ;)");
 
-        Utils.chamarActivity(this, EnmTelas.PESQUISA, EnmTelas.PESQUISA.name(), true);
+        Utils.chamarActivity(this, EnmTelas.PESQUISA);
     }
 }

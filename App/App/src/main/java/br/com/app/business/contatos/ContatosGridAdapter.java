@@ -2,6 +2,8 @@ package br.com.app.business.contatos;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import br.com.app.activity.R;
+import br.com.app.utils.Utils;
 
 /**
  * Created by Wesley on 08/04/2016.
@@ -43,7 +46,8 @@ public class ContatosGridAdapter extends ArrayAdapter<Contato> {
             objHolder.txtNome = (TextView) objView.findViewById(R.id.itemNomeContato);
             objHolder.imgPerfil = (ImageView) objView.findViewById(R.id.itemImagemContato);
             objView.setTag(objHolder);
-        } else {
+        }
+        else {
             objHolder = (RecordHolder) objView.getTag();
         }
 

@@ -63,7 +63,8 @@
         android:secondaryProgressTint="#00bbff"
         android:thumbTint="#10c3d3"
         android:max="100"
-        android:layout_alignEnd="@+id/cmbFluenciaProcurar" />
+        android:layout_alignEnd="@+id/cmbFluenciaProcurar"
+        android:indeterminate="false" />
 
     <TextView
         android:layout_width="wrap_content"

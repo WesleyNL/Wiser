@@ -2,14 +2,9 @@ package br.com.app.activity.contatos;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -19,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import br.com.app.activity.R;
-import br.com.app.api.Facebook;
+import br.com.app.api.facebook.Facebook;
 import br.com.app.business.contatos.Contato;
 import br.com.app.business.contatos.ContatosGridAdapter;
 
@@ -33,8 +28,6 @@ public class ContatosActivity extends Activity {
     private ArrayList<String> listaUsuarios = null;
     private ArrayList<Contato> listaItemContatos = null;
     private static HashMap<String, Contato> listaPerfis = null;
-    private Bitmap imgPerfilIndisponivel = null;
-    private String lblNomeIndisponivel = "Usuário";
     private AlertDialog detalhes;
 
     @Override
@@ -48,7 +41,6 @@ public class ContatosActivity extends Activity {
         grdResultado = (GridView) findViewById(R.id.grdResultado);
 
         listaItemContatos = new ArrayList<Contato>();
-        imgPerfilIndisponivel = BitmapFactory.decodeResource(getResources(), R.drawable.com_facebook_profile_picture_blank_portrait);
 
         carregar();
 
@@ -89,7 +81,7 @@ public class ContatosActivity extends Activity {
         lblLinkPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                abrirPerfilFB(contato.getUserID());
+                Facebook.abrirPerfil(ContatosActivity.this, contato.getUserID());
             }
         });
 
@@ -97,7 +89,7 @@ public class ContatosActivity extends Activity {
         imgLinkPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                abrirPerfilFB(contato.getUserID());
+                Facebook.abrirPerfil(ContatosActivity.this, contato.getUserID());
             }
         });
 
@@ -107,15 +99,6 @@ public class ContatosActivity extends Activity {
         detalhes.show();
     }
 
-    public void abrirPerfilFB(String userId){
-        try {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/" + userId));
-            startActivity(intent);
-        } catch(Exception e) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/" + userId)));
-        }
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         onBackPressed();
@@ -123,17 +106,8 @@ public class ContatosActivity extends Activity {
     }
 
     public void carregar(){
-
         listaPerfis = Facebook.getProfiles(listaUsuarios);
-
-        String nomeUsuario = "";
-        Bitmap imgUsuario = null;
-
-        for(Contato contato : listaPerfis.values()){
-            nomeUsuario = contato.getUserName().trim().equals("") ? lblNomeIndisponivel : contato.getUserName();
-            imgUsuario = contato.getProfilePicture() == null ? imgPerfilIndisponivel : contato.getProfilePicture();
-            listaItemContatos.add(new Contato(imgUsuario, nomeUsuario));
-        }
+        listaItemContatos.addAll(listaPerfis.values());
 
         objCustomGridAdapter = new ContatosGridAdapter(this, R.layout.contatos_grid, listaItemContatos);
         grdResultado.setAdapter(objCustomGridAdapter);
