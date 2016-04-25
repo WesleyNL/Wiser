@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.app.activity"
-
     android:versionCode="1"
     android:revisionCode="0"
     android:versionName="1.0" >
 
     <uses-sdk android:minSdkVersion="10" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- Permissões para poder usar o GPS do celular -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
@@ -22,6 +22,13 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
+        android:theme="@android:style/Theme.Material.Light">
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="con.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <!-- Activity do Splash Screen -->
         <activity
@@ -46,8 +53,7 @@
         <!-- Activity para Logar com o Facebook -->
         <activity
             android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
 
         <!-- Activity da Tela Configurações -->
@@ -65,15 +71,14 @@
         <!-- Activity da Tela Login -->
         <activity
             android:name=".login.LoginActivity"
-            android:theme="@android:style/Theme.Material.Light.NoActionBar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@android:style/AppTema.NoActionBar" />
 
         <!-- Activity da Tela Sobre -->
         <activity
             android:name=".sobre.SobreActivity"
             android:label="@string/title_sobre"
             android:screenOrientation="portrait" />
-
     </application>
 
 </manifest>
