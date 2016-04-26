@@ -135,7 +135,7 @@ public class Facebook {
 
         new Thread() {
             public void run() {
-                new GraphRequest(Sistema.accessToken, "/" + node, parametros, HttpMethod.GET,
+                new GraphRequest(Sistema.ACCESS_TOKEN, "/" + node, parametros, HttpMethod.GET,
                         new GraphRequest.Callback() {
 
                             @Override

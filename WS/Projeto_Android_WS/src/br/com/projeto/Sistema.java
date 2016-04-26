@@ -7,6 +7,7 @@ import java.util.Properties;
 public class Sistema {
 
 	public static String PATH_CONFIG = "";
+	public static final String APP_ACCESS_TOKEN = "570854019757986|wlsnDSdcWhFs586zho4_dgJtc18";
 	private static Properties config = new Properties();
 
 	public void carregar(){
@@ -26,5 +27,9 @@ public class Sistema {
 	
 	public static String getParametro(String parametro){
 		return config.getProperty(parametro);
+	}
+	
+	public String getAccessToken(){
+		return APP_ACCESS_TOKEN;
 	}
 }

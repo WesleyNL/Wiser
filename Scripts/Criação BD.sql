@@ -2,6 +2,7 @@ create database PROJETO_ANDROID;
 
 use PROJETO_ANDROID;
 
+-----------------------------
 create table USER_CONFIGURACAO(
 	codigo int not null auto_increment,
     user_id varchar(30) not null,
@@ -14,6 +15,7 @@ create table USER_CONFIGURACAO(
 SELECT * FROM USER_CONFIGURACAO;
 INSERT INTO USER_CONFIGURACAO (USER_ID, idioma, fluencia, status) VALUES (4, 1, 1, '...');
 
+-----------------------------
 create table USER_LOGIN(
 	codigo int not null auto_increment,
 	user_id varchar(30) not null,
@@ -23,8 +25,13 @@ create table USER_LOGIN(
     primary key(codigo, user_id)
 );
 
+
 SELECT * FROM USER_LOGIN;
 INSERT INTO USER_LOGIN (USER_ID, SITUACAO, DATA_ULTIMO_ACESSO, coordenada_ultimo_acesso) VALUES (4, 1, '2016-04-14', '-23.5192|-46.8367'); -- Carapicuiba
+
+
+------------------------
+DROP TABLE IDIOMA;
 
 create table IDIOMA(
 	codigo int not null auto_increment,
@@ -32,7 +39,10 @@ create table IDIOMA(
     primary key(codigo)
 );
 
-insert into IDIOMA (descricao) values("Inglês"), ("Espanhol");
+insert into IDIOMA (descricao) values ("Todos"), ("Inglês"), ("Espanhol");
+--------------------------
+
+DROP TABLE FLUENCIA;
 
 create table FLUENCIA(
 	codigo int not null auto_increment,
@@ -40,4 +50,4 @@ create table FLUENCIA(
     primary key(codigo)
 );
 
-insert into FLUENCIA (descricao) values("Básico"), ("Intermediário"), ("Avançado"), ("Fluente");
+insert into FLUENCIA (descricao) values ("Todos"), ("Básico"), ("Intermediário"), ("Avançado"), ("Fluente");

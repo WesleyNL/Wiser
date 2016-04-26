@@ -1,14 +1,11 @@
 package br.com.projeto.pesquisa;
 
-import java.util.LinkedList;
-
 public class Pesquisa {
 
 	private String userId;
 	private byte idioma;
 	private byte fluencia;
-	private int distancia;
-	private LinkedList<String> listaUsuarios = new LinkedList<String>();
+	private double distancia;
 	
 	public String getUserId() {
 		return userId;
@@ -28,16 +25,10 @@ public class Pesquisa {
 	public void setFluencia(byte fluencia) {
 		this.fluencia = fluencia;
 	}
-	public int getDistancia() {
+	public double getDistancia() {
 		return distancia;
 	}
-	public void setDistancia(int distancia) {
+	public void setDistancia(double distancia) {
 		this.distancia = distancia;
-	}
-	public LinkedList<String> getListaUsuarios() {
-		return listaUsuarios;
-	}
-	public void setListaUsuarios(LinkedList<String> listaUsuarios) {
-		this.listaUsuarios = listaUsuarios;
 	}
 }

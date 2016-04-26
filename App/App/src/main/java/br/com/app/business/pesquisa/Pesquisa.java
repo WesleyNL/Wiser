@@ -1,6 +1,9 @@
 package br.com.app.business.pesquisa;
 
+import java.io.Serializable;
 import java.util.LinkedList;
+
+import br.com.app.business.contatos.Contato;
 
 /**
  * Created by Wesley on 03/04/2016.
@@ -11,7 +14,7 @@ public class Pesquisa {
     private byte idioma;
     private byte fluencia;
     private int distancia;
-    private LinkedList<String> listaUsuarios = new LinkedList<String>();
+    private LinkedList<Contato> listaUsuarios = new LinkedList<Contato>();
 
     public String getUserId() {
         return userId;
@@ -45,11 +48,12 @@ public class Pesquisa {
         this.distancia = distancia;
     }
 
-    public LinkedList<String> getListaUsuarios() {
+    public LinkedList<Contato> getListaUsuarios() {
         return listaUsuarios;
     }
 
-    public void setListaUsuarios(LinkedList<String> listaUsuarios) {
+    public void setListaUsuarios(LinkedList<Contato> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
     }
+
 }

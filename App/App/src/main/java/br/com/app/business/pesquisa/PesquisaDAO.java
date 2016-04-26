@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.Vector;
 
 import br.com.app.Sistema;
+import br.com.app.business.contatos.Contato;
 
 /**
  * Created by Wesley on 03/04/2016.
@@ -41,10 +42,32 @@ public class PesquisaDAO extends Pesquisa {
         try{
             objHTTP.call("urn:" + PROCURAR, objEnvelope);
 
-            SoapObject objResposta = (SoapObject) objEnvelope.bodyIn;
+            Contato contato = null;
 
-            for(int i=0; i<objResposta.getPropertyCount(); i++){
-                getListaUsuarios().add(objResposta.getPropertyAsString(i));
+            try {
+                Vector<SoapObject> objResposta = (Vector<SoapObject>) objEnvelope.getResponse();
+
+                for (SoapObject soapObject : objResposta) {
+                    contato = new Contato();
+                    contato.setUserID(soapObject.getProperty("userId").toString());
+                    contato.setIdioma(Integer.parseInt(soapObject.getProperty("idioma").toString()));
+                    contato.setNivelFluencia(Integer.parseInt(soapObject.getProperty("fluencia").toString()));
+                    contato.setDistancia(Double.parseDouble(soapObject.getProperty("distancia").toString()));
+                    getListaUsuarios().add(contato);
+                }
+            } catch (Exception e){
+                SoapObject obj = (SoapObject) objEnvelope.getResponse();
+
+                if(obj == null){
+                    return false;
+                }
+
+                contato = new Contato();
+                contato.setUserID(obj.getProperty("userId").toString());
+                contato.setIdioma(Integer.parseInt(obj.getProperty("idioma").toString()));
+                contato.setNivelFluencia(Integer.parseInt(obj.getProperty("fluencia").toString()));
+                contato.setDistancia(Double.parseDouble(obj.getProperty("distancia").toString()));
+                getListaUsuarios().add(contato);
             }
         } catch(Exception e){
             e.printStackTrace();

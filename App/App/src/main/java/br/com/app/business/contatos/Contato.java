@@ -2,23 +2,25 @@ package br.com.app.business.contatos;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
+
 /**
  * Created by Jefferson on 06/04/2016.
  */
-public class Contato {
+public class Contato implements Serializable{
 
     private String userID = "";
     private String userName = "";
     private String profilePictureURL = "";
     private Bitmap profilePicture;
     private int idade = 0;
-    private String idioma = "";
+    private int idioma = 0;
     private int nivelFluencia = 0;
     private String status = "";
-    private int distancia = 0;
+    private double distancia = 0;
 
     public Contato() {
-
+        this(null, "");
     }
 
     public Contato(Bitmap img, String nome) {
@@ -67,11 +69,11 @@ public class Contato {
         this.idade = idade;
     }
 
-    public String getIdioma() {
+    public int getIdioma() {
         return idioma;
     }
 
-    public void setIdioma(String idioma) {
+    public void setIdioma(int idioma) {
         this.idioma = idioma;
     }
 
@@ -91,11 +93,11 @@ public class Contato {
         this.status = status;
     }
 
-    public int getDistancia() {
+    public double getDistancia() {
         return distancia;
     }
 
-    public void setDistancia(int distancia) {
+    public void setDistancia(double distancia) {
         this.distancia = distancia;
     }
 }

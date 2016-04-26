@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
+import java.util.Vector;
 
 import br.com.projeto.conexao.Conexao;
 import br.com.projeto.utils.Constantes;
@@ -11,7 +12,7 @@ import br.com.projeto.utils.Utils;
 
 public class PesquisaDAO {
 	
-	public LinkedList<String> procurar(Pesquisa procurar) throws SQLException{
+	public Vector<Pesquisa> procurar(Pesquisa procurar) throws SQLException{
 		
 		String coordUsuario = "";
 		
@@ -22,11 +23,13 @@ public class PesquisaDAO {
 			return null;
 		}
 
-		LinkedList<String> listaProcurar = new LinkedList<String>();
+		Vector<Pesquisa> listaProcurar = new Vector<Pesquisa>();
 		ResultSet rst = null;
 		
 		try {
-			String sql = "SELECT l.USER_ID, l.COORDENADA_ULTIMO_ACESSO FROM USER_LOGIN l" +
+			String sql = "SELECT l.USER_ID, l.COORDENADA_ULTIMO_ACESSO," + 
+						 " C.IDIOMA, C.FLUENCIA" +
+						 " FROM USER_LOGIN l" +
 						 " INNER JOIN USER_CONFIGURACAO c" +
 						 " ON l.USER_ID = c.USER_ID" +
 						 " WHERE SITUACAO = ? " +
@@ -36,8 +39,8 @@ public class PesquisaDAO {
 			
 			PreparedStatement objPS = Conexao.getInstance().getConexao().prepareStatement(sql);
 			objPS.setByte(1, Constantes.CODIGO_ATIVO);
-			objPS.setByte(2, procurar.getIdioma());
-			objPS.setByte(3, procurar.getFluencia());
+			objPS.setString(2, procurar.getIdioma() == Constantes.VALOR_TODOS ? "IDIOMA" : String.valueOf(procurar.getIdioma()));
+			objPS.setString(3, procurar.getFluencia() == Constantes.VALOR_TODOS ? "FLUENCIA" : String.valueOf(procurar.getFluencia()));
 			objPS.setString(4, procurar.getUserId());
 			rst = objPS.executeQuery();
 				
@@ -47,13 +50,24 @@ public class PesquisaDAO {
 			double longitudeP2 = 0; 
 			String[] coordenada = new String[2];
 			
+			Pesquisa pesquisa = null;
+			double distancia = 0;
+			
 			while(rst.next()){
 				coordenada = rst.getString("COORDENADA_ULTIMO_ACESSO").split("[|]");
 				latitudeP2 = Double.parseDouble(coordenada[0]);
 				longitudeP2 = Double.parseDouble(coordenada[1]);
 				
-				if(Utils.calcularDistanciaGeodesica(latitudeP1, longitudeP1, latitudeP2, longitudeP2) <= procurar.getDistancia()){
-					listaProcurar.add(rst.getString("USER_ID"));
+				distancia = Utils.calcularDistanciaGeodesica(latitudeP1, longitudeP1, latitudeP2, longitudeP2);
+				
+				if(distancia <= procurar.getDistancia()){
+					pesquisa = new Pesquisa();
+					pesquisa.setUserId(rst.getString("USER_ID"));
+					pesquisa.setIdioma(rst.getByte("IDIOMA"));
+					pesquisa.setFluencia(rst.getByte("FLUENCIA"));
+					pesquisa.setDistancia(distancia);
+					listaProcurar.add(pesquisa);
+					listaProcurar.add(pesquisa);
 				}
 			}
 		} catch (SQLException e) {

@@ -185,8 +185,12 @@ public class PesquisaActivity extends Activity {
         objProcDAO.setDistancia(distanciaSelecionada);
 
         if (objProcDAO.procurar()){
+
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("listaUsuarios", objProcDAO.getListaUsuarios());
+
             Intent i = new Intent(this, ContatosActivity.class);
-            i.putExtra("listaUsuarios", objProcDAO.getListaUsuarios());
+            i.putExtra("listaUsuarios", bundle);
             startActivity(i);
         }
         else{
