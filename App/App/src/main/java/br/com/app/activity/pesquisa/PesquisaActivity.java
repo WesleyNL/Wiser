@@ -165,13 +165,13 @@ public class PesquisaActivity extends Activity {
     public void carregarComboIdioma(){
 
         Spinner cmbIdioma = (Spinner) findViewById(R.id.cmbIdiomaProcurar);
-        Utils.carregarComboIdiomas(cmbIdioma, this);
+        Utils.carregarComboIdiomas(cmbIdioma, this, true);
     }
 
     public void carregarComboFluencia(){
 
         Spinner cmbFluencia = (Spinner) findViewById(R.id.cmbFluenciaProcurar);
-        Utils.carregarComboFluencia(cmbFluencia, this);
+        Utils.carregarComboFluencia(cmbFluencia, this, true);
     }
 
     public void procurar(View view){

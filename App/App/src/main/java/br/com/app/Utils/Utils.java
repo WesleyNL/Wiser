@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
@@ -40,16 +41,23 @@ import br.com.app.enums.EnmTelas;
  */
 public class Utils {
 
+    public static final int VALOR_TODOS = 0;
+
     private static final String URL = "http://" + Sistema.SERVIDOR_WS + "/Projeto_Android_WS/services/Utils?wsdl";
     private static final String NAMESPACE = "http://utils.projeto.com.br";
 
     private static final String UTILS_PESQ_IDIOMAS = "pesquisarIdiomas";
     private static final String UTILS_PESQ_FLUENCIAS = "pesquisarFluencias";
 
-    public static LinkedList<String> pesquisarIdiomas(){
+    public static LinkedList<String> pesquisarIdiomas(boolean todos){
 
         LinkedList<String> listaIdiomas = null;
         SoapObject objPesquisar = new SoapObject(NAMESPACE, UTILS_PESQ_IDIOMAS);
+
+        SoapObject objEnvio = new SoapObject(NAMESPACE, "utils");
+        objEnvio.addProperty("todos", todos);
+
+        objPesquisar.addSoapObject(objEnvio);
 
         SoapSerializationEnvelope objEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         objEnvelope.setOutputSoapObject(objPesquisar);
@@ -74,19 +82,28 @@ public class Utils {
         return listaIdiomas;
     }
 
-    public static void carregarComboIdiomas(Spinner cmbIdioma, Context context) {
+    public static void carregarComboIdiomas(Spinner cmbIdioma, Context context){
+        carregarComboIdiomas(cmbIdioma, context, false);
+    }
 
-        LinkedList<String> listaIdiomas = pesquisarIdiomas();
+    public static void carregarComboIdiomas(Spinner cmbIdioma, Context context, boolean todos) {
+
+        LinkedList<String> listaIdiomas = pesquisarIdiomas(todos);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listaIdiomas);
 
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cmbIdioma.setAdapter(dataAdapter);
     }
 
-    public static LinkedList<String> pesquisarFluencias(){
+    public static LinkedList<String> pesquisarFluencias(boolean todos){
 
         LinkedList<String> listaFluencias = null;
         SoapObject objPesquisar = new SoapObject(NAMESPACE, UTILS_PESQ_FLUENCIAS);
+
+        SoapObject objEnvio = new SoapObject(NAMESPACE, "utils");
+        objEnvio.addProperty("todos", todos);
+
+        objPesquisar.addSoapObject(objEnvio);
 
         SoapSerializationEnvelope objEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         objEnvelope.setOutputSoapObject(objPesquisar);
@@ -111,9 +128,13 @@ public class Utils {
         return listaFluencias;
     }
 
-    public static void carregarComboFluencia(Spinner cmbFluencia, Context context) {
+    public static void carregarComboFluencia(Spinner cmbFluencia, Context context){
+        carregarComboFluencia(cmbFluencia, context, false);
+    }
 
-        LinkedList<String> listaFluencia = pesquisarFluencias();
+    public static void carregarComboFluencia(Spinner cmbFluencia, Context context, boolean todos) {
+
+        LinkedList<String> listaFluencia = pesquisarFluencias(todos);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listaFluencia);
 
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
