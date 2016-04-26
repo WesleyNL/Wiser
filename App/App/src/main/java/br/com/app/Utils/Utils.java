@@ -9,16 +9,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Build;
-import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import org.ksoap2.SoapEnvelope;
-import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
@@ -40,8 +35,6 @@ import br.com.app.enums.EnmTelas;
  * Created by Wesley on 03/04/2016.
  */
 public class Utils {
-
-    public static final int VALOR_TODOS = 0;
 
     private static final String URL = "http://" + Sistema.SERVIDOR_WS + "/Projeto_Android_WS/services/Utils?wsdl";
     private static final String NAMESPACE = "http://utils.projeto.com.br";
