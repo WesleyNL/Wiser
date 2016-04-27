@@ -67,7 +67,6 @@ public class PesquisaDAO {
 					pesquisa.setFluencia(rst.getByte("FLUENCIA"));
 					pesquisa.setDistancia(distancia);
 					listaProcurar.add(pesquisa);
-					listaProcurar.add(pesquisa);
 				}
 			}
 		} catch (SQLException e) {

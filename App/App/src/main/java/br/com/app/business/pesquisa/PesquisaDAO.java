@@ -43,6 +43,7 @@ public class PesquisaDAO extends Pesquisa {
             objHTTP.call("urn:" + PROCURAR, objEnvelope);
 
             Contato contato = null;
+            getListaUsuarios().clear();
 
             try {
                 Vector<SoapObject> objResposta = (Vector<SoapObject>) objEnvelope.getResponse();
