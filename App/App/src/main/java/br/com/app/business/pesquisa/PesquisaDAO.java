@@ -68,6 +68,7 @@ public class PesquisaDAO extends Pesquisa {
                 contato.setIdioma(Integer.parseInt(obj.getProperty("idioma").toString()));
                 contato.setNivelFluencia(Integer.parseInt(obj.getProperty("fluencia").toString()));
                 contato.setDistancia(Double.parseDouble(obj.getProperty("distancia").toString()));
+                contato.setStatus(obj.getProperty("status").toString());
                 getListaUsuarios().add(contato);
             }
         } catch(Exception e){

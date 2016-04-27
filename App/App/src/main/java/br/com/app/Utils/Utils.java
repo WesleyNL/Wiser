@@ -20,6 +20,7 @@ import org.ksoap2.transport.HttpTransportSE;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,6 +43,9 @@ public class Utils {
     private static final String UTILS_PESQ_IDIOMAS = "pesquisarIdiomas";
     private static final String UTILS_PESQ_FLUENCIAS = "pesquisarFluencias";
 
+    public static LinkedHashMap<Integer, String> hashIdiomas = new LinkedHashMap<Integer, String>();
+    public static LinkedHashMap<Integer, String> hashFluencias  = new LinkedHashMap<Integer, String>();;
+
     public static LinkedList<String> pesquisarIdiomas(boolean todos){
 
         LinkedList<String> listaIdiomas = null;
@@ -63,9 +67,13 @@ public class Utils {
             SoapObject objResposta = (SoapObject) objEnvelope.bodyIn;
 
             listaIdiomas = new LinkedList<String>();
+            hashIdiomas.clear();
+            String[] aux;
 
             for(int i=0; i<objResposta.getPropertyCount(); i++){
                 listaIdiomas.add(objResposta.getPropertyAsString(i));
+                aux = objResposta.getPropertyAsString(i).split("-");
+                hashIdiomas.put(Integer.parseInt(aux[0].trim()), aux[1]);
             }
         }
         catch(Exception e) {
@@ -110,9 +118,13 @@ public class Utils {
             SoapObject objResposta = (SoapObject) objEnvelope.bodyIn;
 
             listaFluencias = new LinkedList<String>();
+            hashFluencias.clear();
+            String[] aux;
 
             for(int i=0; i<objResposta.getPropertyCount(); i++){
                 listaFluencias.add(objResposta.getPropertyAsString(i));
+                aux = objResposta.getPropertyAsString(i).split("-");
+                hashFluencias.put(Integer.parseInt(aux[0].trim()), aux[1]);
             }
         } catch(Exception e){
             e.printStackTrace();

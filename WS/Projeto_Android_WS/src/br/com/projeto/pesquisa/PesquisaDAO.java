@@ -28,7 +28,7 @@ public class PesquisaDAO {
 		
 		try {
 			String sql = "SELECT l.USER_ID, l.COORDENADA_ULTIMO_ACESSO," + 
-						 " C.IDIOMA, C.FLUENCIA" +
+						 " C.IDIOMA, C.FLUENCIA, C.STATUS" +
 						 " FROM USER_LOGIN l" +
 						 " INNER JOIN USER_CONFIGURACAO c" +
 						 " ON l.USER_ID = c.USER_ID" +
@@ -65,6 +65,7 @@ public class PesquisaDAO {
 					pesquisa.setUserId(rst.getString("USER_ID"));
 					pesquisa.setIdioma(rst.getByte("IDIOMA"));
 					pesquisa.setFluencia(rst.getByte("FLUENCIA"));
+					pesquisa.setStatus(rst.getString("STATUS"));
 					pesquisa.setDistancia(distancia);
 					listaProcurar.add(pesquisa);
 				}

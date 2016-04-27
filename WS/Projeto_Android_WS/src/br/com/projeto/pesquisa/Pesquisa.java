@@ -6,6 +6,7 @@ public class Pesquisa {
 	private byte idioma;
 	private byte fluencia;
 	private double distancia;
+	private String status;
 	
 	public String getUserId() {
 		return userId;
@@ -30,5 +31,11 @@ public class Pesquisa {
 	}
 	public void setDistancia(double distancia) {
 		this.distancia = distancia;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }
