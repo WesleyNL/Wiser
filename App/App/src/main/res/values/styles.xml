@@ -32,7 +32,7 @@
         <item name="android:textColorPrimary">@color/colorPrimaryText</item>
         <item name="android:textColorSecondary">@color/colorSecondaryText</item>
         <item name="android:windowBackground">@color/colorWindowBackground</item>
-        <item name="android:colorBackground">@color/colorText_Icons</item>
+        <item name="android:colorBackground">@color/colorWindowBackground</item>
         <item name="android:colorForeground">@color/colorForeground</item>
         <item name="android:navigationBarColor">@color/colorNavigatorBar</item>
         <item name="android:statusBarColor">@color/colorStatusBar</item>

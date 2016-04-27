@@ -93,11 +93,13 @@
 
     <Button
         android:layout_width="320dp"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:text="Salvar"
         android:id="@+id/btnSalvar"
         android:onClick="salvar"
         android:layout_centerHorizontal="true"
+        android:textColor="@color/colorPrimaryInverseText"
+        android:background="@drawable/btndefaultshape"
         android:layout_marginTop="10sp"
         android:layout_below="@+id/imageView4" />
 
@@ -107,7 +109,10 @@
         android:text="Desativar Conta"
         android:id="@+id/btnDesativar"
         android:onClick="desativar"
+        android:textColor="@color/colorPrimaryInverseText"
+        android:layout_marginTop="5dp"
         android:layout_centerHorizontal="true"
+        android:background="@drawable/btndefaultshape"
         android:layout_below="@+id/btnSalvar" />
 
 </RelativeLayout>

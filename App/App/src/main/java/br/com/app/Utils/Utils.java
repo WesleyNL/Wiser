@@ -176,7 +176,7 @@ public class Utils {
             }
         }
 
-        return "";
+        return "-23.5559324|-46.8090874";
     }
 
     public static void chamarActivity(Activity activity, EnmTelas enmActivity) {

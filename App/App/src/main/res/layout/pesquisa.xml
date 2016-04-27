@@ -101,7 +101,7 @@
         android:layout_below="@+id/lblDistancia"
         android:padding="0dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:progressTint="#00d4ff"
         android:secondaryProgressTint="#00bbff"
         android:thumbTint="#10c3d3"
@@ -114,6 +114,8 @@
         android:text="Procurar"
         android:id="@+id/btnProcurar"
         android:onClick="procurar"
+        android:background="@drawable/btndefaultshape"
+        android:textColor="@color/colorPrimaryInverseText"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/imageView7"
         android:layout_centerHorizontal="true" />

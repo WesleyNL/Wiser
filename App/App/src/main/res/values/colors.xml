@@ -6,7 +6,7 @@
     <color name="colorAccent">#03A9F4</color>
 
     <color name="colorPrimaryLight">#B3E5FC</color>
-    <color name="colorText_Icons">#FFFFFF</color>
+    <color name="colorText_Icons">#f40a0a</color>
     <color name="colorPrimaryText">#212121</color>
     <color name="colorSecondaryText">#727272</color>
     <color name="colorDividerColor">#B6B6B6</color>
@@ -15,8 +15,8 @@
     <color name="colorNavigatorBar">#212121</color>
     <color name="colorStatusBar">#03A9F4</color>
 
-    <color name="colorPrimaryInverseText">#FFFFFF</color>
+    <color name="colorPrimaryInverseText">#ffffff</color>
     <color name="colorSecondaryInverseText">#FFFFFF</color>
-    <color name="colorWindowBackground">#FFFFFF</color>
+    <color name="colorWindowBackground">#F7F7F7</color>
 
 </resources>
