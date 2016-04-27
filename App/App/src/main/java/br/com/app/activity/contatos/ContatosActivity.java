@@ -58,8 +58,8 @@ public class ContatosActivity extends Activity {
         ImageView imgPerfil = (ImageView) viewDetalhes.findViewById(R.id.imgPerfil);
         imgPerfil.setImageBitmap(contato.getProfilePicture());
 
-        TextView lblNomeIdade = (TextView) viewDetalhes.findViewById(R.id.lblNomeIdade);
-        lblNomeIdade.setText(contato.getFirstName() + ", " + contato.getIdade());
+        TextView lblNome = (TextView) viewDetalhes.findViewById(R.id.lblNomeDetalhe);
+        lblNome.setText(contato.getFirstName());
 
         TextView lblIdiomaNivel = (TextView) viewDetalhes.findViewById(R.id.lblIdiomaNivel);
         lblIdiomaNivel.setText(Utils.hashIdiomas.get(contato.getIdioma()) + " - " + Utils.hashFluencias.get(contato.getNivelFluencia()));

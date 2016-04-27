@@ -14,13 +14,13 @@
         android:src="@drawable/com_facebook_profile_picture_blank_portrait" />
 
     <TextView
-        android:id="@+id/lblNomeIdade"
+        android:id="@+id/lblNomeDetalhe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/imgPerfil"
         android:layout_marginTop="10sp"
-        android:text="Nome, Idade"
+        android:text="Nome"
         android:textSize="25sp" />
 
     <TextView
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/lblNomeIdade"
+        android:layout_below="@id/lblNomeDetalhe"
         android:layout_marginTop="10sp"
         android:text="Idioma - Nível"
         android:textSize="23sp" />

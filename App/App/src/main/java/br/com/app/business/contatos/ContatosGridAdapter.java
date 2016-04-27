@@ -45,8 +45,7 @@ public class ContatosGridAdapter extends ArrayAdapter<Contato> {
 
             objHolder = new RecordHolder();
             objHolder.imgImagemContato = (ImageView) objView.findViewById(R.id.imgImagemContato);
-            objHolder.txtNomeIdade = (TextView) objView.findViewById(R.id.txtNomeIdade);
-            objHolder.txtIdiomaNivel = (TextView) objView.findViewById(R.id.txtIdiomaNivel);
+            objHolder.txtNome = (TextView) objView.findViewById(R.id.txtNomeLista);
             objView.setTag(objHolder);
         }
         else {
@@ -55,15 +54,13 @@ public class ContatosGridAdapter extends ArrayAdapter<Contato> {
 
         Contato item = listaItemContatos.get(position);
         objHolder.imgImagemContato.setImageBitmap(item.getProfilePicture());
-        objHolder.txtNomeIdade.setText(item.getFirstName() + ", " + item.getIdade());
-        objHolder.txtIdiomaNivel.setText(Utils.hashIdiomas.get(item.getIdioma()) + " - " + Utils.hashFluencias.get(item.getNivelFluencia()));
+        objHolder.txtNome.setText(item.getFirstName());
 
         return objView;
     }
 
     static class RecordHolder {
         ImageView imgImagemContato;
-        TextView txtNomeIdade;
-        TextView txtIdiomaNivel;
+        TextView txtNome;
     }
 }

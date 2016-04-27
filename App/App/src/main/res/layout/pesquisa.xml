@@ -26,7 +26,7 @@
 
     <Spinner
         android:id="@+id/cmbIdiomaProcurar"
-        android:layout_width="320dp"
+        android:layout_width="310dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lblIdioma"
         android:spinnerMode="dropdown"
@@ -55,11 +55,11 @@
         android:background="@drawable/containershape" />
 
     <Spinner
-        android:layout_width="wrap_content"
+        android:layout_width="310dp"
         android:layout_height="wrap_content"
         android:id="@+id/cmbFluenciaProcurar"
         android:spinnerMode="dropdown"
-        android:layout_below="@id/lblFluencia"
+        android:layout_below="@+id/lblFluencia"
         android:layout_marginLeft="20dp"
         android:paddingLeft="10dp"
         android:paddingTop="18dp" />
