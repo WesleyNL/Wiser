@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import br.com.projeto.conexao.Conexao;
+import br.com.projeto.configuracoes.ConfiguracaoDAO;
 import br.com.projeto.utils.Constantes;
 
 public class LoginDAO {
@@ -68,6 +69,10 @@ public class LoginDAO {
 			objPS.setDate(3, new java.sql.Date(new Date().getTime()));
 			objPS.setString(4, login.getCoordUltimoAcesso());
 
+			ConfiguracaoDAO objConfiguracao = new ConfiguracaoDAO();
+			objConfiguracao.setUserId(login.getUserId());
+			objConfiguracao.consultar(objConfiguracao);
+			
 			retorno = objPS.execute();
 						
 		} catch (SQLException e) {

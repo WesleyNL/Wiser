@@ -3,7 +3,6 @@ package br.com.projeto.pesquisa;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
 import java.util.Vector;
 
 import br.com.projeto.conexao.Conexao;

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import br.com.projeto.conexao.Conexao;
 import br.com.projeto.principal.LoginDAO;
 
-public class ConfiguracaoDAO {
+public class ConfiguracaoDAO extends Configuracao{
 	
 	public boolean desativar(Configuracao configuracao){
 		
