@@ -28,8 +28,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/cmbIdiomaConfig"
         android:spinnerMode="dropdown"
-        android:layout_marginLeft="20dp"
         android:layout_below="@id/lblIdioma"
+        android:layout_marginLeft="20dp"
         android:paddingLeft="10dp"
         android:paddingTop="18dp" />
 

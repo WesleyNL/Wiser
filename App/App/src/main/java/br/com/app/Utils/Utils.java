@@ -73,7 +73,7 @@ public class Utils {
             for(int i=0; i<objResposta.getPropertyCount(); i++){
                 listaIdiomas.add(objResposta.getPropertyAsString(i));
                 aux = objResposta.getPropertyAsString(i).split("-");
-                hashIdiomas.put(Integer.parseInt(aux[0].trim()), aux[1]);
+                hashIdiomas.put(Integer.parseInt(aux[0].trim()), aux[1].trim());
             }
         }
         catch(Exception e) {

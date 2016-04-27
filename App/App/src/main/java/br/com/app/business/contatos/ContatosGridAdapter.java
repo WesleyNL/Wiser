@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import br.com.app.activity.R;
+import br.com.app.utils.Utils;
 
 /**
  * Created by Wesley on 08/04/2016.
@@ -55,7 +56,7 @@ public class ContatosGridAdapter extends ArrayAdapter<Contato> {
         Contato item = listaItemContatos.get(position);
         objHolder.imgImagemContato.setImageBitmap(item.getProfilePicture());
         objHolder.txtNomeIdade.setText(item.getFirstName() + ", " + item.getIdade());
-        objHolder.txtIdiomaNivel.setText(item.getIdioma() + " - " + item.getNivelFluencia());
+        objHolder.txtIdiomaNivel.setText(Utils.hashIdiomas.get(item.getIdioma()) + " - " + Utils.hashFluencias.get(item.getNivelFluencia()));
 
         return objView;
     }

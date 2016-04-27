@@ -18,6 +18,7 @@ import br.com.app.activity.R;
 import br.com.app.api.facebook.Facebook;
 import br.com.app.business.contatos.Contato;
 import br.com.app.business.contatos.ContatosGridAdapter;
+import br.com.app.utils.Utils;
 
 /**
  * Created by Jefferson on 31/03/2016.
@@ -61,7 +62,7 @@ public class ContatosActivity extends Activity {
         lblNomeIdade.setText(contato.getFirstName() + ", " + contato.getIdade());
 
         TextView lblIdiomaNivel = (TextView) viewDetalhes.findViewById(R.id.lblIdiomaNivel);
-        lblIdiomaNivel.setText(contato.getIdioma() + " - " + contato.getNivelFluencia());
+        lblIdiomaNivel.setText(Utils.hashIdiomas.get(contato.getIdioma()) + " - " + Utils.hashFluencias.get(contato.getNivelFluencia()));
 
         TextView lblStatus = (TextView) viewDetalhes.findViewById(R.id.lblStatus);
         lblStatus.setText(contato.getStatus());

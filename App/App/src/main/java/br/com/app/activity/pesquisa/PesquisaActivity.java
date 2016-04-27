@@ -134,7 +134,7 @@ public class PesquisaActivity extends Activity {
         skrDistancia.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progressValue, boolean fromUser) {
-                lblDistanciaSelecionada.setText("Distância: " + progressValue + " Km");
+                lblDistanciaSelecionada.setText(progressValue + " Km");
             }
 
             @Override
