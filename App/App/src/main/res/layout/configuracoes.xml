@@ -83,7 +83,7 @@
 
     <EditText
         android:layout_width="320dp"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:id="@+id/txtStatus"
         android:layout_marginLeft="20dp"
         android:layout_below="@+id/lblStatus"
@@ -98,7 +98,8 @@
         android:id="@+id/btnSalvar"
         android:onClick="salvar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="395dp"/>
+        android:layout_marginTop="10sp"
+        android:layout_below="@+id/imageView4" />
 
     <Button
         android:layout_width="320dp"
@@ -107,6 +108,6 @@
         android:id="@+id/btnDesativar"
         android:onClick="desativar"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_below="@+id/btnSalvar" />
 
 </RelativeLayout>

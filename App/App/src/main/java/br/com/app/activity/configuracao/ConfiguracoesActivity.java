@@ -102,11 +102,7 @@ public class ConfiguracoesActivity extends Activity {
                 salvar();
             }
         });
-        dialogo.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-
-            }
-        });
+        dialogo.setNegativeButton("Não", null);
         dialogo.show();
     }
 
@@ -114,16 +110,21 @@ public class ConfiguracoesActivity extends Activity {
 
         AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
 
-        if(objConfDAO.salvar()){
+        if (objConfDAO.salvar()) {
             dialogo.setTitle("Sucesso");
             dialogo.setMessage("A configuração foi salva com sucesso.");
+            dialogo.setNeutralButton("OK",  new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    finish();
+                }
+            });
         }
-        else{
+        else {
             dialogo.setTitle("Erro");
             dialogo.setMessage("Não foi possível salvar a configuração.");
+            dialogo.setNeutralButton("OK",  null);
         }
 
-        dialogo.setNeutralButton("OK", null);
         dialogo.show();
     }
 
@@ -148,7 +149,8 @@ public class ConfiguracoesActivity extends Activity {
                             logout();
                         }
                     });
-                } else {
+                }
+                else {
                     dialogo.setTitle("Erro");
                     dialogo.setMessage("Não foi possível desativar a conta.");
                     dialogo.setNeutralButton("OK", null);

@@ -25,7 +25,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.android.support:design:23.2.0'
     compile 'com.facebook.android:facebook-android-sdk:4.10.1'
-    compile 'com.google.android.gms:play-services-location:8.4.0'
     compile files('libs/ksoap2-android-assembly-3.3.0-jar-with-dependencies.jar')
 }
 

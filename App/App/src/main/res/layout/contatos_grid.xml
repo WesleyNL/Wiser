@@ -7,7 +7,7 @@
     android:padding="5dp" >
 
     <ImageView
-        android:id="@+id/itemImagemContato"
+        android:id="@+id/imgImagemContato"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginRight="10dp"
@@ -15,11 +15,19 @@
     </ImageView>
 
     <TextView
-        android:id="@+id/itemNomeContato"
+        android:id="@+id/txtNomeIdade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:text="Nome, Idade"
         android:textSize="15sp" >
     </TextView>
+
+    <TextView
+        android:id="@+id/txtIdiomaNivel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Idioma - Nível"
+        android:textSize="15sp" />
 
 </LinearLayout>

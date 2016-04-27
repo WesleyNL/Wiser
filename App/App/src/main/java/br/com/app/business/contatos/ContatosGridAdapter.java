@@ -2,8 +2,6 @@ package br.com.app.business.contatos;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import br.com.app.activity.R;
-import br.com.app.utils.Utils;
 
 /**
  * Created by Wesley on 08/04/2016.
@@ -23,9 +23,9 @@ public class ContatosGridAdapter extends ArrayAdapter<Contato> {
 
     Context context;
     int layoutResourceId;
-    ArrayList<Contato> listaItemContatos = null;
+    LinkedList<Contato> listaItemContatos = null;
 
-    public ContatosGridAdapter(Context context, int layoutResourceId, ArrayList<Contato> data) {
+    public ContatosGridAdapter(Context context, int layoutResourceId, LinkedList<Contato> data) {
         super(context, layoutResourceId, data);
         this.context = context;
         this.layoutResourceId = layoutResourceId;
@@ -43,8 +43,9 @@ public class ContatosGridAdapter extends ArrayAdapter<Contato> {
             objView = inflater.inflate(layoutResourceId, parent, false);
 
             objHolder = new RecordHolder();
-            objHolder.txtNome = (TextView) objView.findViewById(R.id.itemNomeContato);
-            objHolder.imgPerfil = (ImageView) objView.findViewById(R.id.itemImagemContato);
+            objHolder.imgImagemContato = (ImageView) objView.findViewById(R.id.imgImagemContato);
+            objHolder.txtNomeIdade = (TextView) objView.findViewById(R.id.txtNomeIdade);
+            objHolder.txtIdiomaNivel = (TextView) objView.findViewById(R.id.txtIdiomaNivel);
             objView.setTag(objHolder);
         }
         else {
@@ -52,14 +53,16 @@ public class ContatosGridAdapter extends ArrayAdapter<Contato> {
         }
 
         Contato item = listaItemContatos.get(position);
-        objHolder.txtNome.setText(item.getUserName());
-        objHolder.imgPerfil.setImageBitmap(item.getProfilePicture());
+        objHolder.imgImagemContato.setImageBitmap(item.getProfilePicture());
+        objHolder.txtNomeIdade.setText(item.getFirstName() + ", " + item.getIdade());
+        objHolder.txtIdiomaNivel.setText(item.getIdioma() + " - " + item.getNivelFluencia());
 
         return objView;
     }
 
     static class RecordHolder {
-        TextView txtNome;
-        ImageView imgPerfil;
+        ImageView imgImagemContato;
+        TextView txtNomeIdade;
+        TextView txtIdiomaNivel;
     }
 }

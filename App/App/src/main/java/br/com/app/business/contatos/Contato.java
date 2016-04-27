@@ -11,6 +11,7 @@ public class Contato implements Serializable{
 
     private String userID = "";
     private String userName = "";
+    private String firstName = "";
     private String profilePictureURL = "";
     private Bitmap profilePicture;
     private int idade = 0;
@@ -43,6 +44,14 @@ public class Contato implements Serializable{
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getProfilePictureURL() {

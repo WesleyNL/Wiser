@@ -9,9 +9,10 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Button;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedList;
 
 import br.com.app.activity.R;
 import br.com.app.api.facebook.Facebook;
@@ -25,9 +26,7 @@ public class ContatosActivity extends Activity {
 
     private GridView grdResultado = null;
     private ContatosGridAdapter objCustomGridAdapter = null;
-    private ArrayList<String> listaUsuarios = null;
-    private ArrayList<Contato> listaItemContatos = null;
-    private static HashMap<String, Contato> listaPerfis = null;
+    private LinkedList<Contato> listaUsuarios = null;
     private AlertDialog detalhes;
 
     @Override
@@ -37,19 +36,15 @@ public class ContatosActivity extends Activity {
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        listaUsuarios = (ArrayList<String>) getIntent().getExtras().get("listaUsuarios");
+        listaUsuarios = new LinkedList<Contato>((ArrayList<Contato>) getIntent().getBundleExtra("listaUsuarios").get("listaUsuarios"));
         grdResultado = (GridView) findViewById(R.id.grdResultado);
-
-        listaItemContatos = new ArrayList<Contato>();
 
         carregar();
 
         grdResultado.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String userIdSelecionado = listaUsuarios.get(position);
-                Contato objSelecionado = listaPerfis.get(userIdSelecionado);
-                mostrarDetalhes(objSelecionado);
+                mostrarDetalhes(listaUsuarios.get(position));
             }
         });
     }
@@ -57,36 +52,22 @@ public class ContatosActivity extends Activity {
     public void mostrarDetalhes(final Contato contato){
         AlertDialog.Builder builderDetalhes = new AlertDialog.Builder(this);
 
-        View viewDetalhesTitulo = getLayoutInflater().inflate(R.layout.contatos_detalhes_titulo, null);
-
-        TextView lblFecharDetalhes = (TextView) viewDetalhesTitulo.findViewById(R.id.lblFecharDetalhes);
-        lblFecharDetalhes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                detalhes.cancel();
-            }
-        });
-
-        builderDetalhes.setCustomTitle(viewDetalhesTitulo);
-
         View viewDetalhes = getLayoutInflater().inflate(R.layout.contatos_detalhes, null);
 
         ImageView imgPerfil = (ImageView) viewDetalhes.findViewById(R.id.imgPerfil);
         imgPerfil.setImageBitmap(contato.getProfilePicture());
 
-        TextView lblNome = (TextView) viewDetalhes.findViewById(R.id.lblNomeDetalhe);
-        lblNome.setText(contato.getUserName());
+        TextView lblNomeIdade = (TextView) viewDetalhes.findViewById(R.id.lblNomeIdade);
+        lblNomeIdade.setText(contato.getFirstName() + ", " + contato.getIdade());
 
-        TextView lblLinkPerfil = (TextView) viewDetalhes.findViewById(R.id.lblLinkPerfil);
-        lblLinkPerfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Facebook.abrirPerfil(ContatosActivity.this, contato.getUserID());
-            }
-        });
+        TextView lblIdiomaNivel = (TextView) viewDetalhes.findViewById(R.id.lblIdiomaNivel);
+        lblIdiomaNivel.setText(contato.getIdioma() + " - " + contato.getNivelFluencia());
 
-        ImageView imgLinkPerfil = (ImageView) viewDetalhes.findViewById(R.id.imgLinkPerfil);
-        imgLinkPerfil.setOnClickListener(new View.OnClickListener() {
+        TextView lblStatus = (TextView) viewDetalhes.findViewById(R.id.lblStatus);
+        lblStatus.setText(contato.getStatus());
+
+        Button btnAbrirPerfil = (Button) viewDetalhes.findViewById(R.id.btnAbrirPerfil);
+        btnAbrirPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Facebook.abrirPerfil(ContatosActivity.this, contato.getUserID());
@@ -106,10 +87,9 @@ public class ContatosActivity extends Activity {
     }
 
     public void carregar(){
-        listaPerfis = Facebook.getProfiles(listaUsuarios);
-        listaItemContatos.addAll(listaPerfis.values());
+        listaUsuarios = Facebook.getProfiles(listaUsuarios);
 
-        objCustomGridAdapter = new ContatosGridAdapter(this, R.layout.contatos_grid, listaItemContatos);
+        objCustomGridAdapter = new ContatosGridAdapter(this, R.layout.contatos_grid, listaUsuarios);
         grdResultado.setAdapter(objCustomGridAdapter);
     }
 }

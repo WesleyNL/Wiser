@@ -29,12 +29,12 @@ import com.facebook.login.LoginResult;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import br.com.app.Sistema;
@@ -161,26 +161,26 @@ public class Facebook {
         }
     }
 
-    public static String getUserName(String userID) {
-        String userName = "";
+    public static String getFirstName(String userID) {
+        String firstName = "";
 
         Bundle parametros = new Bundle();
-        parametros.putString("fields", "name");
+        parametros.putString("fields", "first_name");
         request(userID, parametros);
 
         try {
             JSONObject obj = response.getJSONObject();
-            userName = obj.optString("name");
+            firstName = obj.optString("first_name");
 
-            if (userName.equals("")) {
-                userName = nomeIndisponivel;
+            if (firstName.equals("")) {
+                firstName = nomeIndisponivel;
             }
         }
         catch (Exception e) {
             e.printStackTrace();
         }
 
-        return userName;
+        return firstName;
     }
 
     public static Bitmap getProfilePicture(String userID) {
@@ -211,40 +211,38 @@ public class Facebook {
         return mIcon1;
     }
 
-    public static HashMap<String, Contato> getProfiles(final List<String> usersID) {
+    public static LinkedList<Contato> getProfiles(final LinkedList<Contato> contatos) {
         String listUsersID = "";
-        final HashMap contatos = new HashMap<String, Contato>();
-        Contato c = null;
 
-        for (String id : usersID) {
-            c = new Contato();
+        for (Contato c : contatos) {
             c.setUserName(nomeIndisponivel);
+            c.setFirstName(nomeIndisponivel);
             c.setProfilePicture(imgPerfilIndisponivel);
 
-            contatos.put(id, c);
-
-            listUsersID += id + ",";
+            listUsersID += c.getUserID() + ",";
         }
         listUsersID = listUsersID.substring(0, listUsersID.length() - 1);
 
         Bundle parametros = new Bundle();
         parametros.putString("ids", listUsersID);
-        parametros.putString("fields", "name,picture.width(250).height(250){url}");
+        parametros.putString("fields", "name,first_name,picture.width(250).height(250){url}");
         request("", parametros);
 
         try {
             JSONObject listUsers = response.getJSONObject();
             JSONObject user = null;
             URL imgValue = null;
-            c = null;
 
-            for (String id : usersID) {
-                if (listUsers.has(id)) {
-                    user = listUsers.getJSONObject(id);
-                    c = (Contato) contatos.get(id);
-                    c.setUserID(id);
+            for (Contato c : contatos) {
+                if (listUsers.has(c.getUserID())) {
+                    user = listUsers.getJSONObject(c.getUserID());
+
                     if (user.has("name")) {
                         c.setUserName(user.getString("name"));
+                    }
+
+                    if (user.has("first_name")) {
+                        c.setFirstName(user.getString("first_name"));
                     }
 
                     if (user.has("picture")) {
