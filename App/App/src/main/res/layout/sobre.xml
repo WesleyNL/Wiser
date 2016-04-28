@@ -4,11 +4,12 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     tools:context=".sobre.SobreActivity">
 
+    <!--android:background="@drawable/containershape"-->
     <ImageView
         android:layout_width="320dp"
         android:layout_height="460dp"
         android:id="@+id/imageView"
-        android:background="@drawable/containershape"
+        android:background="@drawable/bordershadow"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
@@ -47,7 +48,7 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="© 2016-2016 FATEC CPB"
         android:id="@+id/lblSobreRodape"
         android:layout_width="wrap_content"
