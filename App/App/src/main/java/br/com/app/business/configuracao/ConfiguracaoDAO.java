@@ -16,6 +16,7 @@ public class ConfiguracaoDAO extends Configuracao{
     private static final String SALVAR = "salvar";
     private static final String CONSULTAR = "consultar";
     private static final String DESATIVAR = "desativar";
+    private static final String VERIFICAR = "existe";
 
     public boolean consultar(){
 
@@ -102,6 +103,33 @@ public class ConfiguracaoDAO extends Configuracao{
 
             return Boolean.parseBoolean(objResposta.toString());
         } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean existe(){
+
+        SoapObject objEnvio = new SoapObject(NAMESPACE, VERIFICAR);
+
+        SoapObject objVerificar = new SoapObject(NAMESPACE, "configuracao");
+        objVerificar.addProperty("userId", getUserId());
+
+        objEnvio.addSoapObject(objVerificar);
+
+        SoapSerializationEnvelope objEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        objEnvelope.setOutputSoapObject(objEnvio);
+        objEnvelope.implicitTypes = true;
+
+        HttpTransportSE objHTTP = new HttpTransportSE(URL);
+
+        try{
+            objHTTP.call("urn:" + VERIFICAR, objEnvelope);
+
+            SoapPrimitive objResposta = (SoapPrimitive) objEnvelope.getResponse();
+
+            return Boolean.parseBoolean(objResposta.toString());
+        } catch(Exception e){
             e.printStackTrace();
             return false;
         }

@@ -51,6 +51,10 @@ public class Utils {
 		try {
 
 			String sql = "SELECT * FROM " + tabela;
+			
+			if(tabela.trim().equals("IDIOMA")){
+				sql += " ORDER BY DESCRICAO";
+			}
 
 			PreparedStatement objPS = Conexao.getInstance().getConexao().prepareStatement(sql);
 			rst = objPS.executeQuery();
@@ -60,7 +64,10 @@ public class Utils {
 			}
 			
 			if(!todos){
-				lista.remove(0);
+				lista.remove(lista.indexOf("1 - Todos"));
+			}
+			else{
+				lista.add(lista.remove(lista.indexOf("1 - Todos")));
 			}
 			
 		} catch (SQLException e) {

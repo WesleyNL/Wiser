@@ -17,9 +17,9 @@
 
     <ImageView
         android:layout_width="320dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:id="@+id/imageView2"
-        android:background="@drawable/containershape"
+        android:background="@drawable/bordershadow"
         android:layout_below="@+id/lblIdioma"
         android:layout_centerHorizontal="true" />
 
@@ -46,9 +46,9 @@
 
     <ImageView
         android:layout_width="320dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:id="@+id/imageView3"
-        android:background="@drawable/containershape"
+        android:background="@drawable/bordershadow"
         android:layout_below="@+id/lblFluencia"
         android:layout_centerHorizontal="true" />
 
@@ -73,23 +73,38 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="190dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblContLetras"
+        android:text="0/30"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/imageView3" />
+
     <ImageView
         android:layout_width="320dp"
-        android:layout_height="150dp"
+        android:layout_height="60dp"
         android:id="@+id/imageView4"
-        android:background="@drawable/containershape"
+        android:background="@drawable/bordershadow"
         android:layout_below="@+id/lblStatus"
         android:layout_centerHorizontal="true" />
 
     <EditText
-        android:layout_width="320dp"
-        android:layout_height="150dp"
         android:id="@+id/txtStatus"
-        android:layout_marginLeft="20dp"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/lblStatus"
-        android:maxLines="5"
-        android:textSize="20dp"
-        android:singleLine="false" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="18dp"
+        android:background="@null"
+        android:maxLength="30"
+        android:gravity="top"
+        android:singleLine="true"
+        android:textSize="18dp"
+        android:inputType="textCapSentences" />
 
     <Button
         android:layout_width="320dp"
@@ -105,7 +120,7 @@
 
     <Button
         android:layout_width="320dp"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:text="Desativar Conta"
         android:id="@+id/btnDesativar"
         android:onClick="desativar"

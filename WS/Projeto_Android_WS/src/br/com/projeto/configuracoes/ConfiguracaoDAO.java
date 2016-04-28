@@ -76,8 +76,8 @@ public class ConfiguracaoDAO extends Configuracao{
 	
 			PreparedStatement objPS = Conexao.getInstance().getConexao().prepareStatement(sql);
 			objPS.setString(1, configuracao.getUserId());
-			objPS.setByte(2, (byte)1);
-			objPS.setByte(3, (byte)1);
+			objPS.setByte(2, (byte)2);
+			objPS.setByte(3, (byte)2);
 			objPS.setString(4, "...");
 	
 			retorno = objPS.execute();
@@ -92,6 +92,15 @@ public class ConfiguracaoDAO extends Configuracao{
 		}
 		
 		return retorno;
+	}
+	
+	public boolean existe(Configuracao configuracao){
+		try {
+			return existe(configuracao.getUserId());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	private boolean existe(String userId) throws SQLException{

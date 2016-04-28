@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
@@ -61,7 +62,20 @@ public class SplashScreenActivity extends Activity {
 
     private void checkAccessToken() {
 
-        String ACCESS_TOKEN = getAccessToken();
+
+        int i = 0;
+        String ACCESS_TOKEN = "";
+
+        while(i < 3 && ACCESS_TOKEN.trim().isEmpty()){
+            ACCESS_TOKEN = getAccessToken();
+            i++;
+        }
+
+        if(ACCESS_TOKEN.trim().isEmpty()){
+            Toast.makeText(this, "Não foi possível inicializar o sistema.", Toast.LENGTH_LONG).show();
+            finish();
+        }
+
         String APP_ID = String.valueOf(R.string.facebook_app_id);
         String ID_ACCOUNT = "1262642377098040";
 
@@ -83,11 +97,10 @@ public class SplashScreenActivity extends Activity {
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    finish();
-
-                    Intent i = new Intent();
-                    i.setClass(SplashScreenActivity.this, PesquisaActivity.class);
+                    Intent i = new Intent(SplashScreenActivity.this, PesquisaActivity.class);
                     startActivity(i);
+
+                    finish();
                 }
             }, SPLASH_TIMEOUT);
         }
@@ -95,8 +108,6 @@ public class SplashScreenActivity extends Activity {
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    finish();
-
                     Intent i = new Intent(SplashScreenActivity.this, LoginActivity.class);
                     startActivity(i);
 

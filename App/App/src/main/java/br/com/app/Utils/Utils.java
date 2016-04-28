@@ -20,11 +20,13 @@ import org.ksoap2.transport.HttpTransportSE;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import br.com.app.Sistema;
+import br.com.app.activity.R;
 import br.com.app.activity.configuracao.ConfiguracoesActivity;
 import br.com.app.activity.contatos.ContatosActivity;
 import br.com.app.activity.login.LoginActivity;
@@ -46,9 +48,9 @@ public class Utils {
     public static LinkedHashMap<Integer, String> hashIdiomas = new LinkedHashMap<Integer, String>();
     public static LinkedHashMap<Integer, String> hashFluencias  = new LinkedHashMap<Integer, String>();;
 
-    public static LinkedList<String> pesquisarIdiomas(boolean todos){
+    public static LinkedList<IdiomaFluencia> pesquisarIdiomas(boolean todos){
 
-        LinkedList<String> listaIdiomas = null;
+        LinkedList<IdiomaFluencia> listaIdiomas = null;
         SoapObject objPesquisar = new SoapObject(NAMESPACE, UTILS_PESQ_IDIOMAS);
 
         SoapObject objEnvio = new SoapObject(NAMESPACE, "utils");
@@ -66,13 +68,13 @@ public class Utils {
             objHTTP.call("urn:" + UTILS_PESQ_IDIOMAS, objEnvelope);
             SoapObject objResposta = (SoapObject) objEnvelope.bodyIn;
 
-            listaIdiomas = new LinkedList<String>();
+            listaIdiomas = new LinkedList<IdiomaFluencia>();
             hashIdiomas.clear();
             String[] aux;
 
             for(int i=0; i<objResposta.getPropertyCount(); i++){
-                listaIdiomas.add(objResposta.getPropertyAsString(i));
                 aux = objResposta.getPropertyAsString(i).split("-");
+                listaIdiomas.add(new IdiomaFluencia(Integer.parseInt(aux[0].trim()), aux[1].trim()));
                 hashIdiomas.put(Integer.parseInt(aux[0].trim()), aux[1].trim());
             }
         }
@@ -89,16 +91,16 @@ public class Utils {
 
     public static void carregarComboIdiomas(Spinner cmbIdioma, Context context, boolean todos) {
 
-        LinkedList<String> listaIdiomas = pesquisarIdiomas(todos);
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listaIdiomas);
+        LinkedList<IdiomaFluencia> listaIdiomas = pesquisarIdiomas(todos);
+        ArrayAdapter<IdiomaFluencia> dataAdapter = new ArrayAdapter<IdiomaFluencia>(context, android.R.layout.simple_spinner_item, listaIdiomas);
 
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cmbIdioma.setAdapter(dataAdapter);
     }
 
-    public static LinkedList<String> pesquisarFluencias(boolean todos){
+    public static LinkedList<IdiomaFluencia> pesquisarFluencias(boolean todos){
 
-        LinkedList<String> listaFluencias = null;
+        LinkedList<IdiomaFluencia> listaFluencias = null;
         SoapObject objPesquisar = new SoapObject(NAMESPACE, UTILS_PESQ_FLUENCIAS);
 
         SoapObject objEnvio = new SoapObject(NAMESPACE, "utils");
@@ -117,13 +119,13 @@ public class Utils {
 
             SoapObject objResposta = (SoapObject) objEnvelope.bodyIn;
 
-            listaFluencias = new LinkedList<String>();
+            listaFluencias = new LinkedList<IdiomaFluencia>();
             hashFluencias.clear();
             String[] aux;
 
             for(int i=0; i<objResposta.getPropertyCount(); i++){
-                listaFluencias.add(objResposta.getPropertyAsString(i));
                 aux = objResposta.getPropertyAsString(i).split("-");
+                listaFluencias.add(new IdiomaFluencia(Integer.parseInt(aux[0].trim()), aux[1].trim()));
                 hashFluencias.put(Integer.parseInt(aux[0].trim()), aux[1].trim());
             }
         } catch(Exception e){
@@ -139,8 +141,8 @@ public class Utils {
 
     public static void carregarComboFluencia(Spinner cmbFluencia, Context context, boolean todos) {
 
-        LinkedList<String> listaFluencia = pesquisarFluencias(todos);
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listaFluencia);
+        LinkedList<IdiomaFluencia> listaFluencia = pesquisarFluencias(todos);
+        ArrayAdapter<IdiomaFluencia> dataAdapter = new ArrayAdapter<IdiomaFluencia>(context, android.R.layout.simple_spinner_item, listaFluencia);
 
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cmbFluencia.setAdapter(dataAdapter);
@@ -248,5 +250,19 @@ public class Utils {
         }
 
         return imagem;
+    }
+
+    public static int getPosicaoIdioma(int idioma){
+        int i;
+        Iterator<Integer> itIdioma = Utils.hashIdiomas.keySet().iterator();
+        for(i=0; itIdioma.hasNext() && itIdioma.next() != idioma; i++);
+        return i;
+    }
+
+    public static int getPosicaoFluencia(int fluencia){
+        int i;
+        Iterator<Integer> itFluencia = Utils.hashFluencias.keySet().iterator();
+        for(i=0; itFluencia.hasNext() && itFluencia.next() != fluencia; i++);
+        return i;
     }
 }

@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 
 import br.com.app.Sistema;
 import br.com.app.activity.R;
 import br.com.app.enums.EnmTelas;
+import br.com.app.utils.IdiomaFluencia;
 import br.com.app.utils.Utils;
 import br.com.app.business.configuracao.ConfiguracaoDAO;
 
@@ -16,6 +19,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.Iterator;
 
 /**
  * Created by Jefferson on 31/03/2016.
@@ -30,6 +35,22 @@ public class ConfiguracoesActivity extends Activity {
         setContentView(R.layout.configuracoes);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        final TextView lblContLetras = (TextView) super.findViewById(R.id.lblContLetras);
+        EditText txtStatus = (EditText) super.findViewById(R.id.txtStatus);
+        TextWatcher textWatcher = new TextWatcher() {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                lblContLetras.setText(String.valueOf(s.length()) + " /30");
+            }
+
+            public void afterTextChanged(Editable s) {
+            }
+        };
+        txtStatus.addTextChangedListener(textWatcher);
+
 
         objConfDAO = new ConfiguracaoDAO();
 
@@ -65,10 +86,10 @@ public class ConfiguracoesActivity extends Activity {
 
         if(objConfDAO.consultar()){
             Spinner cmbIdioma = (Spinner) findViewById(R.id.cmbIdiomaConfig);
-            cmbIdioma.setSelection(objConfDAO.getIdioma() - 1);
+            cmbIdioma.setSelection(Utils.getPosicaoIdioma(objConfDAO.getIdioma()));
 
             Spinner cmbFluencia = (Spinner) findViewById(R.id.cmbFluenciaConfig);
-            cmbFluencia.setSelection(objConfDAO.getFluencia() - 1);
+            cmbFluencia.setSelection(Utils.getPosicaoFluencia(objConfDAO.getFluencia()));
 
             TextView txtStatus = (EditText) findViewById(R.id.txtStatus);
             txtStatus.setText(objConfDAO.getStatus());
@@ -87,10 +108,13 @@ public class ConfiguracoesActivity extends Activity {
         Spinner cmbIdioma = (Spinner) findViewById(R.id.cmbIdiomaConfig);
         Spinner cmbFluencia = (Spinner) findViewById(R.id.cmbFluenciaConfig);
         TextView txtStatus = (EditText) findViewById(R.id.txtStatus);
+        IdiomaFluencia idiomaFluencia = null;
 
         objConfDAO.setUserId(Sistema.USER_ID);
-        objConfDAO.setIdioma(Byte.parseByte(cmbIdioma.getSelectedItem().toString().split("-")[0].trim()));
-        objConfDAO.setFluencia(Byte.parseByte(cmbFluencia.getSelectedItem().toString().split("-")[0].trim()));
+        idiomaFluencia = (IdiomaFluencia)cmbIdioma.getItemAtPosition(cmbIdioma.getSelectedItemPosition());
+        objConfDAO.setIdioma((byte)idiomaFluencia.getId());
+        idiomaFluencia = (IdiomaFluencia)cmbFluencia.getItemAtPosition(cmbFluencia.getSelectedItemPosition());
+        objConfDAO.setFluencia((byte)idiomaFluencia.getId());
         objConfDAO.setStatus(txtStatus.getText().toString());
 
         AlertDialog.Builder dialogo = new AlertDialog.Builder(this);

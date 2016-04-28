@@ -3,6 +3,8 @@ package br.com.app.activity.pesquisa;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -17,7 +19,9 @@ import br.com.app.Sistema;
 import br.com.app.activity.R;
 import br.com.app.activity.contatos.ContatosActivity;
 
+import br.com.app.business.configuracao.ConfiguracaoDAO;
 import br.com.app.enums.EnmTelas;
+import br.com.app.utils.IdiomaFluencia;
 import br.com.app.utils.Utils;
 import br.com.app.business.login.LoginDAO;
 import br.com.app.business.pesquisa.PesquisaDAO;
@@ -56,6 +60,8 @@ public class PesquisaActivity extends Activity {
         if (hasLocationPermission()) {
             salvar();
         }
+
+        verificarConfiguracao();
     }
 
     @Override
@@ -108,7 +114,7 @@ public class PesquisaActivity extends Activity {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                                Manifest.permission.ACCESS_FINE_LOCATION}, ACCESS_COARSE_LOCATION);
+                        Manifest.permission.ACCESS_FINE_LOCATION}, ACCESS_COARSE_LOCATION);
                 return false;
             }
         }
@@ -163,13 +169,11 @@ public class PesquisaActivity extends Activity {
     }
 
     public void carregarComboIdioma(){
-
         Spinner cmbIdioma = (Spinner) findViewById(R.id.cmbIdiomaProcurar);
         Utils.carregarComboIdiomas(cmbIdioma, this, true);
     }
 
     public void carregarComboFluencia(){
-
         Spinner cmbFluencia = (Spinner) findViewById(R.id.cmbFluenciaProcurar);
         Utils.carregarComboFluencia(cmbFluencia, this, true);
     }
@@ -178,10 +182,13 @@ public class PesquisaActivity extends Activity {
 
         Spinner cmbIdioma = (Spinner) findViewById(R.id.cmbIdiomaProcurar);
         Spinner cmbFluencia = (Spinner) findViewById(R.id.cmbFluenciaProcurar);
+        IdiomaFluencia idiomaFluencia = null;
 
         objProcDAO.setUserId(Sistema.USER_ID);
-        objProcDAO.setIdioma(Byte.parseByte(cmbIdioma.getSelectedItem().toString().split("-")[0].trim()));
-        objProcDAO.setFluencia(Byte.parseByte(cmbFluencia.getSelectedItem().toString().split("-")[0].trim()));
+        idiomaFluencia = (IdiomaFluencia)cmbIdioma.getItemAtPosition(cmbIdioma.getSelectedItemPosition());
+        objProcDAO.setIdioma((byte)idiomaFluencia.getId());
+        idiomaFluencia = (IdiomaFluencia)cmbFluencia.getItemAtPosition(cmbFluencia.getSelectedItemPosition());
+        objProcDAO.setFluencia((byte)idiomaFluencia.getId());
         objProcDAO.setDistancia(distanciaSelecionada);
 
         if (objProcDAO.procurar()){
@@ -198,6 +205,26 @@ public class PesquisaActivity extends Activity {
             dialogo.setTitle("Resultado");
             dialogo.setMessage("Não foram encontrados usuários para os filtros selecionados.");
             dialogo.setNeutralButton("OK", null);
+            dialogo.show();
+        }
+    }
+
+    public void verificarConfiguracao(){
+
+        ConfiguracaoDAO objConfDAO = new ConfiguracaoDAO();
+        objConfDAO.setUserId(Sistema.USER_ID);
+
+        if(!objConfDAO.existe()){
+            AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
+
+            dialogo.setTitle("Configurar");
+            dialogo.setMessage("Você ainda não personalizou suas configurações!\nDeseja fazer isto agora?");
+            dialogo.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    Utils.chamarActivity(PesquisaActivity.this, EnmTelas.CONFIGURACOES);
+                }
+            });
+            dialogo.setNegativeButton("Não", null);
             dialogo.show();
         }
     }
