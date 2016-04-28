@@ -5,7 +5,6 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
-import java.util.LinkedList;
 import java.util.Vector;
 
 import br.com.app.Sistema;

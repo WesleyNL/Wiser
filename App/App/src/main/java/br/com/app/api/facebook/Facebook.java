@@ -31,11 +31,8 @@ import org.json.JSONObject;
 
 import java.net.URL;
 import java.security.MessageDigest;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 
 import br.com.app.Sistema;
 import br.com.app.activity.R;

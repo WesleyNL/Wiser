@@ -3,7 +3,6 @@ package br.com.app.activity.pesquisa;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -171,11 +170,13 @@ public class PesquisaActivity extends Activity {
     public void carregarComboIdioma(){
         Spinner cmbIdioma = (Spinner) findViewById(R.id.cmbIdiomaProcurar);
         Utils.carregarComboIdiomas(cmbIdioma, this, true);
+        cmbIdioma.setSelection(Utils.getPosicaoIdioma(1));
     }
 
     public void carregarComboFluencia(){
         Spinner cmbFluencia = (Spinner) findViewById(R.id.cmbFluenciaProcurar);
         Utils.carregarComboFluencia(cmbFluencia, this, true);
+        cmbFluencia.setSelection(Utils.getPosicaoFluencia(1));
     }
 
     public void procurar(View view){

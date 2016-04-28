@@ -51,7 +51,6 @@ public class ConfiguracoesActivity extends Activity {
         };
         txtStatus.addTextChangedListener(textWatcher);
 
-
         objConfDAO = new ConfiguracaoDAO();
 
         carregarComboIdioma();
@@ -67,16 +66,12 @@ public class ConfiguracoesActivity extends Activity {
     }
 
     public void carregarComboIdioma(){
-
         Spinner cmbIdioma = (Spinner) findViewById(R.id.cmbIdiomaConfig);
-
         Utils.carregarComboIdiomas(cmbIdioma, this);
     }
 
     public void carregarComboFluencia(){
-
         Spinner cmbFluencia = (Spinner) findViewById(R.id.cmbFluenciaConfig);
-
         Utils.carregarComboFluencia(cmbFluencia, this);
     }
 

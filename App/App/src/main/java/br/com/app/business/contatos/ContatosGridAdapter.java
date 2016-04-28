@@ -9,13 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import br.com.app.activity.R;
-import br.com.app.utils.Utils;
 
 /**
  * Created by Wesley on 08/04/2016.

@@ -1,6 +1,5 @@
 package br.com.app.business.pesquisa;
 
-import java.io.Serializable;
 import java.util.LinkedList;
 
 import br.com.app.business.contatos.Contato;
