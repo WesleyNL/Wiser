@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 
 import br.com.app.Sistema;
@@ -30,6 +32,22 @@ public class ConfiguracoesActivity extends Activity {
         setContentView(R.layout.configuracoes);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        final TextView lblContLetras = (TextView) super.findViewById(R.id.lblContLetras);
+        EditText txtStatus = (EditText) super.findViewById(R.id.txtStatus);
+        TextWatcher textWatcher = new TextWatcher() {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                lblContLetras.setText(String.valueOf(s.length()) + " /30");
+            }
+
+            public void afterTextChanged(Editable s) {
+            }
+        };
+        txtStatus.addTextChangedListener(textWatcher);
+
 
         objConfDAO = new ConfiguracaoDAO();
 

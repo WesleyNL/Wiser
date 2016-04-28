@@ -83,11 +83,10 @@ public class SplashScreenActivity extends Activity {
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    finish();
-
-                    Intent i = new Intent();
-                    i.setClass(SplashScreenActivity.this, PesquisaActivity.class);
+                    Intent i = new Intent(SplashScreenActivity.this, PesquisaActivity.class);
                     startActivity(i);
+
+                    finish();
                 }
             }, SPLASH_TIMEOUT);
         }
@@ -95,8 +94,6 @@ public class SplashScreenActivity extends Activity {
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    finish();
-
                     Intent i = new Intent(SplashScreenActivity.this, LoginActivity.class);
                     startActivity(i);
 

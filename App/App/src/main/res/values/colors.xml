@@ -17,6 +17,6 @@
 
     <color name="colorPrimaryInverseText">#ffffff</color>
     <color name="colorSecondaryInverseText">#FFFFFF</color>
-    <color name="colorWindowBackground">#F7F7F7</color>
+    <color name="colorWindowBackground">#efefef</color>
 
 </resources>

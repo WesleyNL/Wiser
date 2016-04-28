@@ -19,9 +19,9 @@
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="320dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/containershape"
+        android:background="@drawable/bordershadow"
         android:layout_below="@+id/lblIdioma" />
 
     <Spinner
@@ -49,10 +49,10 @@
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="320dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/lblFluencia"
-        android:background="@drawable/containershape" />
+        android:background="@drawable/bordershadow" />
 
     <Spinner
         android:layout_width="310dp"
@@ -89,9 +89,9 @@
     <ImageView
         android:id="@+id/imageView7"
         android:layout_width="320dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/containershape"
+        android:background="@drawable/bordershadow"
         android:layout_below="@id/lblDistancia" />
 
     <SeekBar
@@ -101,7 +101,7 @@
         android:layout_below="@+id/lblDistancia"
         android:padding="0dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="22dp"
         android:progressTint="#00d4ff"
         android:secondaryProgressTint="#00bbff"
         android:thumbTint="#10c3d3"
