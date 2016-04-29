@@ -2,6 +2,7 @@ package br.com.app.activity.contatos;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,6 +51,12 @@ public class ContatosActivity extends Activity {
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        onBackPressed();
+        return true;
+    }
+
     public void mostrarDetalhes(final Contato contato){
         AlertDialog.Builder builderDetalhes = new AlertDialog.Builder(this);
 
@@ -81,13 +88,7 @@ public class ContatosActivity extends Activity {
         detalhes.show();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        onBackPressed();
-        return true;
-    }
-
-    public void carregar(){
+    private void carregar(){
         listaUsuarios = Facebook.getProfiles(listaUsuarios);
 
         objCustomGridAdapter = new ContatosGridAdapter(this, R.layout.contatos_grid, listaUsuarios);

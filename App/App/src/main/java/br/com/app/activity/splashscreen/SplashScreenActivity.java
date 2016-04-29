@@ -40,13 +40,17 @@ public class SplashScreenActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
-
-        Facebook facebook = new Facebook(this);
+        new Facebook(this);
 
         if (Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         checkAccessToken();
         iniciarAplicacao();
@@ -59,23 +63,30 @@ public class SplashScreenActivity extends Activity {
     }
 
     private void checkAccessToken() {
-
+        String APP_ID = String.valueOf(R.string.facebook_app_id);
+        String ID_ACCOUNT = "1262642377098040";
 
         int i = 0;
         String ACCESS_TOKEN = "";
 
-        while(i < 3 && ACCESS_TOKEN.trim().isEmpty()){
-            ACCESS_TOKEN = getAccessToken();
-            i++;
+        try {
+            while (i < 3 && ACCESS_TOKEN.trim().isEmpty()) {
+                ACCESS_TOKEN = getAccessToken();
+                i++;
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Não foi possível inicializar o sistema.", Toast.LENGTH_LONG).show();
+            finish();
+            return;
         }
 
         if(ACCESS_TOKEN.trim().isEmpty()){
             Toast.makeText(this, "Não foi possível inicializar o sistema.", Toast.LENGTH_LONG).show();
             finish();
+            return;
         }
-
-        String APP_ID = String.valueOf(R.string.facebook_app_id);
-        String ID_ACCOUNT = "1262642377098040";
 
         Sistema.ACCESS_TOKEN = new AccessToken(
                 ACCESS_TOKEN,

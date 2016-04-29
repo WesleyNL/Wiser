@@ -56,11 +56,16 @@ public class Facebook {
         this.contexto = contexto;
 
         FacebookSdk.sdkInitialize(contexto);
+        callbackManager = CallbackManager.Factory.create();
         getSignatures();
 
-        if (logado()) {
-            Sistema.USER_ID = getUserID();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+
+        Sistema.USER_ID = getUserID();
 
         imgPerfilIndisponivel = BitmapFactory.decodeResource(
                 contexto.getResources(), R.drawable.com_facebook_profile_picture_blank_portrait);
@@ -88,7 +93,6 @@ public class Facebook {
 
     public static void setBtnLogin(final Activity loginActivity, Button loginButton) {
         Button btnLogin = loginButton;
-        callbackManager = CallbackManager.Factory.create();
 
         try {
             LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
