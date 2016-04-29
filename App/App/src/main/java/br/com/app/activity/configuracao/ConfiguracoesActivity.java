@@ -20,8 +20,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.Iterator;
-
 /**
  * Created by Jefferson on 31/03/2016.
  */
