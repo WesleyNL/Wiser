@@ -27,20 +27,24 @@ public class PesquisaDAO {
 		
 		try {
 			String sql = "SELECT l.USER_ID, l.COORDENADA_ULTIMO_ACESSO," + 
-						 " C.IDIOMA, C.FLUENCIA, C.STATUS" +
+						 " c.IDIOMA, c.FLUENCIA, c.STATUS" +
 						 " FROM USER_LOGIN l" +
 						 " INNER JOIN USER_CONFIGURACAO c" +
 						 " ON l.USER_ID = c.USER_ID" +
-						 " WHERE SITUACAO = ? " +
-						 " AND IDIOMA = ? " +
-						 " AND FLUENCIA = ? " +
+						 " WHERE l.SITUACAO = ? " +
 						 " AND l.USER_ID <> ?";
+			
+			if(procurar.getIdioma() != Constantes.VALOR_TODOS){
+				sql += " AND IDIOMA = " + procurar.getIdioma();
+			}
+			
+			if(procurar.getFluencia() != Constantes.VALOR_TODOS){
+				sql += " AND FLUENCIA = " + procurar.getFluencia();
+			}
 			
 			PreparedStatement objPS = Conexao.getInstance().getConexao().prepareStatement(sql);
 			objPS.setByte(1, Constantes.CODIGO_ATIVO);
-			objPS.setString(2, procurar.getIdioma() == Constantes.VALOR_TODOS ? "IDIOMA" : String.valueOf(procurar.getIdioma()));
-			objPS.setString(3, procurar.getFluencia() == Constantes.VALOR_TODOS ? "FLUENCIA" : String.valueOf(procurar.getFluencia()));
-			objPS.setString(4, procurar.getUserId());
+			objPS.setString(2, procurar.getUserId());
 			rst = objPS.executeQuery();
 				
 			double latitudeP1 = Double.parseDouble(coordUsuario.split("[|]")[0]);

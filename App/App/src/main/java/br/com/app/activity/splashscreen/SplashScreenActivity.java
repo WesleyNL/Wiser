@@ -53,6 +53,13 @@ public class SplashScreenActivity extends Activity {
         super.onResume();
 
         checkAccessToken();
+
+        if(Sistema.ACCESS_TOKEN == null){
+            Toast.makeText(this, "Não foi possível inicializar o sistema.", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+
         iniciarAplicacao();
     }
 
@@ -65,39 +72,30 @@ public class SplashScreenActivity extends Activity {
     private void checkAccessToken() {
         String APP_ID = String.valueOf(R.string.facebook_app_id);
         String ID_ACCOUNT = "1262642377098040";
-
-        int i = 0;
         String ACCESS_TOKEN = "";
 
         try {
-            while (i < 3 && ACCESS_TOKEN.trim().isEmpty()) {
-                ACCESS_TOKEN = getAccessToken();
-                i++;
+            ACCESS_TOKEN = getAccessToken();
+
+            if(ACCESS_TOKEN.trim().isEmpty()){
+                return;
             }
+
+            Sistema.ACCESS_TOKEN = new AccessToken(
+                    ACCESS_TOKEN,
+                    APP_ID,
+                    ID_ACCOUNT,
+                    Arrays.asList("public_profile", "user_friends"),
+                    null,
+                    null,
+                    null,
+                    null
+            );
         }
         catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "Não foi possível inicializar o sistema.", Toast.LENGTH_LONG).show();
-            finish();
             return;
         }
-
-        if(ACCESS_TOKEN.trim().isEmpty()){
-            Toast.makeText(this, "Não foi possível inicializar o sistema.", Toast.LENGTH_LONG).show();
-            finish();
-            return;
-        }
-
-        Sistema.ACCESS_TOKEN = new AccessToken(
-                ACCESS_TOKEN,
-                APP_ID,
-                ID_ACCOUNT,
-                Arrays.asList("public_profile", "user_friends"),
-                null,
-                null,
-                null,
-                null
-        );
     }
 
     private void iniciarAplicacao() {
