@@ -6,6 +6,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -43,6 +45,7 @@ public class PesquisaActivity extends Activity {
     private LoginDAO objLoginDAO = null;
 
     private final int ACCESS_COARSE_LOCATION = 0;
+    private LocationManager locationManager = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,20 @@ public class PesquisaActivity extends Activity {
         }
 
         verificarConfiguracao();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        atualizarLocalização();
+    }
+
+    private void atualizarLocalização(){
+        if(locationManager != null){
+            if(getPackageManager().checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION, getPackageName()) == getPackageManager().PERMISSION_GRANTED){
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, (LocationListener)new Utils());
+            }
+        }
     }
 
     @Override
@@ -153,6 +170,8 @@ public class PesquisaActivity extends Activity {
         });
 
         objProcDAO = new PesquisaDAO();
+
+        locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
     }
 
     public void salvar() {

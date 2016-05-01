@@ -8,7 +8,9 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -26,7 +28,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import br.com.app.Sistema;
-import br.com.app.activity.R;
 import br.com.app.activity.configuracao.ConfiguracoesActivity;
 import br.com.app.activity.contatos.ContatosActivity;
 import br.com.app.activity.login.LoginActivity;
@@ -37,7 +38,7 @@ import br.com.app.enums.EnmTelas;
 /**
  * Created by Wesley on 03/04/2016.
  */
-public class Utils {
+public class Utils implements LocationListener {
 
     private static final String URL = "http://" + Sistema.SERVIDOR_WS + "/Projeto_Android_WS/services/Utils?wsdl";
     private static final String NAMESPACE = "http://utils.projeto.com.br";
@@ -47,6 +48,8 @@ public class Utils {
 
     public static LinkedHashMap<Integer, String> hashIdiomas = new LinkedHashMap<Integer, String>();
     public static LinkedHashMap<Integer, String> hashFluencias  = new LinkedHashMap<Integer, String>();;
+
+    public static Location locationPorListener = null;
 
     public static LinkedList<IdiomaFluencia> pesquisarIdiomas(boolean todos){
 
@@ -162,18 +165,23 @@ public class Utils {
 
             if (providers != null && providers.contains(LocationManager.NETWORK_PROVIDER) || providers.contains(LocationManager.PASSIVE_PROVIDER) || providers.contains(LocationManager.GPS_PROVIDER)) {
 
-                Location loc = locMng.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-                if(loc == null) {
-                    loc = locMng.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+                if(locationPorListener != null) {
+                   return locationPorListener.getLatitude() + "|" + locationPorListener.getLongitude();
                 }
+                else {
+                    Location loc = locMng.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-                if(loc == null){
-                    loc = locMng.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                }
+                    if (loc == null) {
+                        loc = locMng.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+                    }
 
-                if (loc != null) {
-                    return loc.getLatitude() + "|" + loc.getLongitude();
+                    if (loc == null) {
+                        loc = locMng.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    }
+
+                    if (loc != null) {
+                        return loc.getLatitude() + "|" + loc.getLongitude();
+                    }
                 }
             }
         }
@@ -265,4 +273,18 @@ public class Utils {
         for(i=0; itFluencia.hasNext() && itFluencia.next() != fluencia; i++);
         return i;
     }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        this.locationPorListener = location;
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) { }
+
+    @Override
+    public void onProviderEnabled(String provider) { }
+
+    @Override
+    public void onProviderDisabled(String provider) { }
 }
