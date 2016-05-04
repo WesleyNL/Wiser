@@ -25,6 +25,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
+import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 
@@ -156,7 +157,7 @@ public class Facebook {
 
     public static String getUserID() {
         try {
-            return AccessToken.getCurrentAccessToken().getUserId();
+            return Profile.getCurrentProfile().getId();
         }
         catch (Exception e) {
             return "";
@@ -268,20 +269,27 @@ public class Facebook {
     }
 
     public static void abrirPerfil(Activity activity, String userID) {
-        String url = "https://www.facebook.com/" + userID;
-        Uri uri;
 
         try {
-            ApplicationInfo applicationInfo = activity.getApplicationContext().getApplicationInfo();
-            if (applicationInfo.enabled) {
-                uri = Uri.parse("fb://facewebmodal/f?href=" + url);
-                activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("fb://facewebmodal/f?href=" + url)));
+            int versionCode = activity.getApplicationContext().getPackageManager().getPackageInfo("com.facebook.katana", 0).versionCode;
+
+            if(!userID.isEmpty()) {
+                Uri uri = Uri.parse("fb://profile/" + userID);
+                activity.startActivity(new Intent(Intent.ACTION_VIEW, uri));
+            }
+            else if (versionCode >= 3002850 && !facebookUrl.isEmpty()) {
+                Uri uri = Uri.parse("fb://facewebmodal/f?href=" + facebookUrl);
+                activity.startActivity(new Intent(Intent.ACTION_VIEW, uri));
+            }
+            else {
+                Uri uri = Uri.parse(facebookUrl);
+                activity.startActivity(new Intent(Intent.ACTION_VIEW, uri));
             }
         }
-        catch (Exception e) {
-            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+        catch (PackageManager.NameNotFoundException e) {
+            Uri uri = Uri.parse(facebookUrl);
+            activity.startActivity(new Intent(Intent.ACTION_VIEW, uri));
         }
-
     }
 
     public static boolean logado() {
