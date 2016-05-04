@@ -269,6 +269,7 @@ public class Facebook {
     }
 
     public static void abrirPerfil(Activity activity, String userID) {
+        String facebookUrl = "https://www.facebook.com/" + userID;
 
         try {
             int versionCode = activity.getApplicationContext().getPackageManager().getPackageInfo("com.facebook.katana", 0).versionCode;
