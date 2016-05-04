@@ -69,9 +69,9 @@ public class LoginDAO {
 			objPS.setDate(3, new java.sql.Date(new Date().getTime()));
 			objPS.setString(4, login.getCoordUltimoAcesso());
 
-			ConfiguracaoDAO objConfiguracao = new ConfiguracaoDAO();
-			objConfiguracao.setUserId(login.getUserId());
-			objConfiguracao.consultar(objConfiguracao);
+//			ConfiguracaoDAO objConfiguracao = new ConfiguracaoDAO();
+//			objConfiguracao.setUserId(login.getUserId());
+//			objConfiguracao.consultar(objConfiguracao);
 			
 			retorno = objPS.execute();
 						

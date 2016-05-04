@@ -42,7 +42,7 @@
         android:layout_height="200dp"
         android:id="@+id/imgSobre"
         android:nestedScrollingEnabled="false"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/logo_wiser_2"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 

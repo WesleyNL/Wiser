@@ -69,10 +69,10 @@ public class PesquisaActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        atualizarLocalização();
+        atualizarLocalizacao();
     }
 
-    private void atualizarLocalização(){
+    private void atualizarLocalizacao(){
         if(locationManager != null){
             if(getPackageManager().checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION, getPackageName()) == getPackageManager().PERMISSION_GRANTED){
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, (LocationListener)new Utils());
