@@ -30,7 +30,7 @@ import br.com.app.api.facebook.Facebook;
  */
 public class SplashScreenActivity extends Activity {
 
-    private final int SPLASH_TIMEOUT = 3000;
+    private final int SPLASH_TIMEOUT = 500;
 
     private static final String URL = "http://" + Sistema.SERVIDOR_WS + "/Projeto_Android_WS/services/Sistema?wsdl";
     private static final String NAMESPACE = "http://projeto.com.br";
