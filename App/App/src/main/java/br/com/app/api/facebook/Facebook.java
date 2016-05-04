@@ -3,6 +3,7 @@ package br.com.app.api.facebook;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -267,13 +268,20 @@ public class Facebook {
     }
 
     public static void abrirPerfil(Activity activity, String userID) {
+        String url = "https://www.facebook.com/" + userID;
+        Uri uri;
+
         try {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/" + userID));
-            activity.startActivity(intent);
+            ApplicationInfo applicationInfo = activity.getApplicationContext().getApplicationInfo();
+            if (applicationInfo.enabled) {
+                uri = Uri.parse("fb://facewebmodal/f?href=" + url);
+                activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("fb://facewebmodal/f?href=" + url)));
+            }
         }
         catch (Exception e) {
-            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/" + userID)));
+            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
         }
+
     }
 
     public static boolean logado() {
