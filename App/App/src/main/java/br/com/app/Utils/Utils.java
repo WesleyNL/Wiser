@@ -14,11 +14,6 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -27,11 +22,11 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import br.com.app.Sistema;
 import br.com.app.activity.configuracao.ConfiguracoesActivity;
 import br.com.app.activity.contatos.ContatosActivity;
 import br.com.app.activity.login.LoginActivity;
 import br.com.app.activity.pesquisa.PesquisaActivity;
+import br.com.app.activity.servidor.Servidor;
 import br.com.app.activity.sobre.SobreActivity;
 import br.com.app.enums.EnmTelas;
 
@@ -40,52 +35,13 @@ import br.com.app.enums.EnmTelas;
  */
 public class Utils implements LocationListener {
 
-    private static final String URL = "http://" + Sistema.SERVIDOR_WS + "/Projeto_Android_WS/services/Utils?wsdl";
-    private static final String NAMESPACE = "http://utils.projeto.com.br";
-
-    private static final String UTILS_PESQ_IDIOMAS = "pesquisarIdiomas";
-    private static final String UTILS_PESQ_FLUENCIAS = "pesquisarFluencias";
-
     public static LinkedHashMap<Integer, String> hashIdiomas = new LinkedHashMap<Integer, String>();
     public static LinkedHashMap<Integer, String> hashFluencias  = new LinkedHashMap<Integer, String>();;
 
     public static Location locationPorListener = null;
 
     public static LinkedList<IdiomaFluencia> pesquisarIdiomas(boolean todos){
-
-        LinkedList<IdiomaFluencia> listaIdiomas = null;
-        SoapObject objPesquisar = new SoapObject(NAMESPACE, UTILS_PESQ_IDIOMAS);
-
-        SoapObject objEnvio = new SoapObject(NAMESPACE, "utils");
-        objEnvio.addProperty("todos", todos);
-
-        objPesquisar.addSoapObject(objEnvio);
-
-        SoapSerializationEnvelope objEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-        objEnvelope.setOutputSoapObject(objPesquisar);
-        objEnvelope.implicitTypes = true;
-
-        HttpTransportSE objHTTP = new HttpTransportSE(URL);
-
-        try{
-            objHTTP.call("urn:" + UTILS_PESQ_IDIOMAS, objEnvelope);
-            SoapObject objResposta = (SoapObject) objEnvelope.bodyIn;
-
-            listaIdiomas = new LinkedList<IdiomaFluencia>();
-            hashIdiomas.clear();
-            String[] aux;
-
-            for(int i=0; i<objResposta.getPropertyCount(); i++){
-                aux = objResposta.getPropertyAsString(i).split("-");
-                listaIdiomas.add(new IdiomaFluencia(Integer.parseInt(aux[0].trim()), aux[1].trim()));
-                hashIdiomas.put(Integer.parseInt(aux[0].trim()), aux[1].trim());
-            }
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-
-        return listaIdiomas;
+        return Servidor.pesquisarIdiomas(todos, hashIdiomas);
     }
 
     public static void carregarComboIdiomas(Spinner cmbIdioma, Context context){
@@ -102,40 +58,7 @@ public class Utils implements LocationListener {
     }
 
     public static LinkedList<IdiomaFluencia> pesquisarFluencias(boolean todos){
-
-        LinkedList<IdiomaFluencia> listaFluencias = null;
-        SoapObject objPesquisar = new SoapObject(NAMESPACE, UTILS_PESQ_FLUENCIAS);
-
-        SoapObject objEnvio = new SoapObject(NAMESPACE, "utils");
-        objEnvio.addProperty("todos", todos);
-
-        objPesquisar.addSoapObject(objEnvio);
-
-        SoapSerializationEnvelope objEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-        objEnvelope.setOutputSoapObject(objPesquisar);
-        objEnvelope.implicitTypes = true;
-
-        HttpTransportSE objHTTP = new HttpTransportSE(URL);
-
-        try{
-            objHTTP.call("urn:" + UTILS_PESQ_FLUENCIAS, objEnvelope);
-
-            SoapObject objResposta = (SoapObject) objEnvelope.bodyIn;
-
-            listaFluencias = new LinkedList<IdiomaFluencia>();
-            hashFluencias.clear();
-            String[] aux;
-
-            for(int i=0; i<objResposta.getPropertyCount(); i++){
-                aux = objResposta.getPropertyAsString(i).split("-");
-                listaFluencias.add(new IdiomaFluencia(Integer.parseInt(aux[0].trim()), aux[1].trim()));
-                hashFluencias.put(Integer.parseInt(aux[0].trim()), aux[1].trim());
-            }
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-
-        return listaFluencias;
+        return Servidor.pesquisarFluencias(todos, hashFluencias);
     }
 
     public static void carregarComboFluencia(Spinner cmbFluencia, Context context){

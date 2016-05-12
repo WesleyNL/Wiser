@@ -9,12 +9,6 @@ import android.widget.Toast;
 
 import com.facebook.AccessToken;
 
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapPrimitive;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,6 +17,7 @@ import br.com.app.Sistema;
 import br.com.app.activity.R;
 import br.com.app.activity.login.LoginActivity;
 import br.com.app.activity.pesquisa.PesquisaActivity;
+import br.com.app.activity.servidor.Servidor;
 import br.com.app.api.facebook.Facebook;
 
 /**
@@ -30,11 +25,7 @@ import br.com.app.api.facebook.Facebook;
  */
 public class SplashScreenActivity extends Activity {
 
-    private final int SPLASH_TIMEOUT = 500;
-
-    private static final String URL = "http://" + Sistema.SERVIDOR_WS + "/Projeto_Android_WS/services/Sistema?wsdl";
-    private static final String NAMESPACE = "http://projeto.com.br";
-    private static final String CONSULTAR = "getAccessToken";
+    private final int SPLASH_TIMEOUT = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +66,7 @@ public class SplashScreenActivity extends Activity {
         String ACCESS_TOKEN = "";
 
         try {
-            ACCESS_TOKEN = getAccessToken();
+            ACCESS_TOKEN = Servidor.getAccessToken();
 
             if(ACCESS_TOKEN.trim().isEmpty()){
                 return;
@@ -122,30 +113,5 @@ public class SplashScreenActivity extends Activity {
                 }
             }, SPLASH_TIMEOUT);
         }
-    }
-
-    public static String getAccessToken(){
-
-        if(Sistema.ACCESS_TOKEN != null){
-            return Sistema.ACCESS_TOKEN.getToken();
-        }
-
-        SoapSerializationEnvelope objEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-        objEnvelope.setOutputSoapObject(new SoapObject(NAMESPACE, CONSULTAR));
-        objEnvelope.implicitTypes = true;
-
-        HttpTransportSE objHTTP = new HttpTransportSE(URL);
-
-        String accessToken = "";
-
-        try{
-            objHTTP.call("urn:" + CONSULTAR, objEnvelope);
-
-            accessToken = ((SoapPrimitive) objEnvelope.getResponse()).toString();
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-
-        return accessToken;
     }
 }
