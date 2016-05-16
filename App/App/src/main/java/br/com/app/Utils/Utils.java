@@ -26,7 +26,7 @@ import br.com.app.activity.configuracao.ConfiguracoesActivity;
 import br.com.app.activity.contatos.ContatosActivity;
 import br.com.app.activity.login.LoginActivity;
 import br.com.app.activity.pesquisa.PesquisaActivity;
-import br.com.app.activity.servidor.Servidor;
+import br.com.app.business.servidor.Servidor;
 import br.com.app.activity.sobre.SobreActivity;
 import br.com.app.enums.EnmTelas;
 

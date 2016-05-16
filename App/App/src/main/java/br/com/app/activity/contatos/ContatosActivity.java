@@ -2,7 +2,6 @@ package br.com.app.activity.contatos;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import br.com.app.activity.R;
-import br.com.app.api.facebook.Facebook;
+import br.com.app.business.facebook.Facebook;
 import br.com.app.business.contatos.Contato;
 import br.com.app.business.contatos.ContatosGridAdapter;
 import br.com.app.utils.Utils;

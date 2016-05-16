@@ -29,7 +29,8 @@ public class IdiomaFluencia {
         this.descricao = descricao;
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return descricao;
     }
 }

@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import br.com.app.Sistema;
 import br.com.app.activity.R;
-import br.com.app.api.facebook.Facebook;
+import br.com.app.business.facebook.Facebook;
 import br.com.app.enums.EnmTelas;
 import br.com.app.utils.Utils;
 
@@ -53,8 +53,7 @@ public class LoginActivity extends Activity {
 
     private void encerrar() {
         Sistema.USER_ID = Facebook.getUserID();
-        mostrarMensagem("Olá, " + Facebook.getFirstName(Sistema.USER_ID) + " ;)");
-
+        mostrarMensagem(getString(R.string.boas_vinda, Facebook.getFirstName(Sistema.USER_ID)));
         Utils.chamarActivity(this, EnmTelas.PESQUISA);
     }
 }

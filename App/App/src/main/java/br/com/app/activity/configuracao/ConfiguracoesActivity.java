@@ -89,9 +89,9 @@ public class ConfiguracoesActivity extends Activity {
         }
         else{
             AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
-            dialogo.setTitle("Erro");
-            dialogo.setMessage("Não foi possível carregar as configurações.");
-            dialogo.setNeutralButton("OK", null);
+            dialogo.setTitle(getString(R.string.erro));
+            dialogo.setMessage(getString(R.string.indisponivel_configuracao));
+            dialogo.setNeutralButton(getString(R.string.ok), null);
             dialogo.show();
         }
     }
@@ -112,14 +112,14 @@ public class ConfiguracoesActivity extends Activity {
 
         AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
 
-        dialogo.setTitle("Confirmar");
-        dialogo.setMessage("Deseja realmente salvar?");
-        dialogo.setPositiveButton("Sim", new DialogInterface.OnClickListener(){
+        dialogo.setTitle(getString(R.string.confirmar));
+        dialogo.setMessage(getString(R.string.confirmar_salvar));
+        dialogo.setPositiveButton(getString(R.string.sim), new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int id){
                 salvar();
             }
         });
-        dialogo.setNegativeButton("Não", null);
+        dialogo.setNegativeButton(getString(R.string.nao), null);
         dialogo.show();
     }
 
@@ -128,18 +128,18 @@ public class ConfiguracoesActivity extends Activity {
         AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
 
         if (objConfDAO.salvar()) {
-            dialogo.setTitle("Sucesso");
-            dialogo.setMessage("A configuração foi salva com sucesso.");
-            dialogo.setNeutralButton("OK",  new DialogInterface.OnClickListener() {
+            dialogo.setTitle(getString(R.string.sucesso));
+            dialogo.setMessage(getString(R.string.sucesso_salvar_configuracao));
+            dialogo.setNeutralButton(getString(R.string.ok),  new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     finish();
                 }
             });
         }
         else {
-            dialogo.setTitle("Erro");
-            dialogo.setMessage("Não foi possível salvar a configuração.");
-            dialogo.setNeutralButton("OK",  null);
+            dialogo.setTitle(getString(R.string.erro));
+            dialogo.setMessage(getString(R.string.erro_salvar_configuracao));
+            dialogo.setNeutralButton(R.string.ok,  null);
         }
 
         dialogo.show();
@@ -150,33 +150,33 @@ public class ConfiguracoesActivity extends Activity {
         final AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
 
         AlertDialog.Builder confirmar = new AlertDialog.Builder(this);
-        confirmar.setTitle("Confirmar");
-        confirmar.setMessage("Você deseja realmente desativar esta conta?");
+        confirmar.setTitle(getString(R.string.confirmar));
+        confirmar.setMessage(getString(R.string.confirmar_desativar_conta));
 
-        confirmar.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+        confirmar.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
 
                 objConfDAO.setUserId(Sistema.USER_ID);
 
                 if (objConfDAO.desativar()) {
-                    dialogo.setTitle("Sucesso");
-                    dialogo.setMessage("Conta desativada com sucesso.");
-                    dialogo.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    dialogo.setTitle(getString(R.string.sucesso));
+                    dialogo.setMessage(R.string.sucesso_conta_desativada);
+                    dialogo.setPositiveButton(getString(R.string.sim), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             logout();
                         }
                     });
                 }
                 else {
-                    dialogo.setTitle("Erro");
-                    dialogo.setMessage("Não foi possível desativar a conta.");
-                    dialogo.setNeutralButton("OK", null);
+                    dialogo.setTitle(getString(R.string.erro));
+                    dialogo.setMessage(getString(R.string.erro_desativar_conta));
+                    dialogo.setNeutralButton(getString(R.string.ok), null);
                 }
 
                 dialogo.show();
             }
         });
-        confirmar.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+        confirmar.setNegativeButton(getString(R.string.nao), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 return;
             }

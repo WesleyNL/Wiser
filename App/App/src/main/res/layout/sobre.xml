@@ -23,7 +23,6 @@
         android:layout_centerHorizontal="true"
         android:textSize="35dp"
         android:textColor="#8B8989"
-        android:autoText="false"
         android:textStyle="bold" />
 
     <TextView

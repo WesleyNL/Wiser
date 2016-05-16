@@ -114,7 +114,7 @@ public class PesquisaActivity extends Activity {
                 salvar();
             }
             else {
-                Toast.makeText(this, "É necessário permitir!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.necessario_permitir), Toast.LENGTH_SHORT).show();
                 encerrar();
             }
         }
@@ -181,7 +181,7 @@ public class PesquisaActivity extends Activity {
         objLoginDAO.setCoordUltimoAcesso(Utils.getCoordenadas(this));
 
         if (!objLoginDAO.salvar()) {
-            Toast.makeText(this, "Não foi possível acessar o sistema.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.indisponivel_sistema), Toast.LENGTH_LONG).show();
             encerrar();
         }
     }
@@ -222,9 +222,9 @@ public class PesquisaActivity extends Activity {
         }
         else{
             AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
-            dialogo.setTitle("Resultado");
-            dialogo.setMessage("Não foram encontrados usuários para os filtros selecionados.");
-            dialogo.setNeutralButton("OK", null);
+            dialogo.setTitle(getString(R.string.resultado));
+            dialogo.setMessage(getString(R.string.usuarios_nao_encontrados));
+            dialogo.setNeutralButton(getString(R.string.ok), null);
             dialogo.show();
         }
     }
@@ -237,14 +237,14 @@ public class PesquisaActivity extends Activity {
         if(!objConfDAO.existe()){
             AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
 
-            dialogo.setTitle("Configurar");
-            dialogo.setMessage("Você ainda não personalizou suas configurações!\nDeseja fazer isto agora?");
-            dialogo.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            dialogo.setTitle(getString(R.string.configurar));
+            dialogo.setMessage(getString(R.string.configuracoes_nao_personalizadas) + "\n" + getString(R.string.fazer_agora));
+            dialogo.setPositiveButton(getString(R.string.sim), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     Utils.chamarActivity(PesquisaActivity.this, EnmTelas.CONFIGURACOES);
                 }
             });
-            dialogo.setNegativeButton("Não", null);
+            dialogo.setNegativeButton(getString(R.string.nao), null);
             dialogo.show();
         }
     }

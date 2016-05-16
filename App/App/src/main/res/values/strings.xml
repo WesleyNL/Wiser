@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Wiser</string>
+    <string name="app_name" translatable="false">Wiser</string>
 
     <string name="title_contatos">Contatos</string>
     <string name="title_configuracoes">Configurações</string>
@@ -9,7 +9,36 @@
     <string name="menu_sobre">Sobre</string>
     <string name="menu_sair">Desconectar</string>
 
-    <string name="action_settings">Settings</string>
-
-    <string name="facebook_app_id">570854019757986</string>
+    <string name="facebook_app_id" translatable="false">570854019757986</string>
+    <string name="usuario">Usuário</string>
+    <string name="indisponivel_sistema">Não foi possível inicializar o sistema.</string>
+    <string name="versao">Versão %1$s</string>
+    <string name="necessario_permitir">Wiser requer permissão de Localização!</string>
+    <string name="resultado">Resultado</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="usuarios_nao_encontrados">Não foram encontrados usuários para os filtros selecionados.</string>
+    <string name="configurar">Configurar</string>
+    <string name="sim">Sim</string>
+    <string name="nao">Não</string>
+    <string name="configuracoes_nao_personalizadas">Você ainda não personalizou suas configurações!</string>
+    <string name="fazer_agora">Deseja fazer isto agora?</string>
+    <string name="erro">Erro</string>
+    <string name="indisponivel_configuracao">Não foi possível carregar as configurações.</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="sucesso">Sucesso</string>
+    <string name="sucesso_conta_desativada">A conta foi desativada com Sucesso.</string>
+    <string name="erro_desativar_conta">Um erro ocorreu ao desativar a conta.</string>
+    <string name="confirmar_desativar_conta">Você deseja realmente desativar esta conta?</string>
+    <string name="erro_salvar_configuracao">Um erro ocorreu ao salvar a configuração.</string>
+    <string name="sucesso_salvar_configuracao">A configuração foi salva com Sucesso.</string>
+    <string name="confirmar_salvar">Deseja realmente salvar?</string>
+    <string name="salvar">Salvar</string>
+    <string name="idioma">Idioma</string>
+    <string name="fluencia">Fluência</string>
+    <string name="status">Status</string>
+    <string name="desativar_conta">Desativar Conta</string>
+    <string name="entrar_com_facebook">Entrar com o Facebook</string>
+    <string name="distancia">Distância</string>
+    <string name="procurar">Procurar</string>
+    <string name="boas_vinda">Olá %1$s ;)</string>
 </resources>

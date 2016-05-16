@@ -32,7 +32,7 @@ public class SobreActivity extends Activity {
         TextView lblVersao = (TextView) findViewById(R.id.lblVersao);
 
         try {
-            lblVersao.setText("Versão " + getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
+            lblVersao.setText(getString(R.string.versao, getPackageManager().getPackageInfo(getPackageName(), 0).versionName));
         }
         catch (Exception e) {
             e.printStackTrace();

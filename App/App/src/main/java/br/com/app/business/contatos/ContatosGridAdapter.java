@@ -2,12 +2,15 @@ package br.com.app.business.contatos;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
 
@@ -18,9 +21,9 @@ import br.com.app.activity.R;
  */
 public class ContatosGridAdapter extends ArrayAdapter<Contato> {
 
-    Context context;
-    int layoutResourceId;
-    LinkedList<Contato> listaItemContatos = null;
+    private Context context;
+    private int layoutResourceId;
+    private LinkedList<Contato> listaItemContatos = null;
 
     public ContatosGridAdapter(Context context, int layoutResourceId, LinkedList<Contato> data) {
         super(context, layoutResourceId, data);
@@ -31,8 +34,9 @@ public class ContatosGridAdapter extends ArrayAdapter<Contato> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        // TODO Trocar para GridLayoutManager
 
-        View objView = convertView;
+        View objView = convertView;;
         RecordHolder objHolder = null;
 
         if (objView == null) {
@@ -42,6 +46,7 @@ public class ContatosGridAdapter extends ArrayAdapter<Contato> {
             objHolder = new RecordHolder();
             objHolder.imgImagemContato = (ImageView) objView.findViewById(R.id.imgImagemContato);
             objHolder.txtNome = (TextView) objView.findViewById(R.id.txtNomeLista);
+
             objView.setTag(objHolder);
         }
         else {
@@ -49,13 +54,21 @@ public class ContatosGridAdapter extends ArrayAdapter<Contato> {
         }
 
         Contato item = listaItemContatos.get(position);
-        objHolder.imgImagemContato.setImageBitmap(item.getProfilePicture());
         objHolder.txtNome.setText(item.getFirstName());
+
+        String url = null;
+        if (!TextUtils.isEmpty(item.getProfilePictureURL())) {
+            url = item.getProfilePictureURL();
+        }
+
+        Picasso.with(context)
+                .load(url)
+                .into(objHolder.imgImagemContato);
 
         return objView;
     }
 
-    static class RecordHolder {
+    private static class RecordHolder {
         ImageView imgImagemContato;
         TextView txtNome;
     }

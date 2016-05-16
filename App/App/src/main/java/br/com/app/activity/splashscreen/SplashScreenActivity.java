@@ -17,8 +17,8 @@ import br.com.app.Sistema;
 import br.com.app.activity.R;
 import br.com.app.activity.login.LoginActivity;
 import br.com.app.activity.pesquisa.PesquisaActivity;
-import br.com.app.activity.servidor.Servidor;
-import br.com.app.api.facebook.Facebook;
+import br.com.app.business.servidor.Servidor;
+import br.com.app.business.facebook.Facebook;
 
 /**
  * Created by Wesley on 19/04/2016.
@@ -46,7 +46,7 @@ public class SplashScreenActivity extends Activity {
         checkAccessToken();
 
         if(Sistema.ACCESS_TOKEN == null){
-            Toast.makeText(this, "Não foi possível inicializar o sistema.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.indisponivel_sistema), Toast.LENGTH_LONG).show();
             finish();
             return;
         }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_sobre">About</string>
+    <string name="menu_configuracoes">Settings</string>
+    <string name="menu_sair">Logout</string>
+    <string name="menu_sobre">About</string>
+    <string name="title_configuracoes">Settings</string>
+    <string name="title_contatos">Contacts</string>
+    <string name="usuario">User</string>
+    <string name="versao">Version %1$s</string>
+    <string name="necessario_permitir">Wiser requires Location permission!</string>
+    <string name="nao">No</string>
+    <string name="sim">Yes</string>
+    <string name="resultado">Result</string>
+    <string name="erro">Error</string>
+    <string name="configurar">Set</string>
+    <string name="sucesso">Success</string>
+    <string name="salvar">Save</string>
+    <string name="procurar">Search</string>
+    <string name="entrar_com_facebook">Log in with Facebook</string>
+    <string name="confirmar">Confirm</string>
+    <string name="status">Status</string>
+    <string name="distancia">Distance</string>
+    <string name="idioma">Language</string>
+    <string name="fluencia">Fluency</string>
+    <string name="desativar_conta">Deactivate Account</string>
+    <string name="sucesso_salvar_configuracao">The configuration was saved with Success.</string>
+    <string name="boas_vinda">Hi %1$s ;)</string>
+    <string name="sucesso_conta_desativada">The account was deactivate with Success.</string>
+    <string name="usuarios_nao_encontrados">Not found users for the filters selecteds.</string>
+    <string name="indisponivel_sistema">Unable to access the system.</string>
+    <string name="indisponivel_configuracao">Unable to load settings.</string>
+    <string name="fazer_agora">You want to do this now?</string>
+    <string name="erro_salvar_configuracao">An error occurred while saving settings.</string>
+    <string name="erro_desativar_conta">An error occurred while desabling the account.</string>
+    <string name="confirmar_salvar">Do you want to Save?</string>
+    <string name="confirmar_desativar_conta">Do you really want to disable this account?</string>
+    <string name="configuracoes_nao_personalizadas">You are not customize your settings!</string>
+</resources>

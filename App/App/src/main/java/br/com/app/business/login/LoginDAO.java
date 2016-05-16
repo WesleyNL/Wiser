@@ -1,6 +1,6 @@
 package br.com.app.business.login;
 
-import br.com.app.activity.servidor.Servidor;
+import br.com.app.business.servidor.Servidor;
 
 /**
  * Created by Wesley on 03/04/2016.

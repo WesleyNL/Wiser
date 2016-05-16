@@ -26,6 +26,7 @@ dependencies {
     compile 'com.android.support:design:23.2.0'
     compile 'com.facebook.android:facebook-android-sdk:4.10.1'
     compile files('libs/ksoap2-android-assembly-3.3.0-jar-with-dependencies.jar')
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
 
 repositories {

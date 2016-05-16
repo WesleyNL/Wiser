@@ -1,9 +1,8 @@
-package br.com.app.api.facebook;
+package br.com.app.business.facebook;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -39,7 +38,6 @@ import java.util.LinkedList;
 import br.com.app.Sistema;
 import br.com.app.activity.R;
 import br.com.app.business.contatos.Contato;
-import br.com.app.utils.Utils;
 
 /**
  * Created by Jefferson on 03/04/2016.
@@ -51,8 +49,7 @@ public class Facebook {
     private static GraphResponse response;
     private static boolean requisitando = false;
 
-    private static final String nomeIndisponivel = "Usuário";
-    private static Bitmap imgPerfilIndisponivel = null;
+    private static String nomeIndisponivel = "";
 
     public Facebook(Context contexto) {
         this.contexto = contexto;
@@ -61,16 +58,17 @@ public class Facebook {
         callbackManager = CallbackManager.Factory.create();
         getSignatures();
 
+        // while (!FacebookSdk.isInitialized());
+
         try {
             Thread.sleep(1000);
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e) {
             e.printStackTrace();
         }
 
         Sistema.USER_ID = getUserID();
-
-        imgPerfilIndisponivel = BitmapFactory.decodeResource(
-                contexto.getResources(), R.drawable.com_facebook_profile_picture_blank_portrait);
+        nomeIndisponivel = contexto.getResources().getString(R.string.usuario);
     }
 
     private void getSignatures() {
@@ -187,7 +185,7 @@ public class Facebook {
     }
 
     public static Bitmap getProfilePicture(String userID) {
-        Bitmap mIcon1 = imgPerfilIndisponivel;
+        Bitmap mIcon1 = null;
         URL imgValue = null;
 
         String profilePicture = "";
@@ -220,7 +218,6 @@ public class Facebook {
         for (Contato c : contatos) {
             c.setUserName(nomeIndisponivel);
             c.setFirstName(nomeIndisponivel);
-            c.setProfilePicture(imgPerfilIndisponivel);
 
             listUsersID += c.getUserID() + ",";
         }
@@ -253,10 +250,6 @@ public class Facebook {
                                 .getJSONObject("picture")
                                 .getJSONObject("data")
                                 .optString("url"));
-
-                        if (!c.getProfilePictureURL().equals("")) {
-                            c.setProfilePicture(Utils.carregarImagem(c.getProfilePictureURL()));
-                        }
                     }
                 }
             }

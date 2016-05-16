@@ -1,4 +1,4 @@
-package br.com.app.activity.servidor;
+package br.com.app.business.servidor;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;

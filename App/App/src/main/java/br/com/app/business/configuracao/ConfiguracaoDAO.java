@@ -1,6 +1,6 @@
 package br.com.app.business.configuracao;
 
-import br.com.app.activity.servidor.Servidor;
+import br.com.app.business.servidor.Servidor;
 
 public class ConfiguracaoDAO extends Configuracao{
 
