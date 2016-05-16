@@ -13,7 +13,7 @@
 
     <color name="colorForeground">#212121</color>
     <color name="colorNavigatorBar">#212121</color>
-    <color name="colorStatusBar">#2587CC</color>
+    <color name="colorStatusBar">#2877ae</color>
 
     <color name="colorPrimaryInverseText">#ffffff</color>
     <color name="colorSecondaryInverseText">#FFFFFF</color>

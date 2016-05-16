@@ -22,12 +22,18 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import br.com.app.activity.configuracao.ConfiguracoesActivity;
-import br.com.app.activity.contatos.ContatosActivity;
-import br.com.app.activity.login.LoginActivity;
-import br.com.app.activity.pesquisa.PesquisaActivity;
-import br.com.app.business.servidor.Servidor;
-import br.com.app.activity.sobre.SobreActivity;
+import br.com.app.activity.app.configuracoes.AppConfiguracoesActivity;
+import br.com.app.activity.app.principal.AppPrincipalActivity;
+import br.com.app.activity.app.splashscreen.AppSplashScreenActivity;
+import br.com.app.activity.chat.mensagens.ChatMensagensActivity;
+import br.com.app.activity.chat.resultados.ChatResultadosActivity;
+import br.com.app.activity.app.login.AppLoginActivity;
+import br.com.app.activity.chat.pesquisa.ChatPesquisaActivity;
+import br.com.app.activity.forum.discussao.ForumDiscussaoActivity;
+import br.com.app.activity.forum.pesquisa.ForumPesquisaActivity;
+import br.com.app.activity.forum.principal.ForumPrincipalActivity;
+import br.com.app.business.app.servidor.Servidor;
+import br.com.app.activity.app.sobre.AppSobreActivity;
 import br.com.app.enums.EnmTelas;
 
 /**
@@ -122,30 +128,50 @@ public class Utils implements LocationListener {
 
         try {
             switch (enmActivity) {
-                case CONFIGURACOES:
-                    classe = ConfiguracoesActivity.class;
+                case APP_CONFIGURACOES:
+                    classe = AppConfiguracoesActivity.class;
                     break;
-                case CONTATOS:
-                    classe = ContatosActivity.class;
+                case APP_LOGIN:
+                    classe = AppLoginActivity.class;
                     break;
-                case LOGIN:
-                    classe = LoginActivity.class;
+                case APP_PRINCIPAL:
+                    classe = AppPrincipalActivity.class;
                     break;
-                case PESQUISA:
-                    classe = PesquisaActivity.class;
+                case APP_SOBRE:
+                    classe = AppSobreActivity.class;
                     break;
-                case SOBRE:
-                    classe = SobreActivity.class;
+                case APP_SPLASHSCREEN:
+                    classe = AppSplashScreenActivity.class;
+                    break;
+
+                case CHAT_MENSAGENS:
+                    classe = ChatMensagensActivity.class;
+                    break;
+                case CHAT_PESQUISA:
+                    classe = ChatPesquisaActivity.class;
+                    break;
+                case CHAT_RESULTADOS:
+                    classe = ChatResultadosActivity.class;
+                    break;
+
+                case FORUM_DISCUSSAO:
+                    classe = ForumDiscussaoActivity.class;
+                    break;
+                case FORUM_PESQUISA:
+                    classe = ForumPesquisaActivity.class;
+                    break;
+                case FORUM_PRINCIPAL:
+                    classe = ForumPrincipalActivity.class;
                     break;
             }
 
             i.setClass(activity, classe);
 
-            if (enmActivity == EnmTelas.LOGIN) {
+            if (enmActivity == EnmTelas.APP_LOGIN) {
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             }
 
-            if (activity instanceof LoginActivity) {
+            if (activity instanceof AppLoginActivity) {
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             }
 
@@ -155,7 +181,7 @@ public class Utils implements LocationListener {
 
             activity.startActivity(i);
 
-            if (enmActivity == EnmTelas.LOGIN || enmActivity == EnmTelas.PESQUISA) {
+            if (enmActivity == EnmTelas.APP_LOGIN || enmActivity == EnmTelas.CHAT_PESQUISA) {
                 activity.finish();
             }
         }

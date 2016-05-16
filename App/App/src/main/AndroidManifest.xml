@@ -25,7 +25,7 @@
 
         <!-- Activity do Splash Screen -->
         <activity
-            android:name=".splashscreen.SplashScreenActivity"
+            android:name=".app.splashscreen.AppSplashScreenActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_name"
             android:theme="@style/AppTema.NoActionBar" >
@@ -39,7 +39,7 @@
 
         <!-- Activity de Pesquisa -->
         <activity
-            android:name=".pesquisa.PesquisaActivity"
+            android:name=".chat.pesquisa.ChatPesquisaActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
 
@@ -52,25 +52,25 @@
 
         <!-- Activity da Tela Configurações -->
         <activity
-            android:name=".configuracao.ConfiguracoesActivity"
+            android:name=".app.configuracoes.AppConfiguracoesActivity"
             android:label="@string/title_configuracoes"
             android:screenOrientation="portrait" />
 
         <!-- Activity da Tela Contatos -->
         <activity
-            android:name=".contatos.ContatosActivity"
+            android:name=".chat.resultados.ChatResultadosActivity"
             android:label="@string/title_contatos"
             android:screenOrientation="portrait" />
 
         <!-- Activity da Tela Login -->
         <activity
-            android:name=".login.LoginActivity"
+            android:name=".app.login.AppLoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTema.NoActionBar" />
 
         <!-- Activity da Tela Sobre -->
         <activity
-            android:name=".sobre.SobreActivity"
+            android:name=".app.sobre.AppSobreActivity"
             android:label="@string/title_sobre"
             android:screenOrientation="portrait" />
     </application>

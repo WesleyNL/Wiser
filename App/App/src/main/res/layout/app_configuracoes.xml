@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    tools:context=".app.configuracoes.AppConfiguracoesActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/idioma"
+        android:id="@+id/lblIdioma"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp" />
+
+    <ImageView
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:id="@+id/imageView2"
+        android:background="@drawable/bordershadow"
+        android:layout_below="@+id/lblIdioma"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/cmbIdiomaConfig"
+        android:spinnerMode="dropdown"
+        android:layout_below="@id/lblIdioma"
+        android:layout_marginLeft="20dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="18dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/fluencia"
+        android:id="@+id/lblFluencia"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="100dp" />
+
+    <ImageView
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:id="@+id/imageView3"
+        android:background="@drawable/bordershadow"
+        android:layout_below="@+id/lblFluencia"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/cmbFluenciaConfig"
+        android:spinnerMode="dropdown"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/lblFluencia"
+        android:paddingLeft="10dp"
+        android:paddingTop="18dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/status"
+        android:id="@+id/lblStatus"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="190dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblContLetras"
+        android:text="0/30"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/imageView3" />
+
+    <ImageView
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:id="@+id/imageView4"
+        android:background="@drawable/bordershadow"
+        android:layout_below="@+id/lblStatus"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/txtStatus"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblStatus"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="18dp"
+        android:background="@null"
+        android:maxLength="30"
+        android:gravity="top"
+        android:singleLine="true"
+        android:textSize="18dp"
+        android:inputType="textCapSentences" />
+
+    <Button
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:text="@string/salvar"
+        android:id="@+id/btnSalvar"
+        android:onClick="salvar"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorPrimaryInverseText"
+        android:background="@drawable/btndefaultshape"
+        android:layout_marginTop="10sp"
+        android:layout_below="@+id/imageView4" />
+
+    <Button
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:text="@string/desativar_conta"
+        android:id="@+id/btnDesativar"
+        android:onClick="desativar"
+        android:textColor="@color/colorPrimaryInverseText"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/btndefaultshape"
+        android:layout_below="@+id/btnSalvar" />
+
+</RelativeLayout>

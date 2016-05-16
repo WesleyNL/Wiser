@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".app.principal.AppPrincipalActivity"
+    tools:menu="br.com.app.res.menu.menu_principal">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mensagens"
+        android:id="@+id/btnMensagens"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="105dp"
+        android:onClick="chamarMensagens" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Encontre Outros"
+        android:id="@+id/btnPesquisarContatos"
+        android:layout_below="@+id/btnMensagens"
+        android:layout_centerHorizontal="true"
+        android:onClick="chamarPesquisaContatos" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fórum de Ajuda"
+        android:id="@+id/btnForum"
+        android:layout_below="@+id/btnPesquisarContatos"
+        android:layout_centerHorizontal="true"
+        android:onClick="chamarForum" />
+
+</RelativeLayout>
