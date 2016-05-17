@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_sobre">About</string>
+    <string name="title_app_sobre">About</string>
     <string name="menu_configuracoes">Settings</string>
     <string name="menu_sair">Logout</string>
     <string name="menu_sobre">About</string>
-    <string name="title_configuracoes">Settings</string>
-    <string name="title_contatos">Contacts</string>
+    <string name="title_app_configuracoes">Settings</string>
+    <string name="title_chat_resultados">Contacts</string>
     <string name="usuario">User</string>
     <string name="versao">Version %1$s</string>
     <string name="necessario_permitir">Wiser requires Location permission!</string>
@@ -25,15 +25,23 @@
     <string name="fluencia">Fluency</string>
     <string name="desativar_conta">Deactivate Account</string>
     <string name="sucesso_salvar_configuracao">The configuration was saved with Success.</string>
-    <string name="boas_vinda">Hi %1$s ;)</string>
+    <string name="boas_vindas">Hi %1$s ;)</string>
     <string name="sucesso_conta_desativada">The account was deactivate with Success.</string>
     <string name="usuarios_nao_encontrados">Not found users for the filters selecteds.</string>
     <string name="indisponivel_sistema">Unable to access the system.</string>
     <string name="indisponivel_configuracao">Unable to load settings.</string>
     <string name="fazer_agora">You want to do this now?</string>
     <string name="erro_salvar_configuracao">An error occurred while saving settings.</string>
-    <string name="erro_desativar_conta">An error occurred while desabling the account.</string>
+    <string name="erro_desativar_conta">An error occurred while disabling the account.</string>
     <string name="confirmar_salvar">Do you want to Save?</string>
     <string name="confirmar_desativar_conta">Do you really want to disable this account?</string>
     <string name="configuracoes_nao_personalizadas">You are not customize your settings!</string>
+    <string name="title_forum_resultados">Results</string>
+    <string name="title_forum_pesquisa">Search</string>
+    <string name="title_forum_nova_discussao">New Discussion</string>
+    <string name="title_forum_discussao">Discussion</string>
+    <string name="title_chat_pesquisa">Search</string>
+    <string name="title_chat_mensagens">Messages</string>
+    <string name="title_forum_principal">Forum</string>
+    <string name="resultados_para">Results for \'%1$s\'</string>
 </resources>

@@ -7,7 +7,7 @@
     android:background="@drawable/bordershadow">
 
     <ImageView
-        android:id="@+id/imgImagemContato"
+        android:id="@+id/imgPerfil"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="10sp"

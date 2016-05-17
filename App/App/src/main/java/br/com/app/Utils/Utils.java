@@ -30,6 +30,7 @@ import br.com.app.activity.chat.resultados.ChatResultadosActivity;
 import br.com.app.activity.app.login.AppLoginActivity;
 import br.com.app.activity.chat.pesquisa.ChatPesquisaActivity;
 import br.com.app.activity.forum.discussao.ForumDiscussaoActivity;
+import br.com.app.activity.forum.nova_discussao.ForumNovaDiscussaoActivity;
 import br.com.app.activity.forum.pesquisa.ForumPesquisaActivity;
 import br.com.app.activity.forum.principal.ForumPrincipalActivity;
 import br.com.app.business.app.servidor.Servidor;
@@ -157,6 +158,9 @@ public class Utils implements LocationListener {
                 case FORUM_DISCUSSAO:
                     classe = ForumDiscussaoActivity.class;
                     break;
+                case FORUM_NOVA_DISCUSSAO:
+                    classe = ForumNovaDiscussaoActivity.class;
+                    break;
                 case FORUM_PESQUISA:
                     classe = ForumPesquisaActivity.class;
                     break;
@@ -181,32 +185,13 @@ public class Utils implements LocationListener {
 
             activity.startActivity(i);
 
-            if (enmActivity == EnmTelas.APP_LOGIN || enmActivity == EnmTelas.CHAT_PESQUISA) {
+            if (enmActivity == EnmTelas.APP_LOGIN || enmActivity == EnmTelas.APP_PRINCIPAL) {
                 activity.finish();
             }
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public static Bitmap carregarImagem(String url) {
-        Bitmap imagem = null;
-
-        if (!url.equals("")) {
-            try {
-                URL imgValue = new URL(url);
-                imagem = BitmapFactory.decodeStream(imgValue.openConnection().getInputStream());
-            }
-            catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return imagem;
     }
 
     public static int getPosicaoIdioma(int idioma){

@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import br.com.app.activity.R;
+import br.com.app.adapter.ContatosGridAdapter;
 import br.com.app.business.app.facebook.Facebook;
 import br.com.app.business.chat.contatos.Contato;
-import br.com.app.business.chat.contatos.ContatosGridAdapter;
 import br.com.app.utils.Utils;
 
 /**

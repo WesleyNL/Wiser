@@ -16,6 +16,7 @@ import java.util.TimerTask;
 import br.com.app.Sistema;
 import br.com.app.activity.R;
 import br.com.app.activity.app.login.AppLoginActivity;
+import br.com.app.activity.app.principal.AppPrincipalActivity;
 import br.com.app.activity.chat.pesquisa.ChatPesquisaActivity;
 import br.com.app.business.app.servidor.Servidor;
 import br.com.app.business.app.facebook.Facebook;
@@ -95,7 +96,7 @@ public class AppSplashScreenActivity extends Activity {
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    Intent i = new Intent(AppSplashScreenActivity.this, ChatPesquisaActivity.class);
+                    Intent i = new Intent(AppSplashScreenActivity.this, AppPrincipalActivity.class);
                     startActivity(i);
 
                     finish();

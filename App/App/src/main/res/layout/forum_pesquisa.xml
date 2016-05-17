@@ -5,4 +5,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".forum.pesquisa.ForumPesquisaActivity" >
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtDiscussao"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/btnProcurarDiscussao" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Procurar"
+        android:id="@+id/btnProcurarDiscussao"
+        android:onClick="procurarDiscussao"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resultados para ''"
+        android:id="@+id/lblResultados"
+        android:layout_below="@+id/txtDiscussao"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(0) Discussões Encontradas"
+        android:id="@+id/lblContResultados"
+        android:layout_below="@+id/lblResultados"
+        android:layout_centerHorizontal="true" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:scrollbars="vertical"
+        android:layout_below="@id/lblContResultados" />
+
 </RelativeLayout>

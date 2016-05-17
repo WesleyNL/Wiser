@@ -50,13 +50,14 @@ public class ChatPesquisaActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.chat_pesquisa);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
 
-        setContentView(R.layout.chat_pesquisa);
         initComponentes();
 
         if (hasLocationPermission()) {
@@ -70,6 +71,12 @@ public class ChatPesquisaActivity extends Activity {
     protected void onResume() {
         super.onResume();
         atualizarLocalizacao();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        onBackPressed();
+        return true;
     }
 
     private void atualizarLocalizacao(){

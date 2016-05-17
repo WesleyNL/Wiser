@@ -7,7 +7,7 @@
     tools:menu="br.com.app.res.menu.menu_principal">
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Mensagens"
         android:id="@+id/btnMensagens"
@@ -17,7 +17,7 @@
         android:onClick="chamarMensagens" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Encontre Outros"
         android:id="@+id/btnPesquisarContatos"
@@ -26,7 +26,7 @@
         android:onClick="chamarPesquisaContatos" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Fórum de Ajuda"
         android:id="@+id/btnForum"

@@ -9,8 +9,34 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pesquisar Discussao"
-        android:id="@+id/btnPesquisarDiscussao"
+        android:text="Procurar Discussao"
+        android:id="@+id/btnProcurarDiscussao"
+        android:onClick="chamarProcurarDiscussao"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/btnProcurarDiscussao"
+        android:scrollbars="vertical" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nova"
+        android:id="@+id/btnNovaDiscussao"
+        android:onClick="chamarNovaDiscussao"
+        android:layout_above="@+id/recycler_view"
+        android:layout_toStartOf="@+id/btnProcurarDiscussao" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Atualizar"
+        android:id="@+id/btnAtualizarDiscussoes"
+        android:layout_above="@+id/recycler_view"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>

@@ -53,7 +53,7 @@ public class AppLoginActivity extends Activity {
 
     private void encerrar() {
         Sistema.USER_ID = Facebook.getUserID();
-        mostrarMensagem(getString(R.string.boas_vinda, Facebook.getFirstName(Sistema.USER_ID)));
-        Utils.chamarActivity(this, EnmTelas.CHAT_PESQUISA);
+        mostrarMensagem(getString(R.string.boas_vindas, Facebook.getFirstName(Sistema.USER_ID)));
+        Utils.chamarActivity(this, EnmTelas.APP_PRINCIPAL);
     }
 }

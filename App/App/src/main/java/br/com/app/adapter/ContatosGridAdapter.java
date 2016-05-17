@@ -1,4 +1,4 @@
-package br.com.app.business.chat.contatos;
+package br.com.app.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 import java.util.LinkedList;
 
 import br.com.app.activity.R;
+import br.com.app.business.chat.contatos.Contato;
 
 /**
  * Created by Wesley on 08/04/2016.
@@ -44,7 +45,7 @@ public class ContatosGridAdapter extends ArrayAdapter<Contato> {
             objView = inflater.inflate(layoutResourceId, parent, false);
 
             objHolder = new RecordHolder();
-            objHolder.imgImagemContato = (ImageView) objView.findViewById(R.id.imgImagemContato);
+            objHolder.imgImagemContato = (ImageView) objView.findViewById(R.id.imgPerfil);
             objHolder.txtNome = (TextView) objView.findViewById(R.id.txtNomeLista);
 
             objView.setTag(objHolder);
@@ -56,14 +57,20 @@ public class ContatosGridAdapter extends ArrayAdapter<Contato> {
         Contato item = listaItemContatos.get(position);
         objHolder.txtNome.setText(item.getFirstName());
 
-        String url = null;
-        if (!TextUtils.isEmpty(item.getProfilePictureURL())) {
-            url = item.getProfilePictureURL();
-        }
+        if (item.getProfilePicture() == null) {
+            String url = null;
+            if (!TextUtils.isEmpty(item.getProfilePictureURL())) {
+                url = item.getProfilePictureURL();
+            }
 
-        Picasso.with(context)
-                .load(url)
-                .into(objHolder.imgImagemContato);
+            Picasso.with(context)
+                    .load(url)
+                    .into(objHolder.imgImagemContato);
+            item.setProfilePicture(objHolder.imgImagemContato.getDrawingCache());
+        }
+        else {
+            objHolder.imgImagemContato.setImageBitmap(item.getProfilePicture());
+        }
 
         return objView;
     }
