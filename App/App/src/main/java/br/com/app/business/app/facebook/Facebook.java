@@ -212,6 +212,13 @@ public class Facebook {
         return mIcon1;
     }
 
+    // TODO Fazer o método sem preguiça
+    public static Contato getProfile(String userID) {
+        LinkedList<Contato> conts = new LinkedList<Contato>();
+        conts.add(0, new Contato(userID));
+        return getProfiles(conts).get(0);
+    }
+
     public static LinkedList<Contato> getProfiles(final LinkedList<Contato> contatos) {
         String listUsersID = "";
 
@@ -295,7 +302,20 @@ public class Facebook {
         }
     }
 
-    public static void logout() {
+    public static void logout(Context contexto) {
+
+        if (!FacebookSdk.isInitialized()) {
+            Facebook.contexto = contexto;
+            FacebookSdk.sdkInitialize(contexto);
+
+            try {
+                Thread.sleep(1000);
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
         try {
             LoginManager.getInstance().logOut();
         }

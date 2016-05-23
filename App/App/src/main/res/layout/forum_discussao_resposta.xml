@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imgPerfil"
+        style="@style/AppTema.AppImgPerfil" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="#1"
+        android:id="@+id/lblIDResposta"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Por: Autor"
+        android:id="@+id/lblAutor"
+        android:layout_toEndOf="@id/imgPerfil" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="01/01/2016 - 00:00:00"
+        android:id="@+id/lblDataHora"
+        android:layout_toEndOf="@id/imgPerfil"
+        android:layout_below="@id/lblAutor"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resposta"
+        android:id="@+id/lblResposta"
+        android:layout_below="@id/imgPerfil" />
+
+</RelativeLayout>

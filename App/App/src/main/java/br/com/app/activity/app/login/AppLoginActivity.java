@@ -31,7 +31,7 @@ public class AppLoginActivity extends Activity {
 
         if (getIntent().getBooleanExtra("LOGOUT", false)) {
             getIntent().removeExtra("LOGOUT");
-            Facebook.logout();
+            Facebook.logout(this);
             return;
         }
 

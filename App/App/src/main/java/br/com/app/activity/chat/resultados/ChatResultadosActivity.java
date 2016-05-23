@@ -62,7 +62,7 @@ public class ChatResultadosActivity extends Activity {
         View viewDetalhes = getLayoutInflater().inflate(R.layout.chat_perfil_detalhes, null);
 
         ImageView imgPerfil = (ImageView) viewDetalhes.findViewById(R.id.imgPerfil);
-        imgPerfil.setImageBitmap(contato.getProfilePicture());
+        Utils.carregarImagem(this, contato.getProfilePictureURL(), imgPerfil);
 
         TextView lblNome = (TextView) viewDetalhes.findViewById(R.id.lblNomeDetalhe);
         lblNome.setText(contato.getFirstName());

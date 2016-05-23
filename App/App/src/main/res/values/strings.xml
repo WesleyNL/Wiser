@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">Wiser</string>
     <string name="facebook_app_id" translatable="false">570854019757986</string>
+    <string name="facebook_user_id" translatable="false">1262642377098040</string>
 
     <string name="title_app_configuracoes">Configurações</string>
     <string name="title_app_sobre">Sobre</string>
@@ -9,6 +10,7 @@
     <string name="title_chat_resultados">Resultados</string>
     <string name="title_forum_discussao">Discussões</string>
     <string name="title_forum_nova_discussao">Nova Discussão</string>
+    <string name="title_forum_minhas_discussoes">Minhas Discussões</string>
     <string name="title_forum_pesquisa">Pesquisar</string>
     <string name="title_forum_principal">Fórum</string>
     <string name="title_forum_resultados">Resultados</string>
@@ -33,6 +35,8 @@
     <string name="status">Status</string>
     <string name="distancia">Distância</string>
     <string name="resultado">Resultado</string>
+    <string name="resposta">%1$s Resposta</string>
+    <string name="respostas">%1$s Respostas</string>
     <string name="boas_vindas">Olá %1$s ;)</string>
     <string name="versao">Versão %1$s</string>
 
@@ -51,7 +55,8 @@
     <string name="desativar_conta">Desativar Conta</string>
     <string name="entrar_com_facebook">Entrar com o Facebook</string>
     <string name="resultados_para">Resultados para \'%1$s\'</string>
-    <string name="cont_discussoes">(%1$s)</string>
+    <string name="cont_discussoes" translatable="false">(%1$s)</string>
     <string name="discussao_encontrada">Discussão Encontrada</string>
     <string name="discussoes_encontradas">Discussoes Encontradas</string>
+    <string name="procure_por">Procure por ID, Título, Descrição...</string>
 </resources>

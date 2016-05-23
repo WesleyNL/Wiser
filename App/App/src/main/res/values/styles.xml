@@ -4,7 +4,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:colorBackground">@color/colorPrimaryLight</item>
+        <item name="android:colorBackground">@color/colorWindowBackground</item>
         <item name="android:colorForeground">@color/colorForeground</item>
         <item name="android:navigationBarColor">@color/colorNavigatorBar</item>
         <item name="android:statusBarColor">@color/colorStatusBar</item>
@@ -24,8 +24,10 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <!-- Custom Theme -->
-    <style name="AppTema" parent="android:Theme.Material.Light" >
+
+    <!-- Tema do App -->
+
+    <style name="AppTema" parent="android:Theme.Material.Light">
         <item name="android:colorPrimary">@color/colorPrimary</item>
         <item name="android:colorAccent">@color/colorAccent</item>
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -43,6 +45,27 @@
     <style name="AppTema.NoActionBar">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="AppCompatTema" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textColorPrimary">@color/colorForeground</item>
+        <item name="android:statusBarColor">@color/colorStatusBar</item>
+
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTema.AppTextTitulo">
+        <item name="android:textColor">@color/colorSecondaryText</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTema.AppImgPerfil">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:src">@drawable/com_facebook_profile_picture_blank_portrait</item>
+        <!--<item name="android:onClick">chamarPerfil</item>-->
     </style>
 
 </resources>

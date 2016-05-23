@@ -13,7 +13,6 @@ public class Contato implements Serializable{
     private String userName = "";
     private String firstName = "";
     private String profilePictureURL = "";
-    private Bitmap profilePicture;
     private int idade = 0;
     private int idioma = 0;
     private int nivelFluencia = 0;
@@ -21,13 +20,12 @@ public class Contato implements Serializable{
     private double distancia = 0;
 
     public Contato() {
-        this(null, "");
+        this("");
     }
 
-    public Contato(Bitmap img, String nome) {
+    public Contato(String userID) {
         super();
-        this.profilePicture = img;
-        this.userName = nome;
+        this.userID = userID;
     }
 
     public String getUserID() {
@@ -60,14 +58,6 @@ public class Contato implements Serializable{
 
     public void setProfilePictureURL(String profilePictureURL) {
         this.profilePictureURL = profilePictureURL;
-    }
-
-    public Bitmap getProfilePicture() {
-        return this.profilePicture;
-    }
-
-    public void setProfilePicture(Bitmap profilePicture) {
-        this.profilePicture = profilePicture;
     }
 
     public int getIdade() {

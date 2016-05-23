@@ -9,9 +9,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txtDiscussao"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/btnProcurarDiscussao" />
+        android:layout_alignStart="@+id/recycler_view"
+        android:layout_toStartOf="@+id/btnProcurarDiscussao"
+        android:layout_alignBottom="@+id/btnProcurarDiscussao"
+        android:hint="@string/procure_por"
+        android:singleLine="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -27,8 +29,8 @@
         android:layout_height="wrap_content"
         android:text="Resultados para ''"
         android:id="@+id/lblResultados"
-        android:layout_below="@+id/txtDiscussao"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txtDiscussao" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,5 +47,7 @@
         android:layout_margin="5dp"
         android:scrollbars="vertical"
         android:layout_below="@id/lblContResultados" />
+
+
 
 </RelativeLayout>

@@ -10,12 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.LinkedList;
 
 import br.com.app.activity.R;
 import br.com.app.business.chat.contatos.Contato;
+import br.com.app.utils.Utils;
 
 /**
  * Created by Wesley on 08/04/2016.
@@ -56,21 +55,7 @@ public class ContatosGridAdapter extends ArrayAdapter<Contato> {
 
         Contato item = listaItemContatos.get(position);
         objHolder.txtNome.setText(item.getFirstName());
-
-        if (item.getProfilePicture() == null) {
-            String url = null;
-            if (!TextUtils.isEmpty(item.getProfilePictureURL())) {
-                url = item.getProfilePictureURL();
-            }
-
-            Picasso.with(context)
-                    .load(url)
-                    .into(objHolder.imgImagemContato);
-            item.setProfilePicture(objHolder.imgImagemContato.getDrawingCache());
-        }
-        else {
-            objHolder.imgImagemContato.setImageBitmap(item.getProfilePicture());
-        }
+        Utils.carregarImagem(context, item.getProfilePictureURL(), objHolder.imgImagemContato);
 
         return objView;
     }

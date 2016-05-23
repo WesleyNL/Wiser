@@ -17,7 +17,6 @@ import br.com.app.Sistema;
 import br.com.app.activity.R;
 import br.com.app.activity.app.login.AppLoginActivity;
 import br.com.app.activity.app.principal.AppPrincipalActivity;
-import br.com.app.activity.chat.pesquisa.ChatPesquisaActivity;
 import br.com.app.business.app.servidor.Servidor;
 import br.com.app.business.app.facebook.Facebook;
 
@@ -63,7 +62,7 @@ public class AppSplashScreenActivity extends Activity {
 
     private void checkAccessToken() {
         String APP_ID = String.valueOf(R.string.facebook_app_id);
-        String ID_ACCOUNT = "1262642377098040";
+        String ID_ACCOUNT = String.valueOf(R.string.facebook_user_id);
         String ACCESS_TOKEN = "";
 
         try {

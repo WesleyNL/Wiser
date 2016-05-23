@@ -4,29 +4,59 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     tools:context=".forum.nova_discussao.ForumNovaDiscussaoActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Título"
+        android:id="@+id/lblTitulo"
+        android:textAppearance="@style/AppTema.AppTextTitulo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0 / 30"
+        android:id="@+id/lblContTitulo"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txtTituloDiscussao"
         android:layout_below="@+id/lblTitulo"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:maxLength="30"
+        android:singleLine="true"
+        android:inputType="textCapSentences" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Título"
-        android:id="@+id/lblTitulo"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:text="Descrição"
+        android:id="@+id/lblDescricao"
+        android:layout_below="@+id/txtTituloDiscussao"
+        android:textAppearance="@style/AppTema.AppTextTitulo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0 / 250"
+        android:id="@+id/lblContDescricao"
+        android:layout_above="@+id/txtDescricaoDiscussao"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txtDescricaoDiscussao"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/lblDescricao"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:maxLength="250"
+        android:inputType="textCapSentences|textMultiLine"
+        android:gravity="top|left"
+        android:scrollbars="vertical" />
 
     <Button
         android:layout_width="wrap_content"
@@ -35,13 +65,5 @@
         android:id="@+id/btnCriarDiscussao"
         android:layout_below="@+id/txtDescricaoDiscussao"
         android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/textView"
-        android:layout_below="@+id/txtTituloDiscussao"
-        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

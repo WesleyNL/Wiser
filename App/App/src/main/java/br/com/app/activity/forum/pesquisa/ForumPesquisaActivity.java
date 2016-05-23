@@ -1,21 +1,27 @@
 package br.com.app.activity.forum.pesquisa;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 
 import br.com.app.activity.R;
-import br.com.app.adapter.CardViewAdapter;
+import br.com.app.activity.chat.resultados.ChatResultadosActivity;
+import br.com.app.activity.forum.discussao.ForumDiscussaoActivity;
+import br.com.app.adapter.DiscussaoCardViewAdapter;
 import br.com.app.business.app.facebook.Facebook;
 import br.com.app.business.chat.contatos.Contato;
 import br.com.app.business.forum.discussao.Discussao;
+import br.com.app.business.forum.discussao.Resposta;
 
 import android.widget.TextView;
 import android.widget.EditText;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,7 +36,6 @@ public class ForumPesquisaActivity extends Activity {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle saveInstanceState) {
@@ -68,28 +73,49 @@ public class ForumPesquisaActivity extends Activity {
         List<Discussao> discussaoList = new LinkedList<Discussao>();
 
         Discussao d = new Discussao();
-        Contato c = new Contato();
-        c.setUserID("4");
-        c.setUserName(Facebook.getFirstName("4"));
-        c.setProfilePicture(Facebook.getProfilePicture("4"));
-        d.setContato(c);
+        d.setContato(Facebook.getProfile("4"));
         d.setIDDiscussao(1256);
         d.setTituloDiscussao("Escolas de Inglês");
         d.setDescricaoDiscussao("Alguém poderia me recomendar algumas escolas de inglês?");
         d.setContRespostas(2);
+        d.setDataHora(new Date());
+
+        LinkedList<Resposta> respostas = new LinkedList<Resposta>();
+        Resposta r = new Resposta();
+        r.setContato(Facebook.getProfile("6"));
+        r.setIDResposta(1);
+        r.setDataHora(new Date());
+        r.setResposta("Yazigi");
+        respostas.add(0, r);
+
+        r = new Resposta();
+        r.setContato(Facebook.getProfile("4"));
+        r.setIDResposta(2);
+        r.setDataHora(new Date());
+        r.setResposta("Mais alguma?");
+        respostas.add(1, r);
+
+        d.setRespostas(respostas);
 
         discussaoList.add(0, d);
 
         d = new Discussao();
-        c = new Contato();
-        c.setUserID("1262642377098040");
-        c.setUserName(Facebook.getFirstName("1262642377098040"));
-        c.setProfilePicture(Facebook.getProfilePicture("1262642377098040"));
-        d.setContato(c);
+        d.setContato(Facebook.getProfile("6"));
         d.setIDDiscussao(1257);
         d.setTituloDiscussao("Russo");
         d.setDescricaoDiscussao("Alguém fala Russo?");
         d.setContRespostas(1);
+        d.setDataHora(new Date());
+
+        respostas = new LinkedList<Resposta>();
+        r = new Resposta();
+        r.setContato(Facebook.getProfile("6"));
+        r.setIDResposta(1);
+        r.setDataHora(new Date());
+        r.setResposta("YA govoryu");
+        respostas.add(0, r);
+
+        d.setRespostas(respostas);
 
         discussaoList.add(1, d);
         //
@@ -99,7 +125,7 @@ public class ForumPesquisaActivity extends Activity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new CardViewAdapter(this, discussaoList);
+        adapter = new DiscussaoCardViewAdapter(this, discussaoList);
         recyclerView.setAdapter(adapter);
         recyclerView.setVisibility(View.VISIBLE);
     }

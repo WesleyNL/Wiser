@@ -24,7 +24,7 @@
 
     <item>
         <shape>
-            <solid android:color="@color/colorPrimaryInverseText" />
+            <solid android:color="@color/colorBackground" />
             <corners android:radius="6dp" />
         </shape>
     </item>

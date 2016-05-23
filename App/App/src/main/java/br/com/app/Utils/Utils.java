@@ -5,37 +5,40 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import br.com.app.activity.R;
 import br.com.app.activity.app.configuracoes.AppConfiguracoesActivity;
 import br.com.app.activity.app.principal.AppPrincipalActivity;
 import br.com.app.activity.app.splashscreen.AppSplashScreenActivity;
-import br.com.app.activity.chat.mensagens.ChatMensagensActivity;
+import br.com.app.activity.chat.mensagens.ChatMensagensFragment;
 import br.com.app.activity.chat.resultados.ChatResultadosActivity;
 import br.com.app.activity.app.login.AppLoginActivity;
-import br.com.app.activity.chat.pesquisa.ChatPesquisaActivity;
+import br.com.app.activity.chat.pesquisa.ChatPesquisaFragment;
 import br.com.app.activity.forum.discussao.ForumDiscussaoActivity;
+import br.com.app.activity.forum.minhas_discussoes.ForumMinhasDiscussoesActivity;
 import br.com.app.activity.forum.nova_discussao.ForumNovaDiscussaoActivity;
 import br.com.app.activity.forum.pesquisa.ForumPesquisaActivity;
-import br.com.app.activity.forum.principal.ForumPrincipalActivity;
+import br.com.app.activity.forum.principal.ForumPrincipalFragment;
 import br.com.app.business.app.servidor.Servidor;
 import br.com.app.activity.app.sobre.AppSobreActivity;
 import br.com.app.enums.EnmTelas;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by Wesley on 03/04/2016.
@@ -58,7 +61,8 @@ public class Utils implements LocationListener {
     public static void carregarComboIdiomas(Spinner cmbIdioma, Context context, boolean todos) {
 
         LinkedList<IdiomaFluencia> listaIdiomas = pesquisarIdiomas(todos);
-        ArrayAdapter<IdiomaFluencia> dataAdapter = new ArrayAdapter<IdiomaFluencia>(context, android.R.layout.simple_spinner_item, listaIdiomas);
+        //ArrayAdapter<IdiomaFluencia> dataAdapter = new ArrayAdapter<IdiomaFluencia>(context, android.R.layout.simple_spinner_item, listaIdiomas);
+        ArrayAdapter<IdiomaFluencia> dataAdapter = new ArrayAdapter<IdiomaFluencia>(context, R.layout.app_spinner_item, listaIdiomas);
 
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cmbIdioma.setAdapter(dataAdapter);
@@ -75,7 +79,7 @@ public class Utils implements LocationListener {
     public static void carregarComboFluencia(Spinner cmbFluencia, Context context, boolean todos) {
 
         LinkedList<IdiomaFluencia> listaFluencia = pesquisarFluencias(todos);
-        ArrayAdapter<IdiomaFluencia> dataAdapter = new ArrayAdapter<IdiomaFluencia>(context, android.R.layout.simple_spinner_item, listaFluencia);
+        ArrayAdapter<IdiomaFluencia> dataAdapter = new ArrayAdapter<IdiomaFluencia>(context, R.layout.app_spinner_item, listaFluencia);
 
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cmbFluencia.setAdapter(dataAdapter);
@@ -146,10 +150,10 @@ public class Utils implements LocationListener {
                     break;
 
                 case CHAT_MENSAGENS:
-                    classe = ChatMensagensActivity.class;
+                    classe = ChatMensagensFragment.class;
                     break;
                 case CHAT_PESQUISA:
-                    classe = ChatPesquisaActivity.class;
+                    classe = ChatPesquisaFragment.class;
                     break;
                 case CHAT_RESULTADOS:
                     classe = ChatResultadosActivity.class;
@@ -158,6 +162,9 @@ public class Utils implements LocationListener {
                 case FORUM_DISCUSSAO:
                     classe = ForumDiscussaoActivity.class;
                     break;
+                case FORUM_MINHAS_DISCUSSOES:
+                    classe = ForumMinhasDiscussoesActivity.class;
+                    break;
                 case FORUM_NOVA_DISCUSSAO:
                     classe = ForumNovaDiscussaoActivity.class;
                     break;
@@ -165,7 +172,7 @@ public class Utils implements LocationListener {
                     classe = ForumPesquisaActivity.class;
                     break;
                 case FORUM_PRINCIPAL:
-                    classe = ForumPrincipalActivity.class;
+                    classe = ForumPrincipalFragment.class;
                     break;
             }
 
@@ -185,13 +192,23 @@ public class Utils implements LocationListener {
 
             activity.startActivity(i);
 
-            if (enmActivity == EnmTelas.APP_LOGIN || enmActivity == EnmTelas.APP_PRINCIPAL) {
+            if (enmActivity == EnmTelas.APP_LOGIN) {
                 activity.finish();
             }
         }
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void carregarImagem(Context context, String url, ImageView imageView) {
+        if (!TextUtils.isEmpty(url)) {
+            Picasso.with(context).load(url).into(imageView);
+        }
+    }
+
+    public static String formatDate(Date data, String format) {
+        return new SimpleDateFormat(format).format(data);
     }
 
     public static int getPosicaoIdioma(int idioma){

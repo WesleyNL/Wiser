@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
+        android:id="@+id/itmMinhasDiscussoes"
+        android:title="@string/title_forum_minhas_discussoes" />
+
+    <item
         android:id="@+id/itmConfiguracoes"
         android:title="@string/menu_configuracoes" />
 

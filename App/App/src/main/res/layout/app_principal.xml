@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     tools:context=".app.principal.AppPrincipalActivity"
-    tools:menu="br.com.app.res.menu.menu_principal">
+    tools:menu="br.com.app.res.menu.menu_principal" >
 
-    <Button
-        android:layout_width="300dp"
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mensagens"
-        android:id="@+id/btnMensagens"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="105dp"
-        android:onClick="chamarMensagens" />
+        android:id="@+id/toolbar"
+        android:background="@color/colorPrimary"
+        app:titleTextColor="@color/colorPrimaryText" />
 
-    <Button
-        android:layout_width="300dp"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/sliding_tabs"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Encontre Outros"
-        android:id="@+id/btnPesquisarContatos"
-        android:layout_below="@+id/btnMensagens"
-        android:layout_centerHorizontal="true"
-        android:onClick="chamarPesquisaContatos" />
 
-    <Button
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="Fórum de Ajuda"
-        android:id="@+id/btnForum"
-        android:layout_below="@+id/btnPesquisarContatos"
-        android:layout_centerHorizontal="true"
-        android:onClick="chamarForum" />
+        app:tabBackground="@color/colorPrimary"
+        app:tabIndicatorColor="@color/colorPrimaryText"
+        app:tabSelectedTextColor="@color/colorPrimaryText"
+        app:tabTextColor="@color/colorAccent"
+        app:tabMode="fixed" />
 
-</RelativeLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWindowBackground" />
+
+</LinearLayout>

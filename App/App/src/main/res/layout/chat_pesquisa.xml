@@ -3,17 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".chat.pesquisa.ChatPesquisaActivity"
+    tools:context=".chat.pesquisa.ChatPesquisaFragment"
     tools:menu="br.com.app.res.menu.menu_principal" >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="@style/AppTema.AppTextTitulo"
         android:text="@string/idioma"
         android:id="@+id/lblIdioma"
-        android:textSize="18dp"
-        android:textStyle="bold"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp" />
 
@@ -38,11 +36,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="@style/AppTema.AppTextTitulo"
         android:text="@string/fluencia"
         android:id="@+id/lblFluencia"
-        android:textSize="18dp"
-        android:textStyle="bold"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/imageView5" />
@@ -68,11 +64,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="@style/AppTema.AppTextTitulo"
         android:text="@string/distancia"
         android:id="@+id/lblDistancia"
-        android:textSize="18dp"
-        android:textStyle="bold"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"
         android:layout_below="@id/imageView6" />

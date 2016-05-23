@@ -37,14 +37,12 @@ public class AppConfiguracoesActivity extends Activity {
         final TextView lblContLetras = (TextView) super.findViewById(R.id.lblContLetras);
         EditText txtStatus = (EditText) super.findViewById(R.id.txtStatus);
         TextWatcher textWatcher = new TextWatcher() {
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void afterTextChanged(Editable s) { }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                lblContLetras.setText(String.valueOf(s.length()) + " /30");
-            }
-
-            public void afterTextChanged(Editable s) {
+                lblContLetras.setText(String.valueOf(s.length()) + " / 30");
             }
         };
         txtStatus.addTextChangedListener(textWatcher);
@@ -84,8 +82,9 @@ public class AppConfiguracoesActivity extends Activity {
             Spinner cmbFluencia = (Spinner) findViewById(R.id.cmbFluenciaConfig);
             cmbFluencia.setSelection(Utils.getPosicaoFluencia(objConfDAO.getFluencia()));
 
-            TextView txtStatus = (EditText) findViewById(R.id.txtStatus);
+            EditText txtStatus = (EditText) findViewById(R.id.txtStatus);
             txtStatus.setText(objConfDAO.getStatus());
+            txtStatus.setSelection(txtStatus.getText().length());
         }
         else{
             AlertDialog.Builder dialogo = new AlertDialog.Builder(this);

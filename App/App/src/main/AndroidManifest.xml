@@ -14,7 +14,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/logo_wiser_2"
+        android:icon="@drawable/logo_wiser"
         android:supportsRtl="true"
         android:theme="@style/AppTema"
         android:label="@string/app_name">
@@ -58,24 +58,13 @@
         <!-- Activity da Tela Principal do App -->
         <activity
             android:name=".app.principal.AppPrincipalActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTema"/>
 
         <!-- Activity da Tela Sobre do App -->
         <activity
             android:name=".app.sobre.AppSobreActivity"
             android:label="@string/title_app_sobre"
-            android:screenOrientation="portrait" />
-
-        <!-- Activity da Tela de Mensagens do Chat -->
-        <activity
-            android:name=".chat.mensagens.ChatMensagensActivity"
-            android:label="@string/title_chat_mensagens"
-            android:screenOrientation="portrait" />
-
-        <!-- Activity da Tela de Pesquisa do Chat -->
-        <activity
-            android:name=".chat.pesquisa.ChatPesquisaActivity"
-            android:label="@string/app_name"
             android:screenOrientation="portrait" />
 
         <!-- Activity da Tela de Resultados do Chat  -->
@@ -90,6 +79,12 @@
             android:label="@string/title_forum_discussao"
             android:screenOrientation="portrait" />
 
+        <!-- Activity da Tela de Discussões do Forum -->
+        <activity
+            android:name=".forum.minhas_discussoes.ForumMinhasDiscussoesActivity"
+            android:label="@string/title_forum_minhas_discussoes"
+            android:screenOrientation="portrait" />
+
         <!-- Activity da Tela de Nova Discussão do Forum -->
         <activity
             android:name=".forum.nova_discussao.ForumNovaDiscussaoActivity"
@@ -100,12 +95,6 @@
         <activity
             android:name=".forum.pesquisa.ForumPesquisaActivity"
             android:label="@string/title_forum_pesquisa"
-            android:screenOrientation="portrait" />
-
-        <!-- Activity da Tela Principal do Forum -->
-        <activity
-            android:name=".forum.principal.ForumPrincipalActivity"
-            android:label="@string/title_forum_principal"
             android:screenOrientation="portrait" />
 
     </application>
