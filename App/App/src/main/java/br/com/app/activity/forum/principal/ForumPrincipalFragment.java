@@ -1,27 +1,24 @@
 package br.com.app.activity.forum.principal;
 
 import android.app.Activity;
+import android.content.Context;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
-import java.util.Date;
 import java.util.LinkedList;
-import java.util.List;
 
 import br.com.app.activity.R;
-import br.com.app.activity.forum.discussao.ForumDiscussaoActivity;
 import br.com.app.adapter.DiscussaoCardViewAdapter;
-import br.com.app.business.app.facebook.Facebook;
 import br.com.app.business.forum.discussao.Discussao;
-import br.com.app.business.forum.discussao.Resposta;
+import br.com.app.business.forum.discussao.DiscussaoDAO;
 import br.com.app.enums.EnmTelas;
 import br.com.app.utils.Utils;
 
@@ -37,6 +34,10 @@ public class ForumPrincipalFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
 
+    private ProgressBar pgbLoading;
+
+    private DiscussaoDAO objDiscussaoDAO = null;
+
     public static ForumPrincipalFragment newInstance() {
         return new ForumPrincipalFragment();
     }
@@ -47,6 +48,13 @@ public class ForumPrincipalFragment extends Fragment {
         initComponentes(view);
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        initComponentes(this.getView());
     }
 
     private void initComponentes(View view) {
@@ -77,63 +85,43 @@ public class ForumPrincipalFragment extends Fragment {
             }
         });
 
+        pgbLoading = (ProgressBar) view.findViewById(R.id.pgbLoading);
+
+        objDiscussaoDAO = new DiscussaoDAO();
+
         carregarDados(view);
     }
 
     private void carregarDados(View view) {
-        // Apenas como teste
-        List<Discussao> discussaoList = new LinkedList<Discussao>();
 
-        Discussao d = new Discussao();
-        d.setContato(Facebook.getProfile("4"));
-        d.setIDDiscussao(1256);
-        d.setTituloDiscussao("Escolas de Inglês");
-        d.setDescricaoDiscussao("Alguém poderia me recomendar algumas escolas de inglês?");
-        d.setContRespostas(2);
-        d.setDataHora(new Date());
+        pgbLoading.setVisibility(View.VISIBLE);
+        pgbLoading.bringToFront();
 
-        LinkedList<Resposta> respostas = new LinkedList<Resposta>();
-        Resposta r = new Resposta();
-        r.setContato(Facebook.getProfile("6"));
-        r.setIDResposta(1);
-        r.setDataHora(new Date());
-        r.setResposta("Yazigi");
-        respostas.add(0, r);
+        final Handler hCarregar = new Handler();
+        final Context context = this.getContext();
 
-        r = new Resposta();
-        r.setContato(Facebook.getProfile("4"));
-        r.setIDResposta(2);
-        r.setDataHora(new Date());
-        r.setResposta("Mais alguma?");
-        respostas.add(1, r);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                LinkedList<Discussao> listaDiscussoes = objDiscussaoDAO.carregar();
+                tratarLoading(hCarregar, context, listaDiscussoes);
+            }
+        }).start();
+    }
 
-        d.setRespostas(respostas);
+    private void tratarLoading(Handler hCarregar, final Context context, final LinkedList<Discussao> listaDiscussoes){
+        hCarregar.post(new Runnable() {
+            @Override
+            public void run() {
 
-        discussaoList.add(0, d);
+                if (listaDiscussoes != null || !listaDiscussoes.isEmpty()) {
+                    adapter = new DiscussaoCardViewAdapter(context, listaDiscussoes);
+                    recyclerView.setAdapter(adapter);
+                }
 
-        d = new Discussao();
-        d.setContato(Facebook.getProfile("6"));
-        d.setIDDiscussao(1257);
-        d.setTituloDiscussao("Russo");
-        d.setDescricaoDiscussao("Alguém fala Russo?");
-        d.setContRespostas(1);
-        d.setDataHora(new Date());
-
-        respostas = new LinkedList<Resposta>();
-        r = new Resposta();
-        r.setContato(Facebook.getProfile("6"));
-        r.setIDResposta(1);
-        r.setDataHora(new Date());
-        r.setResposta("YA govoryu");
-        respostas.add(0, r);
-
-        d.setRespostas(respostas);
-
-        discussaoList.add(1, d);
-        //
-
-        adapter = new DiscussaoCardViewAdapter(view.getContext(), discussaoList);
-        recyclerView.setAdapter(adapter);
+                pgbLoading.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
     public void chamarNovaDiscussao(View view) {
@@ -145,6 +133,6 @@ public class ForumPrincipalFragment extends Fragment {
     }
 
     public void atualizarDiscussoes(View view) {
-
+        carregarDados(view);
     }
 }

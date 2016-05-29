@@ -5,6 +5,7 @@
 
     <string name="title_app_configuracoes">Configurações</string>
     <string name="title_app_sobre">Sobre</string>
+    <string name="title_app_pesquisa">Encontrar Pessoas</string>
     <string name="title_chat_mensagens">Mensagens</string>
     <string name="title_chat_pesquisa">Pesquisar</string>
     <string name="title_chat_resultados">Resultados</string>
@@ -25,6 +26,16 @@
     <string name="configurar">Configurar</string>
     <string name="sucesso">Sucesso</string>
     <string name="erro">Erro</string>
+    <string name="atualizar">Atualizar</string>
+    <string name="nova">Nova</string>
+    <string name="procurar_discussao">Procurar Discussão</string>
+    <string name="excluir">Excluir</string>
+    <string name="titulo">Título</string>
+    <string name="descricao">Descrição</string>
+    <string name="criar">Criar</string>
+    <string name="enviar">Enviar</string>
+    <string name="responder">Responder</string>
+    <string name="compartilhar">Compartilhar</string>
 
     <string name="ok" translatable="false">OK</string>
     <string name="sim">Sim</string>
@@ -46,10 +57,10 @@
     <string name="erro_salvar_configuracao">Um erro ocorreu ao salvar a configuração.</string>
     <string name="confirmar_desativar_conta">Você deseja realmente desativar esta conta?</string>
     <string name="confirmar_salvar">Deseja realmente salvar?</string>
-    <string name="sucesso_conta_desativada">A conta foi desativada com Sucesso.</string>
-    <string name="sucesso_salvar_configuracao">A configuração foi salva com Sucesso.</string>
+    <string name="sucesso_conta_desativada">A conta foi desativada com sucesso.</string>
+    <string name="sucesso_salvar_configuracao">A configuração foi salva com sucesso.</string>
     <string name="usuarios_nao_encontrados">Não foram encontrados usuários para os filtros selecionados.</string>
-    <string name="necessario_permitir">Wiser requer permissão de Localização!</string>
+    <string name="necessario_permitir">Wiser requer permissão de localização!</string>
     <string name="configuracoes_nao_personalizadas">Você ainda não personalizou suas configurações!</string>
     <string name="fazer_agora">Deseja fazer isto agora?</string>
     <string name="desativar_conta">Desativar Conta</string>
@@ -59,4 +70,12 @@
     <string name="discussao_encontrada">Discussão Encontrada</string>
     <string name="discussoes_encontradas">Discussoes Encontradas</string>
     <string name="procure_por">Procure por ID, Título, Descrição...</string>
+    <string name="erro_criar_discussao">Um erro ocorreu ao criar a discussão.</string>
+    <string name="sucesso_criar_discussao">A discussão foi criada com sucesso.</string>
+    <string name="sucesso_discussao_excluida">A discussão foi excluída com sucesso.</string>
+    <string name="erro_excluir_discussao">Um erro ocorreu ao excluir a discussão.</string>
+    <string name="confirmar_excluir_discussao">Você deseja realmente excluir esta discussão?</string>
+    <string name="erro_discussao_nao_encontrada">Não foram encontradas discussões com este filtro.</string>
+    <string name="erro_usuario_sem_discussao">Você ainda não criou discussões.</string>
+    <string name="erro_criar_discussao_campos">Título e Descrição devem estar preenchidos!</string>
 </resources>

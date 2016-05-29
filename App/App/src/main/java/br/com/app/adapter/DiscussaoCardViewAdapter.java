@@ -8,13 +8,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
+import br.com.app.Sistema;
 import br.com.app.activity.R;
 import br.com.app.activity.forum.discussao.ForumDiscussaoActivity;
+import br.com.app.activity.forum.minhas_discussoes.ForumMinhasDiscussoesActivity;
+import br.com.app.activity.forum.pesquisa.ForumPesquisaActivity;
+import br.com.app.activity.forum.principal.ForumPrincipalFragment;
 import br.com.app.business.forum.discussao.Discussao;
 import br.com.app.utils.Utils;
 
@@ -24,11 +29,11 @@ import br.com.app.utils.Utils;
 public class DiscussaoCardViewAdapter extends RecyclerView.Adapter<DiscussaoCardViewAdapter.ViewHolder> {
 
     private Context context;
-    private static List<Discussao> discussoes;
+    private static List<Discussao> listaDiscussoes;
 
-    public DiscussaoCardViewAdapter(Context context, List<Discussao> discussoes) {
+    public DiscussaoCardViewAdapter(Context context, List<Discussao> listaDiscussoes) {
         this.context = context;
-        this.discussoes = discussoes;
+        this.listaDiscussoes = listaDiscussoes;
     }
 
     @Override
@@ -42,28 +47,36 @@ public class DiscussaoCardViewAdapter extends RecyclerView.Adapter<DiscussaoCard
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        Discussao discussao = discussoes.get(position);
+        Discussao objDiscussao = listaDiscussoes.get(position);
 
-        Utils.carregarImagem(context, discussao.getContato().getProfilePictureURL(), viewHolder.imgPerfil);
-        viewHolder.lblIDDiscussao.setText("#" + discussao.getIDDiscussao());
-        viewHolder.lblAutorDiscussao.setText(discussao.getContato().getFirstName());
-        viewHolder.lblTituloDiscussao.setText(discussao.getTituloDiscussao());
-        viewHolder.lblDescricaoDiscussao.setText(discussao.getDescricaoDiscussao());
+        Utils.carregarImagem(context, objDiscussao.getContato().getProfilePictureURL(), viewHolder.imgPerfil);
+        viewHolder.lblIDDiscussao.setText("#" + objDiscussao.getIdDiscussao());
+        viewHolder.lblAutorDiscussao.setText(objDiscussao.getContato().getFirstName());
+        viewHolder.lblTituloDiscussao.setText(objDiscussao.getTitulo());
+        viewHolder.lblDescricaoDiscussao.setText(objDiscussao.getDescricao());
         viewHolder.lblContRespostas.setText(
-                context.getString(discussao.getContRespostas() == 1 ? R.string.resposta : R.string.respostas,
-                        discussao.getContRespostas()));
-        viewHolder.lblDataHora.setText(Utils.formatDate(discussao.getDataHora(), "dd/MM/yyyy HH:mm:ss"));
+                context.getString(objDiscussao.getContRespostas() == 1 ? R.string.resposta : R.string.respostas,
+                        objDiscussao.getContRespostas()));
+        viewHolder.lblDataHora.setText(Utils.formatDate(objDiscussao.getDataHora(), "dd/MM/yyyy HH:mm:ss"));
+
+        if(!objDiscussao.getContato().getUserID().trim().equalsIgnoreCase(Sistema.USER_ID)){
+            viewHolder.btnExcluir.setVisibility(View.INVISIBLE);
+        }
+
+        if(!(context instanceof ForumMinhasDiscussoesActivity || context instanceof ForumPesquisaActivity)) {
+            viewHolder.btnExcluir.setVisibility(View.INVISIBLE);
+        }
 
         viewHolder.setPosicao(position);
     }
 
     @Override
     public int getItemCount() {
-        return discussoes.size();
+        return listaDiscussoes.size();
     }
 
     public Discussao getDiscussao(int posicao) {
-        return this.discussoes.get(posicao);
+        return this.listaDiscussoes.get(posicao);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -77,6 +90,7 @@ public class DiscussaoCardViewAdapter extends RecyclerView.Adapter<DiscussaoCard
         public TextView lblDescricaoDiscussao;
         public TextView lblContRespostas;
         public TextView lblDataHora;
+        public Button btnExcluir;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
@@ -89,6 +103,24 @@ public class DiscussaoCardViewAdapter extends RecyclerView.Adapter<DiscussaoCard
             lblDescricaoDiscussao = (TextView) itemLayoutView.findViewById(R.id.lblDescricaoDiscussao);
             lblContRespostas = (TextView) itemLayoutView.findViewById(R.id.lblContRespostas);
             lblDataHora = (TextView) itemLayoutView.findViewById(R.id.lblDataHora);
+            btnExcluir = (Button) itemLayoutView.findViewById(R.id.btnExcluir);
+
+            View.OnClickListener btnExcluirListener = new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    Context contextAtual = v.getContext();
+                    long idDiscussao = listaDiscussoes.get(posicao).getIdDiscussao();
+
+                    if(contextAtual instanceof ForumMinhasDiscussoesActivity) {
+                        ((ForumMinhasDiscussoesActivity) v.getContext()).excluir(idDiscussao);
+                    }
+                    if(contextAtual instanceof ForumPesquisaActivity) {
+                        ((ForumPesquisaActivity) v.getContext()).excluir(idDiscussao);
+                    }
+                }
+            };
+
+            btnExcluir.setOnClickListener(btnExcluirListener);
         }
 
         @Override
@@ -96,7 +128,7 @@ public class DiscussaoCardViewAdapter extends RecyclerView.Adapter<DiscussaoCard
             CardView cv = (CardView) view;
 
             Bundle bundle = new Bundle();
-            bundle.putSerializable("discussoes", discussoes.get(posicao));
+            bundle.putSerializable("discussao", listaDiscussoes.get(posicao));
 
             Intent i = new Intent(view.getContext(), ForumDiscussaoActivity.class);
             i.putExtra("discussoes", bundle);

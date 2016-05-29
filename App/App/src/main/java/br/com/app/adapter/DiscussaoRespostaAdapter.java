@@ -4,19 +4,14 @@ import br.com.app.activity.R;
 import br.com.app.business.forum.discussao.Resposta;
 import br.com.app.utils.Utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedList;
 
 /**
@@ -48,8 +43,8 @@ public class DiscussaoRespostaAdapter extends RecyclerView.Adapter<DiscussaoResp
         Resposta r = resposta.get(position);
 
         Utils.carregarImagem(context, r.getContato().getProfilePictureURL(), holder.imgPerfil);
-        holder.lblIDResposta.setText("#" + r.getIDResposta());
-        holder.lblAutor.setText(" Por: " + r.getContato().getFirstName());
+        holder.lblIDResposta.setText("#" + r.getIdResposta());
+        holder.lblAutor.setText(r.getContato().getFirstName());
         holder.lblDataHora.setText(Utils.formatDate(r.getDataHora(), "dd/MM/yyyy HH:mm:ss"));
         holder.lblResposta.setText(r.getResposta());
     }

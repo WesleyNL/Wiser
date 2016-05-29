@@ -12,20 +12,26 @@ import br.com.app.business.chat.contatos.Contato;
  */
 public class Discussao implements Serializable {
 
-    private long IDDiscussao;
+    private long idDiscussao;
     private Contato contato;
-    private String tituloDiscussao;
-    private String descricaoDiscussao;
+    private String titulo;
+    private String descricao;
     private Date dataHora;
+    private byte buscaEspecifica;
     private long contRespostas;
-    private LinkedList<Resposta> respostas;
+    private LinkedList<Resposta> listaRespostas;
 
-    public long getIDDiscussao() {
-        return IDDiscussao;
+    public static final byte BUSCA_DISCUSSAO_ID = 1;
+    public static final byte BUSCA_DISCUSSAO_TITULO = 2;
+    public static final byte BUSCA_DISCUSSAO_DESCRICAO = 3;
+    public static final byte BUSCA_DISCUSSAO_TITULO_DESCRICAO = 4;
+
+    public long getIdDiscussao() {
+        return idDiscussao;
     }
 
-    public void setIDDiscussao(long IDDiscussao) {
-        this.IDDiscussao = IDDiscussao;
+    public void setIdDiscussao(long idDiscussao) {
+        this.idDiscussao = idDiscussao;
     }
 
     public Contato getContato() {
@@ -36,20 +42,20 @@ public class Discussao implements Serializable {
         this.contato = contato;
     }
 
-    public String getTituloDiscussao() {
-        return tituloDiscussao;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setTituloDiscussao(String tituloDiscussao) {
-        this.tituloDiscussao = tituloDiscussao;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
-    public String getDescricaoDiscussao() {
-        return descricaoDiscussao;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDescricaoDiscussao(String descricaoDiscussao) {
-        this.descricaoDiscussao = descricaoDiscussao;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public Date getDataHora() {
@@ -60,6 +66,14 @@ public class Discussao implements Serializable {
         this.dataHora = dataHora;
     }
 
+    public byte getBuscaEspecifica() {
+        return buscaEspecifica;
+    }
+
+    public void setBuscaEspecifica(byte buscaEspecifica) {
+        this.buscaEspecifica = buscaEspecifica;
+    }
+
     public long getContRespostas() {
         return contRespostas;
     }
@@ -68,11 +82,11 @@ public class Discussao implements Serializable {
         this.contRespostas = contRespostas;
     }
 
-    public LinkedList<Resposta> getRespostas() {
-        return respostas;
+    public LinkedList<Resposta> getListaRespostas() {
+        return listaRespostas;
     }
 
-    public void setRespostas(LinkedList<Resposta> respostas) {
-        this.respostas = respostas;
+    public void setListaRespostas(LinkedList<Resposta> listaRespostas) {
+        this.listaRespostas = listaRespostas;
     }
 }

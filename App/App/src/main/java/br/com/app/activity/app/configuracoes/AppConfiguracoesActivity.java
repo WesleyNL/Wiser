@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
@@ -17,6 +18,7 @@ import br.com.app.business.app.configuracao.ConfiguracaoDAO;
 
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -27,6 +29,8 @@ public class AppConfiguracoesActivity extends Activity {
 
     private ConfiguracaoDAO objConfDAO = null;
 
+    private ProgressBar pgbLoading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +38,8 @@ public class AppConfiguracoesActivity extends Activity {
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final TextView lblContLetras = (TextView) super.findViewById(R.id.lblContLetras);
-        EditText txtStatus = (EditText) super.findViewById(R.id.txtStatus);
+        final TextView lblContLetras = (TextView) findViewById(R.id.lblContLetras);
+        EditText txtStatus = (EditText) findViewById(R.id.txtStatus);
         TextWatcher textWatcher = new TextWatcher() {
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -49,10 +53,33 @@ public class AppConfiguracoesActivity extends Activity {
 
         objConfDAO = new ConfiguracaoDAO();
 
-        carregarComboIdioma();
-        carregarComboFluencia();
+        pgbLoading = (ProgressBar) findViewById(R.id.pgbLoading);
+        pgbLoading.setVisibility(View.VISIBLE);
+        pgbLoading.bringToFront();
 
-        consultar();
+        final Handler hCarregar = new Handler();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        carregarComboIdioma();
+                        carregarComboFluencia();
+
+                        consultar();
+
+                        hCarregar.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                pgbLoading.setVisibility(View.INVISIBLE);
+                            }
+                        });
+                    }
+                });
+            }
+        }).start();
     }
 
     @Override
@@ -61,17 +88,17 @@ public class AppConfiguracoesActivity extends Activity {
         return true;
     }
 
-    public void carregarComboIdioma(){
+    public synchronized void carregarComboIdioma(){
         Spinner cmbIdioma = (Spinner) findViewById(R.id.cmbIdiomaConfig);
         Utils.carregarComboIdiomas(cmbIdioma, this);
     }
 
-    public void carregarComboFluencia(){
+    public synchronized void carregarComboFluencia(){
         Spinner cmbFluencia = (Spinner) findViewById(R.id.cmbFluenciaConfig);
         Utils.carregarComboFluencia(cmbFluencia, this);
     }
 
-    public void consultar(){
+    public synchronized void consultar(){
 
         objConfDAO.setUserId(Sistema.USER_ID);
 
@@ -81,6 +108,10 @@ public class AppConfiguracoesActivity extends Activity {
 
             Spinner cmbFluencia = (Spinner) findViewById(R.id.cmbFluenciaConfig);
             cmbFluencia.setSelection(Utils.getPosicaoFluencia(objConfDAO.getFluencia()));
+
+            if(objConfDAO.getStatus().trim().isEmpty()){
+                objConfDAO.setStatus("");
+            }
 
             EditText txtStatus = (EditText) findViewById(R.id.txtStatus);
             txtStatus.setText(objConfDAO.getStatus());
@@ -108,6 +139,10 @@ public class AppConfiguracoesActivity extends Activity {
         idiomaFluencia = (IdiomaFluencia)cmbFluencia.getItemAtPosition(cmbFluencia.getSelectedItemPosition());
         objConfDAO.setFluencia((byte)idiomaFluencia.getId());
         objConfDAO.setStatus(txtStatus.getText().toString());
+
+        if(objConfDAO.getStatus().trim().isEmpty()){
+            objConfDAO.setStatus(" ");
+        }
 
         AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
 

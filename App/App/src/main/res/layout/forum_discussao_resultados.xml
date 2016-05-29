@@ -95,7 +95,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:text="Compartilhar"
+            android:text="@string/compartilhar"
             android:textSize="10dp"
             android:id="@+id/btnCompartilhar"
             android:background="@android:color/transparent"
@@ -106,13 +106,14 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:text="Excluir"
+            android:text="@string/excluir"
             android:textSize="10dp"
             android:id="@+id/btnExcluir"
             android:background="@android:color/transparent"
             android:layout_toEndOf="@id/btnCompartilhar"
             android:layout_below="@id/lblAutorDiscussao"
             android:textColor="@color/colorSecondaryText"
+            android:onClick="excluir"
             style="?android:attr/borderlessButtonStyle" />
 
     </RelativeLayout>

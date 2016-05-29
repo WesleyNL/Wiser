@@ -19,6 +19,7 @@ import br.com.app.activity.app.login.AppLoginActivity;
 import br.com.app.activity.app.principal.AppPrincipalActivity;
 import br.com.app.business.app.servidor.Servidor;
 import br.com.app.business.app.facebook.Facebook;
+import br.com.app.utils.Utils;
 
 /**
  * Created by Wesley on 19/04/2016.
@@ -90,6 +91,10 @@ public class AppSplashScreenActivity extends Activity {
     }
 
     private void iniciarAplicacao() {
+
+        if(Sistema.APP_IDIOMA == 0) {
+            Sistema.APP_IDIOMA = Utils.getCodAppIdioma(getResources().getConfiguration().locale.getLanguage());
+        }
 
         if (AccessToken.getCurrentAccessToken() != null) {
             new Timer().schedule(new TimerTask() {

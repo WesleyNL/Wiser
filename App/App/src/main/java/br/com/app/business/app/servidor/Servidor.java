@@ -6,15 +6,19 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Vector;
 
 import br.com.app.Sistema;
 import br.com.app.business.app.configuracao.Configuracao;
+import br.com.app.business.app.facebook.Facebook;
 import br.com.app.business.chat.contatos.Contato;
 import br.com.app.business.app.login.Login;
 import br.com.app.business.chat.pesquisa.Pesquisa;
+import br.com.app.business.forum.discussao.Discussao;
+import br.com.app.business.forum.discussao.Resposta;
 import br.com.app.utils.IdiomaFluencia;
 
 /**
@@ -27,8 +31,12 @@ public class Servidor {
     private static final String DESATIVAR = "desativar";
     private static final String VERIFICAR = "existe";
     private static final String PROCURAR = "procurar";
+    private static final String CARREGAR = "carregar";
+    private static final String RESPONDER = "responder";
     private static final String PESQ_IDIOMAS = "pesquisarIdiomas";
     private static final String PESQ_FLUENCIAS = "pesquisarFluencias";
+    private static final String PESQ_DISCUSSAO_USUARIO = "pesquisarUsuario";
+    private static final String PESQ_DISCUSSAO_ESPECIFICA = "pesquisarEspecifico";
     private static final String GET_ACCESS_TOKEN = "getAccessToken";
 
     private static final String URL_SISTEMA = "http://" + Sistema.SERVIDOR_WS + "/Projeto_Android_WS/services/Sistema?wsdl";
@@ -45,6 +53,9 @@ public class Servidor {
 
     private static final String URL_UTILS = "http://" + Sistema.SERVIDOR_WS + "/Projeto_Android_WS/services/Utils?wsdl";
     private static final String NAMESPACE_UTILS = "http://utils.projeto.com.br";
+
+    private static final String URL_FORUM = "http://" + Sistema.SERVIDOR_WS + "/Projeto_Android_WS/services/DiscussaoDAO?wsdl";
+    private static final String NAMESPACE_FORUM = "http://forum.projeto.com.br";
 
     public static String getAccessToken(){
 
@@ -295,6 +306,7 @@ public class Servidor {
 
         SoapObject objEnvio = new SoapObject(NAMESPACE_UTILS, "utils");
         objEnvio.addProperty("todos", todos);
+        objEnvio.addProperty("appIdioma", String.valueOf(Sistema.APP_IDIOMA));
 
         objPesquisar.addSoapObject(objEnvio);
 
@@ -323,5 +335,254 @@ public class Servidor {
         }
 
         return lista;
+    }
+
+    public static  LinkedList<Discussao> pesquisarDiscussoesUsuario(){
+        return carregarDiscussoes(null, Sistema.USER_ID);
+    }
+
+    public static LinkedList<Discussao> pesquisarDiscussoesEspecifico(Discussao dados){
+        return carregarDiscussoes(dados, "");
+    }
+
+    public static LinkedList<Discussao> carregarDiscussoes(){
+        return carregarDiscussoes(null, "");
+    }
+
+    private static LinkedList<Discussao> carregarDiscussoes(Discussao dados, String userId){
+
+        String metodo = CARREGAR;
+
+        if(!userId.trim().isEmpty()){
+            metodo = PESQ_DISCUSSAO_USUARIO;
+        }else if(dados != null && dados.getBuscaEspecifica() != 0){
+            metodo = PESQ_DISCUSSAO_ESPECIFICA;
+        }
+
+        SoapObject objEnvio = new SoapObject(NAMESPACE_FORUM, metodo);
+
+        SoapObject objCarregar = new SoapObject(NAMESPACE_FORUM, "discussao");
+
+        if(!userId.trim().isEmpty()) {
+            objCarregar.addProperty("autor", userId);
+        }
+
+        if(dados != null && dados.getBuscaEspecifica() != 0) {
+            objCarregar.addProperty("idDiscussao", String.valueOf(dados.getIdDiscussao()));
+            objCarregar.addProperty("buscaEspecifica", String.valueOf(dados.getBuscaEspecifica()));
+            objCarregar.addProperty("autor", dados.getContato().getUserID());
+            objCarregar.addProperty("titulo", dados.getTitulo());
+            objCarregar.addProperty("descricao", dados.getDescricao());
+        }
+
+        objEnvio.addSoapObject(objCarregar);
+
+        SoapSerializationEnvelope objEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        objEnvelope.setOutputSoapObject(objEnvio);
+        objEnvelope.implicitTypes = true;
+
+        HttpTransportSE objHTTP = new HttpTransportSE(URL_FORUM);
+
+        LinkedList<Discussao> listaDiscussoes = new LinkedList<Discussao>();
+
+        try {
+            objHTTP.call("urn:" + metodo, objEnvelope);
+
+            Discussao objDiscussao = null;
+            Resposta objResposta = null;
+            LinkedList<Resposta> listaRespostas = null;
+            SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
+            try {
+                Vector<SoapObject> objSoapResposta = (Vector<SoapObject>) objEnvelope.getResponse();
+
+                for (SoapObject soapObject : objSoapResposta) {
+                    objDiscussao = new Discussao();
+                    objDiscussao.setIdDiscussao(Long.parseLong(soapObject.getProperty("idDiscussao").toString()));
+                    objDiscussao.setTitulo(soapObject.getProperty("titulo").toString());
+                    objDiscussao.setDescricao(soapObject.getProperty("descricao").toString());
+                    objDiscussao.setContRespostas(Long.parseLong(soapObject.getProperty("contRespostas").toString()));
+                    objDiscussao.setDataHora(fmt.parse(soapObject.getProperty("dataHoraCustom").toString()));
+                    objDiscussao.setContato(Facebook.getProfile(soapObject.getProperty("autor").toString()));
+
+                    try {
+                        listaRespostas = new LinkedList<Resposta>();
+
+                        for(int i=7; i<7+objDiscussao.getContRespostas(); i++){
+                            SoapObject soapObjectResp = (SoapObject) soapObject.getProperty(i);
+
+                            if (!soapObjectResp.getProperty("idResposta").toString().trim().equals("-1")) {
+                                objResposta = new Resposta();
+                                objResposta.setIdResposta(Long.parseLong(soapObjectResp.getProperty("idResposta").toString()));
+                                objResposta.setDataHora(fmt.parse(soapObjectResp.getProperty("dataHoraCustom").toString()));
+                                objResposta.setResposta(soapObjectResp.getProperty("resposta").toString());
+                                objResposta.setContato(Facebook.getProfile(soapObjectResp.getProperty("autor").toString()));
+                                listaRespostas.add(objResposta);
+                            }
+                        }
+
+                        objDiscussao.setListaRespostas(listaRespostas);
+                        objDiscussao.setContRespostas(listaRespostas.size());
+                        listaDiscussoes.add(objDiscussao);
+
+                    }catch(Exception e2){
+                        SoapObject soapObjectResp = (SoapObject) soapObject.getProperty("listaRespostas");
+
+                        if(soapObjectResp != null){
+                            listaRespostas = new LinkedList<Resposta>();
+                            if(!soapObjectResp.getProperty("idResposta").toString().trim().equals("-1")) {
+                                objResposta = new Resposta();
+                                objResposta.setIdResposta(Long.parseLong(soapObjectResp.getProperty("idResposta").toString()));
+                                objResposta.setDataHora(fmt.parse(soapObjectResp.getProperty("dataHoraCustom").toString()));
+                                objResposta.setResposta(soapObjectResp.getProperty("resposta").toString());
+                                objResposta.setContato(Facebook.getProfile(soapObjectResp.getProperty("autor").toString()));
+                                listaRespostas.add(objResposta);
+                            }
+                        }
+
+                        objDiscussao.setListaRespostas(listaRespostas);
+                        objDiscussao.setContRespostas(listaRespostas.size());
+                        listaDiscussoes.add(objDiscussao);
+                    }
+                }
+            } catch (Exception e) {
+                SoapObject objSoapResposta = (SoapObject) objEnvelope.getResponse();
+
+                if (objSoapResposta != null) {
+                    objDiscussao = new Discussao();
+                    objDiscussao.setIdDiscussao(Long.parseLong(objSoapResposta.getProperty("idDiscussao").toString()));
+                    objDiscussao.setTitulo(objSoapResposta.getProperty("titulo").toString());
+                    objDiscussao.setDescricao(objSoapResposta.getProperty("descricao").toString());
+                    objDiscussao.setContRespostas(Long.parseLong(objSoapResposta.getProperty("contRespostas").toString()));
+                    objDiscussao.setDataHora(fmt.parse(objSoapResposta.getProperty("dataHoraCustom").toString()));
+                    objDiscussao.setContato(Facebook.getProfile(objSoapResposta.getProperty("autor").toString()));
+
+                    try {
+                        listaRespostas = new LinkedList<Resposta>();
+
+                        for(int i=7; i<7+objDiscussao.getContRespostas(); i++){
+                            SoapObject soapObjectResp = (SoapObject) objSoapResposta.getProperty(i);
+
+                            if (!soapObjectResp.getProperty("idResposta").toString().trim().equals("-1")) {
+                                objResposta = new Resposta();
+                                objResposta.setIdResposta(Long.parseLong(soapObjectResp.getProperty("idResposta").toString()));
+                                objResposta.setDataHora(fmt.parse(soapObjectResp.getProperty("dataHoraCustom").toString()));
+                                objResposta.setResposta(soapObjectResp.getProperty("resposta").toString());
+                                objResposta.setContato(Facebook.getProfile(soapObjectResp.getProperty("autor").toString()));
+                                listaRespostas.add(objResposta);
+                            }
+                        }
+
+                        objDiscussao.setListaRespostas(listaRespostas);
+                        objDiscussao.setContRespostas(listaRespostas.size());
+                        listaDiscussoes.add(objDiscussao);
+                    }catch(Exception e2){
+                        SoapObject soapObjectResp = (SoapObject) objSoapResposta.getProperty("listaRespostas");
+
+                        if(soapObjectResp != null){
+                            listaRespostas = new LinkedList<Resposta>();
+                            if(!soapObjectResp.getProperty("idResposta").toString().trim().equals("-1")) {
+                                objResposta = new Resposta();
+                                objResposta.setIdResposta(Long.parseLong(soapObjectResp.getProperty("idResposta").toString()));
+                                objResposta.setDataHora(fmt.parse(soapObjectResp.getProperty("dataHoraCustom").toString()));
+                                objResposta.setResposta(soapObjectResp.getProperty("resposta").toString());
+                                objResposta.setContato(Facebook.getProfile(soapObjectResp.getProperty("autor").toString()));
+                                listaRespostas.add(objResposta);
+                            }
+                        }
+
+                        objDiscussao.setListaRespostas(listaRespostas);
+                        objDiscussao.setContRespostas(listaRespostas.size());
+                        listaDiscussoes.add(objDiscussao);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return listaDiscussoes;
+    }
+
+    public static long criarDiscussao(Discussao dados){
+
+        SoapObject objEnvio = new SoapObject(NAMESPACE_FORUM, SALVAR);
+
+        SoapObject objSalvar = new SoapObject(NAMESPACE_FORUM, "discussao");
+        objSalvar.addProperty("titulo", dados.getTitulo());
+        objSalvar.addProperty("descricao", dados.getDescricao());
+        objSalvar.addProperty("autor", dados.getContato().getUserID());
+
+        objEnvio.addSoapObject(objSalvar);
+
+        SoapSerializationEnvelope objEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        objEnvelope.setOutputSoapObject(objEnvio);
+        objEnvelope.implicitTypes = true;
+
+        HttpTransportSE objHTTP = new HttpTransportSE(URL_FORUM);
+
+        try{
+            objHTTP.call("urn:" + SALVAR, objEnvelope);
+
+            SoapPrimitive objResposta = (SoapPrimitive) objEnvelope.getResponse();
+
+            return Long.parseLong(objResposta.toString());
+        } catch(Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public static boolean desativarDiscussao(Discussao dados){
+
+        SoapObject objEnvio = new SoapObject(NAMESPACE_FORUM, DESATIVAR);
+
+        SoapObject objSalvar = new SoapObject(NAMESPACE_FORUM, "discussao");
+        objSalvar.addProperty("autor", dados.getContato().getUserID());
+        objSalvar.addProperty("idDiscussao", String.valueOf(dados.getIdDiscussao()));
+
+        objEnvio.addSoapObject(objSalvar);
+
+        SoapSerializationEnvelope objEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        objEnvelope.setOutputSoapObject(objEnvio);
+        objEnvelope.implicitTypes = true;
+
+        HttpTransportSE objHTTP = new HttpTransportSE(URL_FORUM);
+
+        try{
+            objHTTP.call("urn:" + DESATIVAR, objEnvelope);
+
+            SoapPrimitive objResposta = (SoapPrimitive) objEnvelope.getResponse();
+
+            return Boolean.parseBoolean(objResposta.toString());
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static void responderDiscussao(Resposta dados){
+
+        SoapObject objEnvio = new SoapObject(NAMESPACE_FORUM, RESPONDER);
+
+        SoapObject objSalvar = new SoapObject(NAMESPACE_FORUM, "resposta");
+        objSalvar.addProperty("autor", dados.getContato().getUserID());
+        objSalvar.addProperty("idDiscussao", String.valueOf(dados.getIdDiscussao()));
+        objSalvar.addProperty("resposta", dados.getResposta());
+
+        objEnvio.addSoapObject(objSalvar);
+
+        SoapSerializationEnvelope objEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        objEnvelope.setOutputSoapObject(objEnvio);
+        objEnvelope.implicitTypes = true;
+
+        HttpTransportSE objHTTP = new HttpTransportSE(URL_FORUM);
+
+        try{
+            objHTTP.call("urn:" + RESPONDER, objEnvelope);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 }

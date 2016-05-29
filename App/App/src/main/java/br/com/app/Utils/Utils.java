@@ -158,7 +158,6 @@ public class Utils implements LocationListener {
                 case CHAT_RESULTADOS:
                     classe = ChatResultadosActivity.class;
                     break;
-
                 case FORUM_DISCUSSAO:
                     classe = ForumDiscussaoActivity.class;
                     break;
@@ -238,4 +237,30 @@ public class Utils implements LocationListener {
 
     @Override
     public void onProviderDisabled(String provider) { }
+
+    public static byte getCodAppIdioma(String appIdioma){
+        switch(appIdioma.toLowerCase()){
+            case "pt-br":
+                return 1;
+            case "en":
+                return 2;
+            default:
+                return 1;
+        }
+    }
+
+    public static boolean soNumeros(String texto){
+
+        if(texto == null || texto.isEmpty()) {
+            return false;
+        }
+
+        for (char letra : texto.toCharArray()) {
+            if (letra < '0' || letra > '9') {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

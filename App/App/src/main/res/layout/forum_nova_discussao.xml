@@ -7,9 +7,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Título"
+        android:text="@string/titulo"
         android:id="@+id/lblTitulo"
-        android:textAppearance="@style/AppTema.AppTextTitulo" />
+        android:textAppearance="@style/AppTema.AppTextTitulo"
+        android:layout_marginTop="5dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,7 +18,8 @@
         android:text="0 / 30"
         android:id="@+id/lblContTitulo"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -28,15 +30,18 @@
         android:layout_alignParentEnd="true"
         android:maxLength="30"
         android:singleLine="true"
-        android:inputType="textCapSentences" />
+        android:inputType="textCapSentences"
+        android:textColor="#3b3a3a"
+        android:layout_marginTop="5dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Descrição"
+        android:text="@string/descricao"
         android:id="@+id/lblDescricao"
         android:layout_below="@+id/txtTituloDiscussao"
-        android:textAppearance="@style/AppTema.AppTextTitulo" />
+        android:textAppearance="@style/AppTema.AppTextTitulo"
+        android:layout_marginTop="5dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,7 +49,8 @@
         android:text="0 / 250"
         android:id="@+id/lblContDescricao"
         android:layout_above="@+id/txtDescricaoDiscussao"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -56,14 +62,20 @@
         android:maxLength="250"
         android:inputType="textCapSentences|textMultiLine"
         android:gravity="top|left"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        android:textColor="#3b3a3a"
+        android:layout_marginTop="5dp"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Criar"
+        android:text="@string/criar"
         android:id="@+id/btnCriarDiscussao"
         android:layout_below="@+id/txtDescricaoDiscussao"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorPrimaryInverseText"
+        android:background="@drawable/btndefaultshape"
+        android:layout_marginTop="5dp"
+        android:onClick="salvar"/>
 
 </RelativeLayout>

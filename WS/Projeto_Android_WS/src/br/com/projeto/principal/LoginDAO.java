@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import br.com.projeto.conexao.Conexao;
-import br.com.projeto.configuracoes.ConfiguracaoDAO;
 import br.com.projeto.utils.Constantes;
 
 public class LoginDAO {

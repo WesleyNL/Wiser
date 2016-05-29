@@ -4,14 +4,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 
 import br.com.projeto.conexao.Conexao;
 
 public class Utils {
 	
-	public static DecimalFormat dfDouble = new DecimalFormat("####0.00");
 	private boolean todos = false;
+	private byte appIdioma = 0;
+	
+	public static DecimalFormat dfDouble = new DecimalFormat("####0.00");
 
 	/** @return Em Km*/
 	public static double calcularDistanciaGeodesica(double latitudeP1, double longitudeP1, double latitudeP2, double longitudeP2){
@@ -22,8 +27,10 @@ public class Utils {
 	}
 
 	public LinkedList<String> pesquisarIdiomas(Utils utils){
+		setAppIdioma(utils.getAppIdioma());
+		setTodos(utils.isTodos());
 		try {
-			return pesquisarCombo("IDIOMA", utils.isTodos());
+			return pesquisarCombo("IDIOMA");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Não foi possível carregar os dados da tabela IDIOMA.");
@@ -33,8 +40,10 @@ public class Utils {
 	}
 
 	public LinkedList<String> pesquisarFluencias(Utils utils) {
+		setAppIdioma(utils.getAppIdioma());
+		setTodos(utils.isTodos());
 		try {
-			return pesquisarCombo("FLUENCIA", utils.isTodos());
+			return pesquisarCombo("FLUENCIA");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Não foi possível carregar os dados da tabela IDIOMA.");
@@ -43,7 +52,7 @@ public class Utils {
 		return null;
 	}
 
-	public LinkedList<String> pesquisarCombo(String tabela, boolean todos) throws SQLException{
+	public LinkedList<String> pesquisarCombo(String tabela) throws SQLException{
 
 		LinkedList<String> lista = new LinkedList<String>();
 		ResultSet rst = null;
@@ -51,23 +60,25 @@ public class Utils {
 		try {
 
 			String sql = "SELECT * FROM " + tabela;
+			String descricao = getDescricaoAppIdioma(getAppIdioma());
+			String opcaoTodos = getAppIdioma() == Constantes.PORTUGUES ? "1 - Todos" : "1 - All";
 			
-			if(tabela.trim().equals("IDIOMA")){
-				sql += " ORDER BY DESCRICAO";
+			if(tabela.trim().equalsIgnoreCase("IDIOMA")){
+				sql += " ORDER BY " + descricao;
 			}
 
 			PreparedStatement objPS = Conexao.getInstance().getConexao().prepareStatement(sql);
 			rst = objPS.executeQuery();
 
 			while(rst.next()){
-				lista.add(rst.getInt("CODIGO") + " - " + rst.getString("DESCRICAO"));
+				lista.add(rst.getInt("CODIGO") + " - " + rst.getString(descricao));
 			}
 			
-			if(!todos){
-				lista.remove(lista.indexOf("1 - Todos"));
+			if(!isTodos()){
+				lista.remove(lista.indexOf(opcaoTodos));
 			}
 			else{
-				lista.add(lista.remove(lista.indexOf("1 - Todos")));
+				lista.add(lista.remove(lista.indexOf(opcaoTodos)));
 			}
 			
 		} catch (SQLException e) {
@@ -81,17 +92,45 @@ public class Utils {
 		return lista;
 	}
 	
-	public boolean isTodos() {
+	public String getDescricaoAppIdioma(byte appIdioma){
+        switch(appIdioma){
+            case Constantes.PORTUGUES:
+                return "DESCRICAO_PTBR";
+            case Constantes.INGLES:
+                return "DESCRICAO_EN";
+            default:
+                return "DESCRICAO_PTBR";
+        }
+    }
+	
+	public boolean isTodos(){
 		return todos;
 	}
 
 	public void setTodos(boolean todos) {
 		this.todos = todos;
 	}
+	
+	public byte getAppIdioma(){
+		return appIdioma;
+	}
+	
+	public void setAppIdioma(byte appIdioma){
+		this.appIdioma = appIdioma;
+	}
 
 	public static void main(String[] args) {
 		// Teste distância entre osasco e carapicuíba, ok
 		DecimalFormat dfDouble = new DecimalFormat("####0.00");
 		System.out.println(Double.parseDouble(dfDouble.format(Utils.calcularDistanciaGeodesica(-23.5317, -46.7899, -23.5192, -46.8367)).replace(",", ".")));
+		
+		SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");  
+		Date data = null;
+		try {
+			data = fmt.parse("2016-05-27 17:58:37".replaceAll("-", "/"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} 
+		System.out.println(fmt.format(data));
 	}
 }

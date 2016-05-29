@@ -1,8 +1,10 @@
 package br.com.app.activity.chat.pesquisa;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +19,11 @@ import br.com.app.business.chat.pesquisa.PesquisaDAO;
 
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by Jefferson on 31/03/2016.
@@ -30,9 +34,11 @@ public class ChatPesquisaFragment extends Fragment {
     private Spinner cmbFluencia;
     private SeekBar skrDistancia;
     private Button btnProcurar;
+    private ProgressBar pgbLoading;
 
     private TextView lblDistanciaSelecionada;
     private int distanciaSelecionada = 0;
+    private static boolean achou = false;
 
     private PesquisaDAO objProcDAO = null;
 
@@ -80,6 +86,8 @@ public class ChatPesquisaFragment extends Fragment {
             }
         });
 
+        pgbLoading = (ProgressBar)view.findViewById(R.id.pgbLoading);
+
         carregarComboIdioma(view);
         carregarComboFluencia(view);
 
@@ -98,6 +106,8 @@ public class ChatPesquisaFragment extends Fragment {
 
     private void procurar(View view){
 
+        pgbLoading.setVisibility(View.VISIBLE);
+        pgbLoading.bringToFront();
 
         IdiomaFluencia idiomaFluencia = null;
 
@@ -108,21 +118,35 @@ public class ChatPesquisaFragment extends Fragment {
         objProcDAO.setFluencia((byte) idiomaFluencia.getId());
         objProcDAO.setDistancia(distanciaSelecionada);
 
-        if (objProcDAO.procurar()){
+        final Context context = this.getContext();
+        final Handler hCarregar = new Handler();
 
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("listaUsuarios", objProcDAO.getListaUsuarios());
+        achou = false;
 
-            Intent i = new Intent(view.getContext(), ChatResultadosActivity.class);
-            i.putExtra("listaUsuarios", bundle);
-            startActivity(i);
-        }
-        else {
-            AlertDialog.Builder dialogo = new AlertDialog.Builder(view.getContext());
-            dialogo.setTitle(getString(R.string.resultado));
-            dialogo.setMessage(getString(R.string.usuarios_nao_encontrados));
-            dialogo.setNeutralButton(getString(R.string.ok), null);
-            dialogo.show();
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (objProcDAO.procurar()){
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("listaUsuarios", objProcDAO.getListaUsuarios());
+
+                    Intent i = new Intent(context, ChatResultadosActivity.class);
+                    i.putExtra("listaUsuarios", bundle);
+                    startActivity(i);
+
+                    achou = true;
+                }
+
+                hCarregar.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        pgbLoading.setVisibility(View.INVISIBLE);
+                        if(!achou) {
+                            Toast.makeText(context, getString(R.string.usuarios_nao_encontrados), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+            }
+        }).start();
     }
 }

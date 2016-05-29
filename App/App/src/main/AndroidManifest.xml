@@ -79,7 +79,7 @@
             android:label="@string/title_forum_discussao"
             android:screenOrientation="portrait" />
 
-        <!-- Activity da Tela de Discussões do Forum -->
+        <!-- Activity da Tela de Discussões do Usuário do Forum -->
         <activity
             android:name=".forum.minhas_discussoes.ForumMinhasDiscussoesActivity"
             android:label="@string/title_forum_minhas_discussoes"

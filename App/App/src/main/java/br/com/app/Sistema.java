@@ -8,6 +8,7 @@ import com.facebook.AccessToken;
 public class Sistema {
 
     public static String USER_ID = "";
-    public static String SERVIDOR_WS = "192.168.25.10:8090";
+    public static String SERVIDOR_WS = "192.168.25.8:8090";
     public static AccessToken ACCESS_TOKEN = null;
+    public static byte APP_IDIOMA = 0;
 }

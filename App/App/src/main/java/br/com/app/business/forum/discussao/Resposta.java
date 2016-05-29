@@ -10,17 +10,26 @@ import br.com.app.business.chat.contatos.Contato;
  */
 public class Resposta implements Serializable {
 
-    private long IDResposta;
+    private long idResposta;
+    private long idDiscussao;
     private Contato contato;
     private Date dataHora;
     private String resposta;
 
-    public long getIDResposta() {
-        return IDResposta;
+    public long getIdResposta() {
+        return idResposta;
     }
 
-    public void setIDResposta(long IDResposta) {
-        this.IDResposta = IDResposta;
+    public long getIdDiscussao() {
+        return idDiscussao;
+    }
+
+    public void setIdDiscussao(long idDiscussao) {
+        this.idDiscussao = idDiscussao;
+    }
+
+    public void setIdResposta(long idResposta) {
+        this.idResposta = idResposta;
     }
 
     public Contato getContato() {

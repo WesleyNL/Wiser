@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.LinkedList;
 
+import br.com.app.activity.R;
 import br.com.app.activity.chat.mensagens.ChatMensagensFragment;
 import br.com.app.activity.chat.pesquisa.ChatPesquisaFragment;
 import br.com.app.activity.forum.principal.ForumPrincipalFragment;
@@ -16,7 +17,7 @@ import br.com.app.activity.forum.principal.ForumPrincipalFragment;
  */
 public class SampleFragmentPageAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 3;
-    private String tabTitles[] = new String[] { "Encontrar Pessoas", "Mensagens", "Fórum" };
+    private String tabTitles[] = null;
     private Context context;
 
     private LinkedList<Object> abasFragmentos = new LinkedList<Object>();
@@ -28,6 +29,8 @@ public class SampleFragmentPageAdapter extends FragmentPagerAdapter {
         abasFragmentos.add(0, ChatPesquisaFragment.newInstance());
         abasFragmentos.add(1, ChatMensagensFragment.newInstance());
         abasFragmentos.add(2, ForumPrincipalFragment.newInstance());
+
+        tabTitles = new String[]{context.getString(R.string.title_app_pesquisa), context.getString(R.string.title_chat_mensagens), context.getString(R.string.title_forum_principal)};
     }
 
     @Override

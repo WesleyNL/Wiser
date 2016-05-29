@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Por: Autor"
+            android:text="Autor"
             android:id="@+id/lblAutor"
             android:layout_toEndOf="@id/imgPerfil"
             android:layout_below="@id/lblTituloDiscussao"/>
@@ -59,15 +59,15 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/lblRespostas"
             android:scrollbars="vertical" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Responder"
+            android:text="@string/responder"
             android:id="@+id/lblResponder"
             android:layout_below="@+id/recycler_view" />
 
@@ -87,15 +87,30 @@
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@+id/btnEnviarResposta"
             android:singleLine="true"
-            android:maxLength="250" />
+            android:maxLength="250"
+            android:textColor="#393838" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enviar"
+            android:text="@string/enviar"
             android:id="@+id/btnEnviarResposta"
             android:layout_alignTop="@+id/txtResposta"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:onClick="enviar"
+            android:textColor="@color/colorPrimaryInverseText"
+            android:background="@drawable/btncustomshape"
+            android:layout_marginRight="10dp"/>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pgbLoading"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:progressDrawable="@drawable/circular_loading"
+            android:visibility="invisible"
+            style="?android:attr/progressBarStyleLarge"/>
 
     </RelativeLayout>
 
