@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import br.com.app.activity.R;
+import br.com.app.utils.Utils;
+
+import android.view.View;
 import android.widget.TextView;
 
 /**
@@ -37,5 +40,9 @@ public class AppSobreActivity extends Activity {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void compartilhar(View view){
+        Utils.compartilharAplicativoEmTexto(view);
     }
 }

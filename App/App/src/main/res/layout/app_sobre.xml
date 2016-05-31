@@ -56,4 +56,17 @@
         android:layout_centerHorizontal="true"
         android:textColor="#8B8989" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:text="@string/compartilhar"
+        android:textSize="10dp"
+        android:id="@+id/btnCompartilhar"
+        android:background="@android:color/transparent"
+        android:textColor="#8B8989"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignStart="@+id/lblVersao"
+        android:layout_marginBottom="10dp"
+        android:onClick="compartilhar"/>
+
 </RelativeLayout>

@@ -5,14 +5,19 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -262,5 +267,32 @@ public class Utils implements LocationListener {
         }
 
         return true;
+    }
+
+    public static void compartilharEmImagem(View view){
+
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();
+
+        Bitmap img = view.getDrawingCache();
+
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        img.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(view.getContext().getContentResolver(), img, view.getContext().getString(R.string.compartilhar_titulo), null);
+
+        Intent iCompartilhar = new Intent(Intent.ACTION_SEND);
+        Uri imgDiscussao = Uri.parse(path);
+
+        iCompartilhar.setType("image/png");
+        iCompartilhar.putExtra(Intent.EXTRA_STREAM, imgDiscussao);
+        view.getContext().startActivity(Intent.createChooser(iCompartilhar, view.getContext().getString(R.string.compartilhar_discussao_sistema)));
+    }
+
+    public static void compartilharAplicativoEmTexto(View view){
+
+        Intent iCompartilhar = new Intent(Intent.ACTION_SEND);
+        iCompartilhar.setType("text/plain");
+        iCompartilhar.putExtra(android.content.Intent.EXTRA_TEXT, view.getContext().getString(R.string.sistema_link_playstore));
+        view.getContext().startActivity(Intent.createChooser(iCompartilhar, view.getContext().getString(R.string.compartilhar_aplicativo_sistema)));
     }
 }

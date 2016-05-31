@@ -19,7 +19,6 @@ import br.com.app.activity.R;
 import br.com.app.activity.forum.discussao.ForumDiscussaoActivity;
 import br.com.app.activity.forum.minhas_discussoes.ForumMinhasDiscussoesActivity;
 import br.com.app.activity.forum.pesquisa.ForumPesquisaActivity;
-import br.com.app.activity.forum.principal.ForumPrincipalFragment;
 import br.com.app.business.forum.discussao.Discussao;
 import br.com.app.utils.Utils;
 
@@ -91,6 +90,7 @@ public class DiscussaoCardViewAdapter extends RecyclerView.Adapter<DiscussaoCard
         public TextView lblContRespostas;
         public TextView lblDataHora;
         public Button btnExcluir;
+        public Button btnCompartilhar;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
@@ -104,6 +104,7 @@ public class DiscussaoCardViewAdapter extends RecyclerView.Adapter<DiscussaoCard
             lblContRespostas = (TextView) itemLayoutView.findViewById(R.id.lblContRespostas);
             lblDataHora = (TextView) itemLayoutView.findViewById(R.id.lblDataHora);
             btnExcluir = (Button) itemLayoutView.findViewById(R.id.btnExcluir);
+            btnCompartilhar = (Button) itemLayoutView.findViewById(R.id.btnCompartilhar);
 
             View.OnClickListener btnExcluirListener = new View.OnClickListener(){
                 @Override
@@ -121,11 +122,21 @@ public class DiscussaoCardViewAdapter extends RecyclerView.Adapter<DiscussaoCard
             };
 
             btnExcluir.setOnClickListener(btnExcluirListener);
+
+            btnCompartilhar.setTag(itemLayoutView);
+
+            View.OnClickListener btnCompartilharListener = new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    Utils.compartilharEmImagem((CardView) v.getTag());
+                }
+            };
+
+            btnCompartilhar.setOnClickListener(btnCompartilharListener);
         }
 
         @Override
         public void onClick(View view) {
-            CardView cv = (CardView) view;
 
             Bundle bundle = new Bundle();
             bundle.putSerializable("discussao", listaDiscussoes.get(posicao));

@@ -69,4 +69,6 @@
     <string name="criar">Create</string>
     <string name="erro_criar_discussao_campos">Title and Description must be filled!</string>
     <string name="erro_usuario_sem_discussao">You have not created discussions.</string>
+    <string name="compartilhar_aplicativo_sistema">Share app using...</string>
+    <string name="compartilhar_discussao_sistema">Share discussion using...</string>
 </resources>
