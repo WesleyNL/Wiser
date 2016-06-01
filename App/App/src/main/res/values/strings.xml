@@ -78,4 +78,9 @@
     <string name="erro_discussao_nao_encontrada">Não foram encontradas discussões com este filtro.</string>
     <string name="erro_usuario_sem_discussao">Você ainda não criou discussões.</string>
     <string name="erro_criar_discussao_campos">Título e Descrição devem estar preenchidos!</string>
+    <string name="compartilhar_titulo" translatable="false">Wiser</string>
+    <string name="compartilhar_discussao_sistema">Compartilhar discussão usando...</string>
+    <string name="compartilhar_aplicativo_sistema">Compartilhar aplicativo usando...</string>
+    <string name="sistema_link_playstore" translatable="false">https://play.google.com/store/apps/details?id=com.whatsapp</string> <!--exemplo-->
+
 </resources>
