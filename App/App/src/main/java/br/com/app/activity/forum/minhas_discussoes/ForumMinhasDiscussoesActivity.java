@@ -24,6 +24,8 @@ import br.com.app.adapter.DiscussaoCardViewAdapter;
 import br.com.app.business.chat.contatos.Contato;
 import br.com.app.business.forum.discussao.Discussao;
 import br.com.app.business.forum.discussao.DiscussaoDAO;
+import br.com.app.enums.EnmTelas;
+import br.com.app.utils.Utils;
 
 /**
  * Created by Jefferson on 19/05/2016.
@@ -135,5 +137,9 @@ public class ForumMinhasDiscussoesActivity extends Activity {
         });
 
         confirmar.show();
+    }
+
+    public void chamarNovaDiscussao(View view) {
+        Utils.chamarActivity((Activity) view.getContext(), EnmTelas.FORUM_NOVA_DISCUSSAO);
     }
 }

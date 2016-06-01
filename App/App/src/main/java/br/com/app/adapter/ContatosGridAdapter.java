@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.LinkedList;
@@ -34,7 +35,6 @@ public class ContatosGridAdapter extends ArrayAdapter<Contato> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // TODO Trocar para GridLayoutManager
 
         View objView = convertView;;
         RecordHolder objHolder = null;
@@ -44,7 +44,8 @@ public class ContatosGridAdapter extends ArrayAdapter<Contato> {
             objView = inflater.inflate(layoutResourceId, parent, false);
 
             objHolder = new RecordHolder();
-            objHolder.imgImagemContato = (ImageView) objView.findViewById(R.id.imgPerfil);
+            objHolder.imgPerfil = (ImageView) objView.findViewById(R.id.imgPerfil);
+            objHolder.prgBarra = (ProgressBar) objView.findViewById(R.id.prgBarra);
             objHolder.txtNome = (TextView) objView.findViewById(R.id.txtNomeLista);
 
             objView.setTag(objHolder);
@@ -55,13 +56,14 @@ public class ContatosGridAdapter extends ArrayAdapter<Contato> {
 
         Contato item = listaItemContatos.get(position);
         objHolder.txtNome.setText(item.getFirstName());
-        Utils.carregarImagem(context, item.getProfilePictureURL(), objHolder.imgImagemContato);
+        Utils.loadImageInBackground(context, item.getProfilePictureURL(), objHolder.imgPerfil, objHolder.prgBarra);
 
         return objView;
     }
 
     private static class RecordHolder {
-        ImageView imgImagemContato;
+        ImageView imgPerfil;
+        ProgressBar prgBarra;
         TextView txtNome;
     }
 }

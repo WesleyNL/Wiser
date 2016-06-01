@@ -21,8 +21,9 @@ import br.com.app.activity.forum.minhas_discussoes.ForumMinhasDiscussoesActivity
 import br.com.app.activity.forum.pesquisa.ForumPesquisaActivity;
 import br.com.app.activity.forum.principal.ForumPrincipalFragment;
 import br.com.app.business.forum.discussao.Discussao;
+import br.com.app.utils.FormatData;
 import br.com.app.utils.Utils;
-
+import android.widget.ProgressBar;
 /**
  * Created by Jefferson on 16/05/2016.
  */
@@ -49,7 +50,7 @@ public class DiscussaoCardViewAdapter extends RecyclerView.Adapter<DiscussaoCard
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         Discussao objDiscussao = listaDiscussoes.get(position);
 
-        Utils.carregarImagem(context, objDiscussao.getContato().getProfilePictureURL(), viewHolder.imgPerfil);
+        Utils.loadImageInBackground(context, objDiscussao.getContato().getProfilePictureURL(), viewHolder.imgPerfil, viewHolder.prgBarra);
         viewHolder.lblIDDiscussao.setText("#" + objDiscussao.getIdDiscussao());
         viewHolder.lblAutorDiscussao.setText(objDiscussao.getContato().getFirstName());
         viewHolder.lblTituloDiscussao.setText(objDiscussao.getTitulo());
@@ -57,13 +58,9 @@ public class DiscussaoCardViewAdapter extends RecyclerView.Adapter<DiscussaoCard
         viewHolder.lblContRespostas.setText(
                 context.getString(objDiscussao.getContRespostas() == 1 ? R.string.resposta : R.string.respostas,
                         objDiscussao.getContRespostas()));
-        viewHolder.lblDataHora.setText(Utils.formatDate(objDiscussao.getDataHora(), "dd/MM/yyyy HH:mm:ss"));
+        viewHolder.lblDataHora.setText(FormatData.formatDate(objDiscussao.getDataHora(), FormatData.DDMMYYYY_HHMMSS));
 
         if(!objDiscussao.getContato().getUserID().trim().equalsIgnoreCase(Sistema.USER_ID)){
-            viewHolder.btnExcluir.setVisibility(View.INVISIBLE);
-        }
-
-        if(!(context instanceof ForumMinhasDiscussoesActivity || context instanceof ForumPesquisaActivity)) {
             viewHolder.btnExcluir.setVisibility(View.INVISIBLE);
         }
 
@@ -85,6 +82,7 @@ public class DiscussaoCardViewAdapter extends RecyclerView.Adapter<DiscussaoCard
 
         public TextView lblIDDiscussao;
         public ImageView imgPerfil;
+        public ProgressBar prgBarra;
         public TextView lblAutorDiscussao;
         public TextView lblTituloDiscussao;
         public TextView lblDescricaoDiscussao;
@@ -98,6 +96,7 @@ public class DiscussaoCardViewAdapter extends RecyclerView.Adapter<DiscussaoCard
 
             lblIDDiscussao = (TextView) itemLayoutView.findViewById(R.id.lblIDDiscussao);
             imgPerfil = (ImageView) itemLayoutView.findViewById(R.id.imgPerfil);
+            prgBarra = (ProgressBar) itemLayoutView.findViewById(R.id.prgBarra);
             lblAutorDiscussao = (TextView) itemLayoutView.findViewById(R.id.lblAutorDiscussao);
             lblTituloDiscussao = (TextView) itemLayoutView.findViewById(R.id.lblTituloDiscussao);
             lblDescricaoDiscussao = (TextView) itemLayoutView.findViewById(R.id.lblDescricaoDiscussao);
@@ -121,6 +120,13 @@ public class DiscussaoCardViewAdapter extends RecyclerView.Adapter<DiscussaoCard
             };
 
             btnExcluir.setOnClickListener(btnExcluirListener);
+
+            imgPerfil.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FrameImagemPerfil.mostrarDetalhes(v.getContext(), listaDiscussoes.get(posicao).getContato());
+                }
+            });
         }
 
         @Override

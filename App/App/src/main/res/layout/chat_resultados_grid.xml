@@ -6,12 +6,12 @@
     android:orientation="vertical"
     android:background="@drawable/bordershadow">
 
-    <ImageView
-        android:id="@+id/imgPerfil"
-        android:layout_marginTop="10sp"
+    <include
+        layout="@layout/frm_imagem_perfil"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:layout_gravity="center_horizontal"
-        style="@style/AppTema.AppImgPerfil" >
-    </ImageView>
+        android:layout_marginTop="10sp" />
 
     <TextView
         android:id="@+id/txtNomeLista"

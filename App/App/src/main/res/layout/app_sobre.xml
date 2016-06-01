@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".app.sobre.AppSobreActivity">
 
     <ImageView
-        android:layout_width="320dp"
-        android:layout_height="460dp"
+        android:layout_height="match_parent"
         android:id="@+id/imageView"
-        android:background="@drawable/bordershadow"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        style="@style/AppTema.AppFrame" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,13 +38,15 @@
         android:textStyle="italic" />
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/imgSobre"
         android:nestedScrollingEnabled="false"
         android:src="@mipmap/logo_wiser_2"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@id/lblVersao"
+        android:layout_above="@+id/lblSobreRodape"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"/>
 
     <TextView
         android:textAppearance="?android:attr/textAppearanceMedium"

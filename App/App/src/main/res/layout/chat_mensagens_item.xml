@@ -8,35 +8,30 @@
 
     <include
         layout="@layout/frm_imagem_perfil"
-        android:id="@id/frmImgPerfil"/>
+        android:id="@+id/frmImgPerfil" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="#1"
-        android:id="@+id/lblIDResposta"
-        android:layout_alignParentEnd="true" />
+        android:text="Mensagens"
+        android:id="@+id/lblMensagens"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/frmImgPerfil"
+        android:lines="3" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Autor"
-        android:id="@+id/lblAutor"
-        android:layout_toEndOf="@id/frmImgPerfil" />
+        android:text="0 Mensagens"
+        android:id="@+id/lblContMensagens"
+        android:layout_below="@+id/frmImgPerfil" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="01/01/2016 - 00:00:00"
+        android:text="00:00"
         android:id="@+id/lblDataHora"
-        android:layout_toEndOf="@id/frmImgPerfil"
-        android:layout_below="@id/lblAutor"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Resposta"
-        android:id="@+id/lblResposta"
-        android:layout_below="@id/frmImgPerfil" />
+        android:layout_below="@+id/lblMensagens"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

@@ -2,6 +2,7 @@ package br.com.app.adapter;
 
 import br.com.app.activity.R;
 import br.com.app.business.forum.discussao.Resposta;
+import br.com.app.utils.FormatData;
 import br.com.app.utils.Utils;
 
 import android.content.Context;
@@ -13,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.LinkedList;
-
+import android.widget.ProgressBar;
 /**
  * Created by Jefferson on 20/05/2016.
  */
@@ -42,10 +43,10 @@ public class DiscussaoRespostaAdapter extends RecyclerView.Adapter<DiscussaoResp
     public void onBindViewHolder(ViewHolder holder, int position) {
         Resposta r = resposta.get(position);
 
-        Utils.carregarImagem(context, r.getContato().getProfilePictureURL(), holder.imgPerfil);
+        Utils.loadImageInBackground(context, r.getContato().getProfilePictureURL(), holder.imgPerfil, holder.prgBarra);
         holder.lblIDResposta.setText("#" + r.getIdResposta());
         holder.lblAutor.setText(r.getContato().getFirstName());
-        holder.lblDataHora.setText(Utils.formatDate(r.getDataHora(), "dd/MM/yyyy HH:mm:ss"));
+        holder.lblDataHora.setText(FormatData.formatDate(r.getDataHora(), FormatData.DDMMYYYY_HHMMSS));
         holder.lblResposta.setText(r.getResposta());
     }
 
@@ -56,6 +57,7 @@ public class DiscussaoRespostaAdapter extends RecyclerView.Adapter<DiscussaoResp
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imgPerfil;
+        public ProgressBar prgBarra;
         public TextView lblIDResposta;
         public TextView lblAutor;
         public TextView lblDataHora;
@@ -65,6 +67,7 @@ public class DiscussaoRespostaAdapter extends RecyclerView.Adapter<DiscussaoResp
             super(itemLayoutView);
 
             imgPerfil = (ImageView) itemLayoutView.findViewById(R.id.imgPerfil);
+            prgBarra = (ProgressBar) itemLayoutView.findViewById(R.id.prgBarra);
             lblIDResposta = (TextView) itemLayoutView.findViewById(R.id.lblIDResposta);
             lblAutor = (TextView) itemLayoutView.findViewById(R.id.lblAutor);
             lblDataHora = (TextView) itemLayoutView.findViewById(R.id.lblDataHora);

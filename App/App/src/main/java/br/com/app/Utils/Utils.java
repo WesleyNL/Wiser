@@ -10,7 +10,9 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import java.text.SimpleDateFormat;
@@ -62,7 +64,7 @@ public class Utils implements LocationListener {
 
         LinkedList<IdiomaFluencia> listaIdiomas = pesquisarIdiomas(todos);
         //ArrayAdapter<IdiomaFluencia> dataAdapter = new ArrayAdapter<IdiomaFluencia>(context, android.R.layout.simple_spinner_item, listaIdiomas);
-        ArrayAdapter<IdiomaFluencia> dataAdapter = new ArrayAdapter<IdiomaFluencia>(context, R.layout.app_spinner_item, listaIdiomas);
+        ArrayAdapter<IdiomaFluencia> dataAdapter = new ArrayAdapter<IdiomaFluencia>(context, R.layout.frm_spinner_text, listaIdiomas);
 
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cmbIdioma.setAdapter(dataAdapter);
@@ -79,7 +81,7 @@ public class Utils implements LocationListener {
     public static void carregarComboFluencia(Spinner cmbFluencia, Context context, boolean todos) {
 
         LinkedList<IdiomaFluencia> listaFluencia = pesquisarFluencias(todos);
-        ArrayAdapter<IdiomaFluencia> dataAdapter = new ArrayAdapter<IdiomaFluencia>(context, R.layout.app_spinner_item, listaFluencia);
+        ArrayAdapter<IdiomaFluencia> dataAdapter = new ArrayAdapter<IdiomaFluencia>(context, R.layout.frm_spinner_text, listaFluencia);
 
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cmbFluencia.setAdapter(dataAdapter);
@@ -200,14 +202,28 @@ public class Utils implements LocationListener {
         }
     }
 
-    public static void carregarImagem(Context context, String url, ImageView imageView) {
-        if (!TextUtils.isEmpty(url)) {
-            Picasso.with(context).load(url).into(imageView);
-        }
-    }
+    public static void loadImageInBackground(Context context, String url, final ImageView imageView, final ProgressBar prgBarra) {
 
-    public static String formatDate(Date data, String format) {
-        return new SimpleDateFormat(format).format(data);
+        if (!TextUtils.isEmpty(url)) {
+            imageView.setVisibility(View.INVISIBLE);
+            prgBarra.setVisibility(View.VISIBLE);
+
+            Picasso.with(context)
+                    .load(url)
+                    .into(imageView, new com.squareup.picasso.Callback() {
+                        @Override
+                        public void onSuccess() {
+                            imageView.setVisibility(View.VISIBLE);
+                            prgBarra.setVisibility(View.INVISIBLE);
+                        }
+
+                        @Override
+                        public void onError() {
+                            imageView.setVisibility(View.VISIBLE);
+                            prgBarra.setVisibility(View.INVISIBLE);
+                        }
+                    });
+        }
     }
 
     public static int getPosicaoIdioma(int idioma){

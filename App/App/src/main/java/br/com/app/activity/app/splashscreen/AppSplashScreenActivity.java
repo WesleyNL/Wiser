@@ -26,7 +26,7 @@ import br.com.app.utils.Utils;
  */
 public class AppSplashScreenActivity extends Activity {
 
-    private final int SPLASH_TIMEOUT = 3000;
+    private final int SPLASH_TIMEOUT = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -44,7 +44,7 @@ public class ForumPrincipalFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.forum_principal, container, false);
+        View view = inflater.inflate(R.layout.frag_forum, container, false);
         initComponentes(view);
 
         return view;
@@ -114,9 +114,11 @@ public class ForumPrincipalFragment extends Fragment {
             @Override
             public void run() {
 
-                if (listaDiscussoes != null || !listaDiscussoes.isEmpty()) {
-                    adapter = new DiscussaoCardViewAdapter(context, listaDiscussoes);
-                    recyclerView.setAdapter(adapter);
+                if (listaDiscussoes != null) {
+                    if (!listaDiscussoes.isEmpty()) {
+                        adapter = new DiscussaoCardViewAdapter(context, listaDiscussoes);
+                        recyclerView.setAdapter(adapter);
+                    }
                 }
 
                 pgbLoading.setVisibility(View.INVISIBLE);

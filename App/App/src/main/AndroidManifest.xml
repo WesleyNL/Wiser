@@ -67,6 +67,12 @@
             android:label="@string/title_app_sobre"
             android:screenOrientation="portrait" />
 
+        <!-- Activity da Tela de Mensagens do Chat  -->
+        <activity
+            android:name=".chat.mensagens.ChatMensagemActivity"
+            android:label="@string/title_chat_resultados"
+            android:screenOrientation="portrait" />
+
         <!-- Activity da Tela de Resultados do Chat  -->
         <activity
             android:name=".chat.resultados.ChatResultadosActivity"

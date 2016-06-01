@@ -7,29 +7,23 @@
     tools:context=".app.login.AppLoginActivity" >
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/imgLogo"
         android:src="@mipmap/logo_wiser_1"
-        android:padding="0dp"
+        android:minWidth="300dp"
         android:minHeight="300dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
-        android:minWidth="300dp"
+        android:layout_above="@+id/btnLogin"
         android:nestedScrollingEnabled="true" />
 
     <Button
         android:id="@+id/btnLogin"
         android:text="@string/entrar_com_facebook"
         android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:layout_width="270dp"
-        android:layout_height="60dp"
-        android:background="@drawable/btnloginshape"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="59dp"
-        android:textAllCaps="false"/>
+        android:layout_marginBottom="50dp"
+        style="@style/AppTema.AppBotao.Login" />
 
 </RelativeLayout>

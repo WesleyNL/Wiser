@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import br.com.app.Sistema;
@@ -17,6 +18,7 @@ import br.com.app.business.chat.contatos.Contato;
 import br.com.app.business.forum.discussao.Discussao;
 import br.com.app.business.forum.discussao.DiscussaoDAO;
 import br.com.app.business.forum.discussao.Resposta;
+import br.com.app.utils.FormatData;
 import br.com.app.utils.Utils;
 
 import android.view.View;
@@ -41,6 +43,7 @@ public class ForumDiscussaoActivity extends Activity {
 
     private TextView lblIDDiscussao;
     private ImageView imgPerfil;
+    private ProgressBar prgBarra;
     private TextView lblTituloDiscussao;
     private TextView lblDescricaoDiscussao;
     private TextView lblAutor;
@@ -65,6 +68,14 @@ public class ForumDiscussaoActivity extends Activity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        getMenuInflater().inflate(R.menu.menu_discussoes, menu);
+        return (true);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         onBackPressed();
         return true;
@@ -73,6 +84,7 @@ public class ForumDiscussaoActivity extends Activity {
     private void carregarComponentes() {
         lblIDDiscussao = (TextView) findViewById(R.id.lblIDDiscussao);
         imgPerfil = (ImageView) findViewById(R.id.imgPerfil);
+        prgBarra = (ProgressBar) findViewById(R.id.prgBarra);
         lblTituloDiscussao = (TextView) findViewById(R.id.lblTituloDiscussao);
         lblDescricaoDiscussao = (TextView) findViewById(R.id.lblDescricaoDiscussao);
         lblAutor = (TextView) findViewById(R.id.lblAutor);
@@ -108,8 +120,8 @@ public class ForumDiscussaoActivity extends Activity {
         lblTituloDiscussao.setText(objDiscussao.getTitulo());
         lblDescricaoDiscussao.setText(objDiscussao.getDescricao());
         lblAutor.setText(objDiscussao.getContato().getFirstName());
-        Utils.carregarImagem(this, objDiscussao.getContato().getProfilePictureURL(), imgPerfil);
-        lblDataHora.setText(Utils.formatDate(objDiscussao.getDataHora(), "dd/MM/yyyy HH:mm:ss"));
+        Utils.loadImageInBackground(this, objDiscussao.getContato().getProfilePictureURL(), imgPerfil, prgBarra);
+        lblDataHora.setText(FormatData.formatDate(objDiscussao.getDataHora(), FormatData.DDMMYYYY_HHMMSS));
         lblRespostas.setText(getString(objDiscussao.getContRespostas() == 1 ? R.string.resposta : R.string.respostas, objDiscussao.getContRespostas()));
 
         if(objDiscussao.getListaRespostas() == null || objDiscussao.getListaRespostas().isEmpty()){

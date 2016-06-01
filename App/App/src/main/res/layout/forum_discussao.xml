@@ -6,6 +6,112 @@
     tools:context=".forum.discussao.ForumDiscussaoActivity"
     tools:menu="br.com.app.res.menu.menu_compartilhar" >
 
-    <include layout="@layout/forum_discussao_scrollview" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/frmDiscussao"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:padding="5dp"
+                android:background="@drawable/bordershadow">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="#"
+                        android:id="@+id/lblIDDiscussao" />
+
+                    <include
+                        layout="@layout/frm_imagem_perfil"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:id="@+id/frmImgPerfil"
+                        android:layout_below="@id/lblIDDiscussao" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Titulo da Discussao"
+                        android:id="@+id/lblTituloDiscussao"
+                        android:layout_toEndOf="@id/frmImgPerfil"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Por: Autor"
+                        android:id="@+id/lblAutor"
+                        android:layout_toEndOf="@id/frmImgPerfil"
+                        android:layout_below="@id/lblTituloDiscussao"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="01/01/2016 - 00:00:00"
+                        android:id="@+id/lblDataHora"
+                        android:layout_toEndOf="@id/frmImgPerfil"
+                        android:layout_below="@id/lblAutor"
+                        android:textSize="10dp"
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Descrição da Discussão"
+                        android:id="@+id/lblDescricaoDiscussao"
+                        android:layout_below="@id/frmImgPerfil"
+                        android:inputType="textMultiLine" />
+                </RelativeLayout>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Respostas"
+                android:id="@+id/lblRespostas"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/frmDiscussao" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/lblRespostas"
+                android:scrollbars="vertical" />
+
+            <include
+                layout="@layout/frm_enviar_mensagem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/recycler_view" />
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pgbLoading"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:progressDrawable="@drawable/circular_loading"
+                android:visibility="invisible"
+                android:progressTint="@color/colorAccent"
+                android:indeterminateTint="@color/colorAccent"
+                android:indeterminateTintMode="src_in" />
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

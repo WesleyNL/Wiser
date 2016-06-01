@@ -1,6 +1,5 @@
 package br.com.app.activity.chat.pesquisa;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,7 +47,7 @@ public class ChatPesquisaFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.chat_pesquisa, container, false);
+        View view = inflater.inflate(R.layout.frag_pesquisa_pessoas, container, false);
         initComponentes(view);
 
         return view;

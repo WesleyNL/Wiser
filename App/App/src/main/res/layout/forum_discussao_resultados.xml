@@ -24,11 +24,12 @@
             android:layout_toStartOf="@+id/lblTituloDiscussao"
             android:singleLine="true" />
 
-        <ImageView
-            android:id="@+id/imgPerfil"
-            android:layout_below="@id/lblIDDiscussao"
-            android:layout_alignParentStart="true"
-            style="@style/AppTema.AppImgPerfil" />
+        <include
+            layout="@layout/frm_imagem_perfil"
+            android:id="@id/frmImgPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lblIDDiscussao" />
 
         <TextView
             android:id="@+id/lblAutorDiscussao"
@@ -36,11 +37,11 @@
             android:layout_height="wrap_content"
             android:text="Autor"
             android:textSize="10dp"
-            android:layout_below="@id/imgPerfil"
+            android:layout_below="@id/frmImgPerfil"
             android:textColor="@color/colorSecondaryText"
             android:gravity="center_horizontal"
             android:singleLine="true"
-            android:layout_alignEnd="@+id/imgPerfil"
+            android:layout_alignEnd="@+id/frmImgPerfil"
             android:layout_alignParentStart="true" />
 
         <TextView
@@ -52,7 +53,7 @@
             android:layout_alignParentTop="true"
             android:textStyle="bold"
             android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@+id/imgPerfil"
+            android:layout_toEndOf="@+id/frmImgPerfil"
             android:paddingLeft="5dp"
             android:singleLine="true" />
 
@@ -101,6 +102,7 @@
             android:background="@android:color/transparent"
             android:textColor="@color/colorSecondaryText"
             android:layout_below="@id/lblAutorDiscussao"
+            android:textAllCaps="false"
             style="?android:attr/borderlessButtonStyle" />
 
         <Button
@@ -110,10 +112,11 @@
             android:textSize="10dp"
             android:id="@+id/btnExcluir"
             android:background="@android:color/transparent"
-            android:layout_toEndOf="@id/btnCompartilhar"
+            android:layout_alignParentEnd="true"
             android:layout_below="@id/lblAutorDiscussao"
             android:textColor="@color/colorSecondaryText"
             android:onClick="excluir"
+            android:textAllCaps="false"
             style="?android:attr/borderlessButtonStyle" />
 
     </RelativeLayout>

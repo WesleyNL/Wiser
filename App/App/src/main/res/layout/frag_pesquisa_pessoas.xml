@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".chat.pesquisa.ChatPesquisaFragment"
+    tools:menu="br.com.app.res.menu.menu_principal" >
+
+    <TextView
+        android:text="@string/idioma"
+        android:id="@+id/lblIdioma"
+        style="@style/AppTema.AppTextTitulo" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_height="60dp"
+        android:layout_below="@+id/lblIdioma"
+        style="@style/AppTema.AppFrame" />
+
+    <Spinner
+        android:id="@+id/cmbIdiomaProcurar"
+        android:layout_below="@+id/lblIdioma"
+        android:spinnerMode="dropdown"
+        android:layout_marginTop="15dp"
+        style="@style/AppTema.AppItemFrame" />
+
+    <TextView
+        android:text="@string/fluencia"
+        android:id="@+id/lblFluencia"
+        android:layout_below="@+id/imageView5"
+        style="@style/AppTema.AppTextTitulo" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_height="60dp"
+        android:layout_below="@+id/lblFluencia"
+        style="@style/AppTema.AppFrame" />
+
+    <Spinner
+        android:id="@+id/cmbFluenciaProcurar"
+        android:spinnerMode="dropdown"
+        android:layout_below="@+id/lblFluencia"
+        android:layout_marginTop="15dp"
+        style="@style/AppTema.AppItemFrame" />
+
+    <TextView
+        android:text="@string/distancia"
+        android:id="@+id/lblDistancia"
+        android:layout_below="@id/imageView6"
+        style="@style/AppTema.AppTextTitulo" />
+
+    <TextView
+        android:id="@+id/lblDistanciaSelecionada"
+        android:text="0 Km"
+        android:layout_below="@id/imageView6"
+        style="@style/AppTema.AppInfoTitulo" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_height="60dp"
+        android:layout_below="@id/lblDistancia"
+        style="@style/AppTema.AppFrame" />
+
+    <SeekBar
+        android:id="@+id/skrDistancia"
+        android:layout_below="@+id/lblDistancia"
+        android:layout_marginTop="20dp"
+        android:progressTint="@color/colorPrimaryDark"
+        android:thumbTint="@color/colorAccent"
+        android:max="100"
+        android:indeterminate="false"
+        style="@style/AppTema.AppItemFrame" />
+
+    <Button
+        android:text="@string/procurar"
+        android:id="@+id/btnProcurar"
+        android:onClick="procurar"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/imageView7"
+        style="@style/AppTema.AppBotao" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pgbLoading"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:progressDrawable="@drawable/circular_loading"
+        android:visibility="invisible"
+        android:progressTint="@color/colorAccent"
+        android:indeterminateTint="@color/colorAccent"
+        android:indeterminateTintMode="src_in"/>
+
+</RelativeLayout>
