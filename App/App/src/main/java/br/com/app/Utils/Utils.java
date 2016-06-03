@@ -293,21 +293,25 @@ public class Utils implements LocationListener {
 
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         img.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(view.getContext().getContentResolver(), img, view.getContext().getString(R.string.compartilhar_titulo), null);
+        String path = MediaStore.Images.Media.insertImage(view.getContext().getContentResolver(),
+                img, view.getContext().getString(R.string.compartilhar_titulo), null);
 
         Intent iCompartilhar = new Intent(Intent.ACTION_SEND);
         Uri imgDiscussao = Uri.parse(path);
 
         iCompartilhar.setType("image/png");
         iCompartilhar.putExtra(Intent.EXTRA_STREAM, imgDiscussao);
-        view.getContext().startActivity(Intent.createChooser(iCompartilhar, view.getContext().getString(R.string.compartilhar_discussao_sistema)));
+        view.getContext().startActivity(Intent.createChooser(iCompartilhar,
+                view.getContext().getString(R.string.compartilhar_discussao_sistema)));
     }
 
     public static void compartilharAplicativoEmTexto(View view){
 
         Intent iCompartilhar = new Intent(Intent.ACTION_SEND);
         iCompartilhar.setType("text/plain");
-        iCompartilhar.putExtra(android.content.Intent.EXTRA_TEXT, view.getContext().getString(R.string.sistema_link_playstore));
-        view.getContext().startActivity(Intent.createChooser(iCompartilhar, view.getContext().getString(R.string.compartilhar_aplicativo_sistema)));
+        iCompartilhar.putExtra(android.content.Intent.EXTRA_TEXT,
+                view.getContext().getString(R.string.sistema_link_playstore));
+        view.getContext().startActivity(Intent.createChooser(iCompartilhar,
+                view.getContext().getString(R.string.compartilhar_aplicativo_sistema)));
     }
 }

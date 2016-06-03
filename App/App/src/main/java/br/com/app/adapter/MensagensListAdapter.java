@@ -51,6 +51,8 @@ public class MensagensListAdapter extends RecyclerView.Adapter<MensagensListAdap
     public void onBindViewHolder(ViewHolder holder, int position) {
         MensagensListItem m = mensagens.get(position);
 
+        holder.viewSeparator.setVisibility(position == 0 ? View.INVISIBLE : View.VISIBLE);
+
         Utils.loadImageInBackground(context, m.getContato().getProfilePictureURL(), holder.imgPerfil, holder.prgBarra);
         holder.lblDataHora.setText(FormatData.formatDate(m.getDataHora(), FormatData.HHMM));
         holder.lblMensagens.setText(m.getMensagens().get(m.getMensagens().size() - 1).getMensagem());
@@ -65,6 +67,9 @@ public class MensagensListAdapter extends RecyclerView.Adapter<MensagensListAdap
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        public View viewSeparator;
+
         public ImageView imgPerfil;
         public ProgressBar prgBarra;
 
@@ -77,6 +82,8 @@ public class MensagensListAdapter extends RecyclerView.Adapter<MensagensListAdap
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
             itemLayoutView.setOnClickListener(this);
+
+            viewSeparator = (View) itemLayoutView.findViewById(R.id.viewSeparator);
 
             imgPerfil = (ImageView) itemLayoutView.findViewById(R.id.imgPerfil);
             prgBarra = (ProgressBar) itemLayoutView.findViewById(R.id.prgBarra);

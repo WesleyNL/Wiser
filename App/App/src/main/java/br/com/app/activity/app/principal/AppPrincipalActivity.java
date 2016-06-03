@@ -32,11 +32,10 @@ import br.com.app.utils.Utils;
 public class AppPrincipalActivity extends AppCompatActivity {
 
     private LoginDAO objLoginDAO = null;
-
-    private final int ACCESS_COARSE_LOCATION = 0;
     private LocationManager locationManager = null;
-
     private SampleFragmentPageAdapter adapter;
+
+    private final int PERMISSION_ALL = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +47,15 @@ public class AppPrincipalActivity extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
         }
 
-        if (hasLocationPermission()) {
+        String[] PERMISSIONS = {
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
+        if(!hasPermissions(PERMISSIONS)){
+            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
+        }
+        else {
             salvar();
         }
 
@@ -73,22 +80,6 @@ public class AppPrincipalActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         atualizarLocalizacao();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == ACCESS_COARSE_LOCATION) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                salvar();
-            }
-            else {
-                Toast.makeText(this, getString(R.string.necessario_permitir), Toast.LENGTH_SHORT).show();
-                encerrar();
-            }
-        }
-        else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
     }
 
     @Override
@@ -123,40 +114,68 @@ public class AppPrincipalActivity extends AppCompatActivity {
         return (true);
     }
 
-    private void atualizarLocalizacao(){
-        if(locationManager != null){
-            if(getPackageManager().checkPermission(
-                    Manifest.permission.ACCESS_COARSE_LOCATION, getPackageName()) ==
-                    getPackageManager().PERMISSION_GRANTED){
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 
-                locationManager.requestLocationUpdates(
-                        LocationManager.NETWORK_PROVIDER, 0, 0, (LocationListener)new Utils());
+        boolean permissoesAceitas = false;
+
+        if (requestCode == PERMISSION_ALL) {
+            if (grantResults.length > 0) {
+                permissoesAceitas = true;
+
+                for (int result : grantResults) {
+                    if (result != PackageManager.PERMISSION_GRANTED) {
+                        permissoesAceitas = false;
+                    }
+                }
             }
-        }
-    }
 
-    private boolean hasLocationPermission() {
-        int status = 0;
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ActivityCompat.checkSelfPermission(
-                    this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                ActivityCompat.requestPermissions(
-                        this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION}, ACCESS_COARSE_LOCATION);
-                return false;
+            if (permissoesAceitas) {
+                salvar();
+            }
+            else {
+                Toast.makeText(this, getString(R.string.necessario_permitir), Toast.LENGTH_SHORT).show();
+                encerrar();
             }
         }
         else {
-            status = getPackageManager().checkPermission(
-                    Manifest.permission.ACCESS_COARSE_LOCATION, getPackageName());
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
 
-            if (status != PackageManager.PERMISSION_GRANTED) {
-                return false;
+    private void atualizarLocalizacao() {
+        if (locationManager != null) {
+            if (ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(this,
+                            Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, (LocationListener) new Utils());
+        }
+    }
+
+    public boolean hasPermissions(String... permissions) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
             }
         }
+        else {
+            int status = 0;
 
+            for (String permission : permissions) {
+                status = getPackageManager().checkPermission(
+                        permission, getPackageName());
+
+                if (status != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
         return true;
     }
 

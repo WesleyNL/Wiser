@@ -18,6 +18,7 @@ import br.com.app.business.chat.contatos.Contato;
 import br.com.app.business.forum.discussao.Discussao;
 import br.com.app.business.forum.discussao.DiscussaoDAO;
 import br.com.app.business.forum.discussao.Resposta;
+import br.com.app.enums.EnmTelas;
 import br.com.app.utils.FormatData;
 import br.com.app.utils.Utils;
 
@@ -77,7 +78,17 @@ public class ForumDiscussaoActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        onBackPressed();
+
+        switch (item.getItemId()) {
+
+            case R.id.itmCompartilhar:
+                Utils.compartilharEmImagem(findViewById(R.id.frmDiscussao));
+                break;
+
+            default:
+                onBackPressed();
+        }
+
         return true;
     }
 

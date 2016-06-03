@@ -20,7 +20,7 @@
         android:maxLength="30"
         android:singleLine="true"
         android:inputType="textCapSentences"
-        android:textColor="#3b3a3a"
+        android:textColor="@color/colorSecondaryText"
         android:layout_marginTop="5dp"
         style="@style/AppTema.AppItemFrame" />
 
@@ -41,9 +41,10 @@
         android:layout_below="@+id/lblDescricao"
         android:maxLength="250"
         android:inputType="textCapSentences|textMultiLine"
+        android:maxLines="10"
         android:gravity="top|left"
         android:scrollbars="vertical"
-        android:textColor="#3b3a3a"
+        android:textColor="@color/colorSecondaryText"
         android:layout_marginTop="5dp"
         style="@style/AppTema.AppItemFrame" />
 

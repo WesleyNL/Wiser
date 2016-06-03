@@ -9,7 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/linearlayout"
-        android:background="@drawable/btnmsgcontatoshape">
+        android:background="@drawable/btnmsgcontatoshape"
+        android:layout_marginRight="50dp" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -17,7 +18,6 @@
             android:padding="10dp"
             android:text="Mensagem"
             android:id="@+id/lblMensagem"
-            android:maxWidth="300dp"
             android:textColor="@color/colorPrimaryText" />
 
     </LinearLayout>

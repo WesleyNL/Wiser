@@ -3,26 +3,40 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp" >
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp" >
+
+    <View
+        android:id="@+id/viewSeparator"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@id/frmImgPerfil"
+        android:background="@color/colorForeground" />
 
     <include
         layout="@layout/frm_imagem_perfil"
-        android:id="@id/frmImgPerfil"/>
+        android:id="@id/frmImgPerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/viewSeparator" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="#1"
         android:id="@+id/lblIDResposta"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/viewSeparator" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Autor"
         android:id="@+id/lblAutor"
-        android:layout_toEndOf="@id/frmImgPerfil" />
+        android:layout_toEndOf="@id/frmImgPerfil"
+        android:layout_below="@id/viewSeparator" />
 
     <TextView
         android:layout_width="wrap_content"

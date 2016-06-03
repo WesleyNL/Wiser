@@ -43,6 +43,8 @@ public class DiscussaoRespostaAdapter extends RecyclerView.Adapter<DiscussaoResp
     public void onBindViewHolder(ViewHolder holder, int position) {
         Resposta r = resposta.get(position);
 
+        holder.viewSeparator.setVisibility(position == 0 ? View.INVISIBLE : View.VISIBLE);
+
         Utils.loadImageInBackground(context, r.getContato().getProfilePictureURL(), holder.imgPerfil, holder.prgBarra);
         holder.lblIDResposta.setText("#" + r.getIdResposta());
         holder.lblAutor.setText(r.getContato().getFirstName());
@@ -56,6 +58,9 @@ public class DiscussaoRespostaAdapter extends RecyclerView.Adapter<DiscussaoResp
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
+        public View viewSeparator;
+
         public ImageView imgPerfil;
         public ProgressBar prgBarra;
         public TextView lblIDResposta;
@@ -65,6 +70,8 @@ public class DiscussaoRespostaAdapter extends RecyclerView.Adapter<DiscussaoResp
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
+
+            viewSeparator = (View) itemLayoutView.findViewById(R.id.viewSeparator);
 
             imgPerfil = (ImageView) itemLayoutView.findViewById(R.id.imgPerfil);
             prgBarra = (ProgressBar) itemLayoutView.findViewById(R.id.prgBarra);

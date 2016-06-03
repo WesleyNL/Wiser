@@ -19,8 +19,8 @@
                 android:layout_height="match_parent"
                 android:id="@+id/frmDiscussao"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:padding="5dp"
                 android:background="@drawable/bordershadow">
 

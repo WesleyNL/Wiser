@@ -55,6 +55,7 @@ public class ChatMensagensFragment extends Fragment {
         m.setDataHora(new Date());
 
         LinkedList<Mensagem> mensa = new LinkedList<Mensagem>();
+
         Mensagem m1 = new Mensagem();
         m1.setID(1);
         m1.setUserID("4");
@@ -120,6 +121,23 @@ public class ChatMensagensFragment extends Fragment {
 
         m.setMensagens(mensa);
         mensagens.add(0, m);
+
+        // Outro usuário
+        m = new MensagensListItem();
+        m.setContato(Facebook.getProfile("6"));
+        m.setDataHora(new Date());
+
+        mensa = new LinkedList<Mensagem>();
+
+        m1 = new Mensagem();
+        m1.setID(1);
+        m1.setUserID("6");
+        m1.setDataHora(new Date());
+        m1.setMensagem("Oi");
+        mensa.add(0, m1);
+
+        m.setMensagens(mensa);
+        mensagens.add(1, m);
         //
 
         adapter = new MensagensListAdapter(view.getContext(), mensagens);
