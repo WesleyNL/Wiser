@@ -27,29 +27,31 @@ public class Utils {
 	}
 
 	public LinkedList<String> pesquisarIdiomas(Utils utils){
+		
 		setAppIdioma(utils.getAppIdioma());
 		setTodos(utils.isTodos());
+		
 		try {
 			return pesquisarCombo("IDIOMA");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Não foi possível carregar os dados da tabela IDIOMA.");
+			return null;
 		}
-
-		return null;
 	}
 
 	public LinkedList<String> pesquisarFluencias(Utils utils) {
+		
 		setAppIdioma(utils.getAppIdioma());
 		setTodos(utils.isTodos());
+		
 		try {
 			return pesquisarCombo("FLUENCIA");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Não foi possível carregar os dados da tabela IDIOMA.");
+			return null;
 		}
-
-		return null;
 	}
 
 	public LinkedList<String> pesquisarCombo(String tabela) throws SQLException{
@@ -58,10 +60,9 @@ public class Utils {
 		ResultSet rst = null;
 
 		try {
-
 			String sql = "SELECT * FROM " + tabela;
 			String descricao = getDescricaoAppIdioma(getAppIdioma());
-			String opcaoTodos = getAppIdioma() == Constantes.PORTUGUES ? "1 - Todos" : "1 - All";
+			String opcaoTodos = getAppIdioma() == Constantes.IDIOMA_PORTUGUES ? "1 - Todos" : "1 - All";
 			
 			if(tabela.trim().equalsIgnoreCase("IDIOMA")){
 				sql += " ORDER BY " + descricao;
@@ -76,8 +77,7 @@ public class Utils {
 			
 			if(!isTodos()){
 				lista.remove(lista.indexOf(opcaoTodos));
-			}
-			else{
+			}else{
 				lista.add(lista.remove(lista.indexOf(opcaoTodos)));
 			}
 			
@@ -94,9 +94,9 @@ public class Utils {
 	
 	public String getDescricaoAppIdioma(byte appIdioma){
         switch(appIdioma){
-            case Constantes.PORTUGUES:
+            case Constantes.IDIOMA_PORTUGUES:
                 return "DESCRICAO_PTBR";
-            case Constantes.INGLES:
+            case Constantes.IDIOMA_INGLES:
                 return "DESCRICAO_EN";
             default:
                 return "DESCRICAO_PTBR";

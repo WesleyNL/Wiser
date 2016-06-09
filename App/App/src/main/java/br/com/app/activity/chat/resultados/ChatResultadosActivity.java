@@ -1,15 +1,11 @@
 package br.com.app.activity.chat.resultados;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -19,7 +15,6 @@ import br.com.app.adapter.ContatosGridAdapter;
 import br.com.app.adapter.FrameImagemPerfil;
 import br.com.app.business.app.facebook.Facebook;
 import br.com.app.business.chat.contatos.Contato;
-import br.com.app.utils.Utils;
 
 /**
  * Created by Jefferson on 31/03/2016.

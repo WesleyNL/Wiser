@@ -25,13 +25,14 @@
         android:layout_toStartOf="@+id/btnEnviarResposta"
         android:maxLength="250"
         android:maxLines="5"
-        android:hint="Digite sua mensagem aqui..."/>
+        android:hint="Digite sua mensagem aqui..."
+        android:textColor="#414040" />
 
     <Button
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:id="@+id/btnEnviarResposta"
-        android:background="@android:drawable/ic_menu_send"
+        android:background="@mipmap/ic_enviar"
         android:layout_below="@+id/lblResponder"
         android:layout_alignParentEnd="true"
         android:onClick="enviar" />

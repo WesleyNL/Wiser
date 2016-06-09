@@ -3,7 +3,6 @@ package br.com.app.business.forum.discussao;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.List;
 
 import br.com.app.business.chat.contatos.Contato;
 
@@ -19,6 +18,7 @@ public class Discussao implements Serializable {
     private Date dataHora;
     private byte buscaEspecifica;
     private long contRespostas;
+    private long situacao;
     private LinkedList<Resposta> listaRespostas;
 
     public static final byte BUSCA_DISCUSSAO_ID = 1;
@@ -80,6 +80,14 @@ public class Discussao implements Serializable {
 
     public void setContRespostas(long contRespostas) {
         this.contRespostas = contRespostas;
+    }
+
+    public long getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(long situacao) {
+        this.situacao = situacao;
     }
 
     public LinkedList<Resposta> getListaRespostas() {

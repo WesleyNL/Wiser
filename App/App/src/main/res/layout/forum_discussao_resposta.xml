@@ -53,4 +53,17 @@
         android:id="@+id/lblResposta"
         android:layout_below="@id/frmImgPerfil" />
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enviar_mensagem"
+        android:id="@+id/btnAbrirChat"
+        android:layout_below="@+id/lblIDResposta"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/lblDataHora"
+        android:background="@android:color/transparent"
+        android:textColor="#8B8989"
+        android:visibility="invisible" />
+
 </RelativeLayout>

@@ -3,14 +3,13 @@ package br.com.app.business.chat.mensagens;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.List;
 
 import br.com.app.business.chat.contatos.Contato;
 
 /**
  * Created by Jefferson on 23/05/2016.
  */
-public class MensagensListItem implements Serializable {
+public class MensagemItem implements Serializable {
 
     private Contato contato;
     private Date dataHora;

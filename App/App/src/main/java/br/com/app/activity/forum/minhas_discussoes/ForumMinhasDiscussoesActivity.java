@@ -11,10 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.LinkedList;
 
@@ -49,6 +46,12 @@ public class ForumMinhasDiscussoesActivity extends Activity {
 
         pgbLoading = (ProgressBar) findViewById(R.id.pgbLoading);
 
+        carregar();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         carregar();
     }
 

@@ -37,7 +37,6 @@ public class AppLoginActivity extends Activity {
 
         if (Facebook.logado()) {
             encerrar();
-            return;
         }
     }
 

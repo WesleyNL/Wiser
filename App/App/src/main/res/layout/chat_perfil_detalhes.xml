@@ -55,10 +55,10 @@
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/btnAbrirPerfil"
+        android:id="@+id/btnAbrirChat"
         android:layout_below="@+id/lblStatus"
         android:layout_marginTop="10dp"
-        android:text="Abrir Perfil no Facebook"
+        android:text="@string/enviar_mensagem"
         android:layout_marginBottom="15sp"
         style="@style/AppTema.AppBotao.Mensagem" />
 

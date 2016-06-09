@@ -13,20 +13,20 @@ import android.view.MenuItem;
 
 import br.com.app.Sistema;
 import br.com.app.activity.R;
+import br.com.app.activity.chat.mensagens.ChatMensagemActivity;
 import br.com.app.adapter.DiscussaoRespostaAdapter;
 import br.com.app.business.chat.contatos.Contato;
 import br.com.app.business.forum.discussao.Discussao;
 import br.com.app.business.forum.discussao.DiscussaoDAO;
 import br.com.app.business.forum.discussao.Resposta;
-import br.com.app.enums.EnmTelas;
 import br.com.app.utils.FormatData;
 import br.com.app.utils.Utils;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ImageView;
-import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.LinkedList;
@@ -50,10 +50,9 @@ public class ForumDiscussaoActivity extends Activity {
     private TextView lblAutor;
     private TextView lblDataHora;
     private TextView lblRespostas;
-
     private EditText txtResposta;
-
     private ProgressBar pgbLoading;
+    private Button btnEnviarMensagem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,11 +79,9 @@ public class ForumDiscussaoActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-
             case R.id.itmCompartilhar:
                 Utils.compartilharEmImagem(findViewById(R.id.frmDiscussao));
                 break;
-
             default:
                 onBackPressed();
         }
@@ -101,6 +98,26 @@ public class ForumDiscussaoActivity extends Activity {
         lblAutor = (TextView) findViewById(R.id.lblAutor);
         lblDataHora = (TextView) findViewById(R.id.lblDataHora);
         lblRespostas = (TextView) findViewById(R.id.lblRespostas);
+        btnEnviarMensagem = (Button) findViewById(R.id.btnAbrirChatAutor);
+
+        btnEnviarMensagem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Contato destinatario = new Contato();
+                destinatario.setUserID(objDiscussao.getContato().getUserID());
+                destinatario.setUserName(objDiscussao.getContato().getUserName());
+
+                Bundle bdlContatos = new Bundle();
+                LinkedList<Contato> contatos = new LinkedList<Contato>();
+                contatos.add(0, destinatario);
+                bdlContatos.putSerializable("contatos", contatos);
+
+                Intent i = new Intent(v.getContext(), ChatMensagemActivity.class);
+                i.putExtra("contatos", bdlContatos);
+                i.putExtra("especifico", 1);
+                v.getContext().startActivity(i);
+            }
+        });
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -108,7 +125,7 @@ public class ForumDiscussaoActivity extends Activity {
 
         txtResposta = (EditText) findViewById(R.id.txtResposta);
 
-        final TextView lblContResposta = (TextView) super.findViewById(R.id.lblContResposta);
+        final TextView lblContResposta = (TextView) findViewById(R.id.lblContResposta);
 
         TextWatcher textWatcher = new TextWatcher() {
 
@@ -123,6 +140,10 @@ public class ForumDiscussaoActivity extends Activity {
 
         pgbLoading = (ProgressBar) findViewById(R.id.pgbLoading);
 
+        if(objDiscussao.getSituacao() == 0){
+            findViewById(R.id.include).setVisibility(View.INVISIBLE);
+        }
+
         carregarDados();
     }
 
@@ -134,6 +155,7 @@ public class ForumDiscussaoActivity extends Activity {
         Utils.loadImageInBackground(this, objDiscussao.getContato().getProfilePictureURL(), imgPerfil, prgBarra);
         lblDataHora.setText(FormatData.formatDate(objDiscussao.getDataHora(), FormatData.DDMMYYYY_HHMMSS));
         lblRespostas.setText(getString(objDiscussao.getContRespostas() == 1 ? R.string.resposta : R.string.respostas, objDiscussao.getContRespostas()));
+        btnEnviarMensagem.setVisibility(objDiscussao.getContato().getUserID().equals(Sistema.USER_ID) ? View.INVISIBLE : View.VISIBLE);
 
         if(objDiscussao.getListaRespostas() == null || objDiscussao.getListaRespostas().isEmpty()){
             return;

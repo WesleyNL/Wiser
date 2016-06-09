@@ -24,7 +24,6 @@ public class LoginDAO {
 		ResultSet rst = null;
 		
 		try {
-			
 			String sql = "UPDATE USER_LOGIN" +
 						 " SET SITUACAO = ?" +
 						 " WHERE USER_ID = ?";
@@ -53,7 +52,6 @@ public class LoginDAO {
 		ResultSet rst = null;
 		
 		try {
-			
 			if(existe(login.getUserId())){
 				return atualizar(login.getUserId(), login.getCoordUltimoAcesso());
 			}
@@ -68,10 +66,6 @@ public class LoginDAO {
 			objPS.setDate(3, new java.sql.Date(new Date().getTime()));
 			objPS.setString(4, login.getCoordUltimoAcesso());
 
-//			ConfiguracaoDAO objConfiguracao = new ConfiguracaoDAO();
-//			objConfiguracao.setUserId(login.getUserId());
-//			objConfiguracao.consultar(objConfiguracao);
-			
 			retorno = objPS.execute();
 						
 		} catch (SQLException e) {
@@ -92,7 +86,6 @@ public class LoginDAO {
 		ResultSet rst = null;
 		
 		try {
-			
 			String sql = "SELECT * FROM USER_LOGIN" +
 						 " WHERE USER_ID = ?";
 			
@@ -122,7 +115,6 @@ public class LoginDAO {
 		ResultSet rst = null;
 		
 		try {
-			
 			String sql = "UPDATE USER_LOGIN" +
 						 " SET SITUACAO = ?, " +
 						 " DATA_ULTIMO_ACESSO = ?," +

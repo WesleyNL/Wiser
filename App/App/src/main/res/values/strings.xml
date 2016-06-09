@@ -36,6 +36,9 @@
     <string name="enviar">Enviar</string>
     <string name="responder">Responder</string>
     <string name="compartilhar">Compartilhar</string>
+    <string name="nova_discussao">+ Nova Discussão</string>
+    <string name="enviar_mensagem">Enviar mensagem</string>
+    <string name="desativar">Desativar</string>
 
     <string name="ok" translatable="false">OK</string>
     <string name="sim">Sim</string>

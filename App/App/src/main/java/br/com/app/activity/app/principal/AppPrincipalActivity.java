@@ -50,7 +50,8 @@ public class AppPrincipalActivity extends AppCompatActivity {
         String[] PERMISSIONS = {
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.VIBRATE};
 
         if(!hasPermissions(PERMISSIONS)){
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
@@ -85,19 +86,15 @@ public class AppPrincipalActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-
             case R.id.itmMinhasDiscussoes:
                 Utils.chamarActivity(this, EnmTelas.FORUM_MINHAS_DISCUSSOES);
                 break;
-
             case R.id.itmConfiguracoes:
                 Utils.chamarActivity(this, EnmTelas.APP_CONFIGURACOES);
                 break;
-
             case R.id.itmSobre:
                 Utils.chamarActivity(this, EnmTelas.APP_SOBRE);
                 break;
-
             case R.id.itmSair:
                 encerrar();
                 break;

@@ -6,6 +6,7 @@ import java.util.Date;
  * Created by Wesley on 03/04/2016.
  */
 public class Login {
+
     private String userId;
     private byte situacao;
     private Date dataUltimoAcesso;

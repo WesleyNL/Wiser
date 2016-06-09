@@ -27,7 +27,6 @@ public class ConfiguracaoDAO extends Configuracao{
 		ResultSet rst = null;
 		
 		try {
-
 			if(!existe(configuracao.getUserId())){
 				salvar(configuracao);
 			}
@@ -65,7 +64,6 @@ public class ConfiguracaoDAO extends Configuracao{
 		ResultSet rst = null;
 		
 		try {
-			
 			if(existe(configuracao.getUserId())){
 				return atualizar(configuracao.getIdioma(), configuracao.getFluencia(), configuracao.getStatus(), configuracao.getUserId());
 			}
@@ -109,7 +107,6 @@ public class ConfiguracaoDAO extends Configuracao{
 		ResultSet rst = null;
 		
 		try {
-			
 			String sql = "SELECT * FROM USER_CONFIGURACAO" +
 						 " WHERE USER_ID = ?";
 			
@@ -140,10 +137,10 @@ public class ConfiguracaoDAO extends Configuracao{
 		
 		try{
 			String sql = "UPDATE USER_CONFIGURACAO" +
-					 " SET IDIOMA = ?," +
-					 " FLUENCIA = ?," +
-					 " STATUS = ?" +
-					 " WHERE USER_ID = ?";
+					 	 " SET IDIOMA = ?," +
+					 	 " FLUENCIA = ?," +
+					 	 " STATUS = ?" +
+					 	 " WHERE USER_ID = ?";
 
 			PreparedStatement objPS = Conexao.getInstance().getConexao().prepareStatement(sql);
 			objPS.setByte(1, idioma);

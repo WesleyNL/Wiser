@@ -9,7 +9,9 @@ import java.util.Date;
 public class Mensagem implements Serializable {
 
     private long ID;
+    private long idMensagemItem;
     private String UserID;
+    private String destinatario;
     private Date dataHora;
     private String mensagem;
     private boolean lido;
@@ -22,12 +24,28 @@ public class Mensagem implements Serializable {
         this.ID = ID;
     }
 
+    public long getIdMensagemItem() {
+        return idMensagemItem;
+    }
+
+    public void setIdMensagemItem(long idMensagemItem) {
+        this.idMensagemItem = idMensagemItem;
+    }
+
     public String getUserID() {
         return UserID;
     }
 
     public void setUserID(String userID) {
         UserID = userID;
+    }
+
+    public String getDestinatario() {
+        return destinatario;
+    }
+
+    public void setDestinatario(String destinatario) {
+        this.destinatario = destinatario;
     }
 
     public Date getDataHora() {

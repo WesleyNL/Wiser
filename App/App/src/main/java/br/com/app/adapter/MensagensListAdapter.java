@@ -3,7 +3,6 @@ package br.com.app.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,16 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 import br.com.app.activity.R;
 import br.com.app.activity.chat.mensagens.ChatMensagemActivity;
-import br.com.app.activity.forum.discussao.ForumDiscussaoActivity;
+import br.com.app.business.app.facebook.Facebook;
 import br.com.app.business.chat.contatos.Contato;
-import br.com.app.business.chat.mensagens.MensagensListItem;
-import br.com.app.business.forum.resposta.Resposta;
+import br.com.app.business.chat.mensagens.MensagemItem;
 import br.com.app.utils.FormatData;
 import br.com.app.utils.Utils;
 import android.widget.ProgressBar;
@@ -31,9 +27,9 @@ import android.widget.ProgressBar;
 public class MensagensListAdapter extends RecyclerView.Adapter<MensagensListAdapter.ViewHolder> {
 
     private Context context;
-    private static LinkedList<MensagensListItem> mensagens = null;
+    private static LinkedList<MensagemItem> mensagens = null;
 
-    public MensagensListAdapter(Context context, LinkedList<MensagensListItem> mensagens) {
+    public MensagensListAdapter(Context context, LinkedList<MensagemItem> mensagens) {
         this.context = context;
         this.mensagens = mensagens;
     }
@@ -49,7 +45,7 @@ public class MensagensListAdapter extends RecyclerView.Adapter<MensagensListAdap
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        MensagensListItem m = mensagens.get(position);
+        MensagemItem m = mensagens.get(position);
 
         holder.viewSeparator.setVisibility(position == 0 ? View.INVISIBLE : View.VISIBLE);
 

@@ -41,7 +41,6 @@ public class ThreadDesativarData implements Runnable{
 		ResultSet rst = null;
 		
 		try {
-			
 			cal.setTime(new Date());
 			cal.set(Calendar.MONTH, cal.get(Calendar.MONTH) - 1);
 			dataExpiracao = cal.getTime();

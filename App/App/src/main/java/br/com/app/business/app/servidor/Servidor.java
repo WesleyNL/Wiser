@@ -16,6 +16,8 @@ import br.com.app.business.app.configuracao.Configuracao;
 import br.com.app.business.app.facebook.Facebook;
 import br.com.app.business.chat.contatos.Contato;
 import br.com.app.business.app.login.Login;
+import br.com.app.business.chat.mensagens.Mensagem;
+import br.com.app.business.chat.mensagens.MensagemItem;
 import br.com.app.business.chat.pesquisa.Pesquisa;
 import br.com.app.business.forum.discussao.Discussao;
 import br.com.app.business.forum.discussao.Resposta;
@@ -32,7 +34,10 @@ public class Servidor {
     private static final String VERIFICAR = "existe";
     private static final String PROCURAR = "procurar";
     private static final String CARREGAR = "carregar";
+    private static final String CARREGAR_GERAL = "carregarGeral";
     private static final String RESPONDER = "responder";
+    private static final String ATUALIZAR_LEITURA = "atualizarLeitura";
+    private static final String ENVIAR = "enviar";
     private static final String PESQ_IDIOMAS = "pesquisarIdiomas";
     private static final String PESQ_FLUENCIAS = "pesquisarFluencias";
     private static final String PESQ_DISCUSSAO_USUARIO = "pesquisarUsuario";
@@ -56,6 +61,9 @@ public class Servidor {
 
     private static final String URL_FORUM = "http://" + Sistema.SERVIDOR_WS + "/Projeto_Android_WS/services/DiscussaoDAO?wsdl";
     private static final String NAMESPACE_FORUM = "http://forum.projeto.com.br";
+
+    private static final String URL_CHAT = "http://" + Sistema.SERVIDOR_WS + "/Projeto_Android_WS/services/MensagemDAO?wsdl";
+    private static final String NAMESPACE_CHAT = "http://chat.projeto.com.br";
 
     public static String getAccessToken(){
 
@@ -404,6 +412,7 @@ public class Servidor {
                     objDiscussao.setContRespostas(Long.parseLong(soapObject.getProperty("contRespostas").toString()));
                     objDiscussao.setDataHora(fmt.parse(soapObject.getProperty("dataHoraCustom").toString()));
                     objDiscussao.setContato(Facebook.getProfile(soapObject.getProperty("autor").toString()));
+                    objDiscussao.setSituacao(Byte.parseByte(soapObject.getProperty("situacao").toString()));
 
                     try {
                         listaRespostas = new LinkedList<Resposta>();
@@ -456,6 +465,7 @@ public class Servidor {
                     objDiscussao.setContRespostas(Long.parseLong(objSoapResposta.getProperty("contRespostas").toString()));
                     objDiscussao.setDataHora(fmt.parse(objSoapResposta.getProperty("dataHoraCustom").toString()));
                     objDiscussao.setContato(Facebook.getProfile(objSoapResposta.getProperty("autor").toString()));
+                    objDiscussao.setSituacao(Byte.parseByte(objSoapResposta.getProperty("situacao").toString()));
 
                     try {
                         listaRespostas = new LinkedList<Resposta>();
@@ -581,6 +591,223 @@ public class Servidor {
 
         try{
             objHTTP.call("urn:" + RESPONDER, objEnvelope);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static LinkedList<MensagemItem> carregarMensagensGeral(MensagemItem dados){
+        return carregarMensagensGeral(dados, "");
+    }
+
+    public static LinkedList<MensagemItem> carregarMensagensEspecifico(MensagemItem dados){
+        return carregarMensagensGeral(dados, Sistema.USER_ID);
+    }
+
+    private static LinkedList<MensagemItem> carregarMensagensGeral(MensagemItem dados, String userIdEspecifico){
+
+        SoapObject objEnvio = new SoapObject(NAMESPACE_CHAT, CARREGAR_GERAL);
+
+        SoapObject objCarregar = new SoapObject(NAMESPACE_CHAT, "mensagemItem");
+
+        objCarregar.addProperty("userIdCarregar", dados.getContato().getUserID());
+        objCarregar.addProperty("userIdDestinatario", userIdEspecifico);
+
+        objEnvio.addSoapObject(objCarregar);
+
+        SoapSerializationEnvelope objEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        objEnvelope.setOutputSoapObject(objEnvio);
+        objEnvelope.implicitTypes = true;
+
+        HttpTransportSE objHTTP = new HttpTransportSE(URL_CHAT);
+
+        LinkedList<MensagemItem> listaMensagemItem = new LinkedList<MensagemItem>();
+
+        try {
+            objHTTP.call("urn:" + CARREGAR_GERAL, objEnvelope);
+
+            MensagemItem objMensagemItem = null;
+            Mensagem objMensagem = null;
+            LinkedList<Mensagem> listaMensagens = null;
+            SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            String aux = "";
+
+            try {
+                Vector<SoapObject> objSoapResposta = (Vector<SoapObject>) objEnvelope.getResponse();
+
+                for (SoapObject soapObject : objSoapResposta) {
+                    objMensagemItem = new MensagemItem();
+                    objMensagemItem.setDataHora(fmt.parse(soapObject.getProperty("dataHoraCustom").toString()));
+
+                    aux = soapObject.getProperty("userIdDestinatario").toString();
+
+                    if(!aux.equals(Sistema.USER_ID)){
+                        objMensagemItem.setContato(Facebook.getProfile(aux));
+                    }else{
+                        objMensagemItem.setContato(Facebook.getProfile(soapObject.getProperty("userIdCarregar").toString()));
+                    }
+
+                    try {
+                        listaMensagens = new LinkedList<Mensagem>();
+
+                        for(int i=2; i<soapObject.getPropertyCount()-2; i++){
+                            SoapObject soapObjectResp = (SoapObject) soapObject.getProperty(i);
+
+                            if (!soapObjectResp.getProperty("codigo").toString().trim().equals("-1")) {
+                                objMensagem = new Mensagem();
+                                objMensagem.setID(Long.parseLong(soapObjectResp.getProperty("codigo").toString()));
+                                objMensagem.setIdMensagemItem(Long.parseLong(soapObjectResp.getProperty("codigoMensagemItem").toString()));
+                                objMensagem.setDataHora(fmt.parse(soapObjectResp.getProperty("dataHoraCustom").toString()));
+                                objMensagem.setMensagem(soapObjectResp.getProperty("mensagem").toString());
+                                objMensagem.setUserID(soapObjectResp.getProperty("userIdRemetente").toString());
+                                objMensagem.setLido(true);
+                                if(!objMensagem.getUserID().equals(Sistema.USER_ID)){
+                                    objMensagem.setLido(Byte.parseByte(soapObjectResp.getProperty("lido").toString()) == 1);
+                                }
+                                listaMensagens.add(objMensagem);
+                            }
+                        }
+
+                        objMensagemItem.setMensagens(listaMensagens);
+                        listaMensagemItem.add(objMensagemItem);
+
+                    }catch(Exception e2){
+                        SoapObject soapObjectResp = (SoapObject) soapObject.getProperty("listaRespostas");
+
+                        if(soapObjectResp != null){
+                            listaMensagens = new LinkedList<Mensagem>();
+                            if(!soapObjectResp.getProperty("codigo").toString().trim().equals("-1")) {
+                                objMensagem = new Mensagem();
+                                objMensagem.setID(Long.parseLong(soapObjectResp.getProperty("codigo").toString()));
+                                objMensagem.setIdMensagemItem(Long.parseLong(soapObjectResp.getProperty("codigoMensagemItem").toString()));
+                                objMensagem.setDataHora(fmt.parse(soapObjectResp.getProperty("dataHoraCustom").toString()));
+                                objMensagem.setMensagem(soapObjectResp.getProperty("mensagem").toString());
+                                objMensagem.setUserID(soapObjectResp.getProperty("userIdRemetente").toString());
+                                objMensagem.setLido(true);
+                                if(!objMensagem.getUserID().equals(Sistema.USER_ID)){
+                                    objMensagem.setLido(Byte.parseByte(soapObjectResp.getProperty("lido").toString()) == 1);
+                                }
+                                listaMensagens.add(objMensagem);
+                            }
+                        }
+
+                        objMensagemItem.setMensagens(listaMensagens);
+                        listaMensagemItem.add(objMensagemItem);
+                    }
+                }
+            } catch (Exception e) {
+                SoapObject objSoapResposta = (SoapObject) objEnvelope.getResponse();
+
+                if (objSoapResposta != null) {
+                    objMensagemItem = new MensagemItem();
+                    objMensagemItem.setDataHora(fmt.parse(objSoapResposta.getProperty("dataHoraCustom").toString()));
+                    objMensagemItem.setContato(Facebook.getProfile(objSoapResposta.getProperty("userIdDestinatario").toString()));
+
+                    if(!aux.equals(Sistema.USER_ID)){
+                        objMensagemItem.setContato(Facebook.getProfile(aux));
+                    }else{
+                        objMensagemItem.setContato(Facebook.getProfile(objSoapResposta.getProperty("userIdCarregar").toString()));
+                    }
+
+                    try {
+                        listaMensagens = new LinkedList<Mensagem>();
+
+                        for(int i=2; i<objSoapResposta.getPropertyCount()-2; i++){
+                            SoapObject soapObjectResp = (SoapObject) objSoapResposta.getProperty(i);
+
+                            if (!soapObjectResp.getProperty("codigo").toString().trim().equals("-1")) {
+                                objMensagem = new Mensagem();
+                                objMensagem.setID(Long.parseLong(soapObjectResp.getProperty("codigo").toString()));
+                                objMensagem.setIdMensagemItem(Long.parseLong(soapObjectResp.getProperty("codigoMensagemItem").toString()));
+                                objMensagem.setDataHora(fmt.parse(soapObjectResp.getProperty("dataHoraCustom").toString()));
+                                objMensagem.setMensagem(soapObjectResp.getProperty("mensagem").toString());
+                                objMensagem.setUserID(soapObjectResp.getProperty("userIdRemetente").toString());
+                                objMensagem.setLido(true);
+                                if(!objMensagem.getUserID().equals(Sistema.USER_ID)){
+                                    objMensagem.setLido(Byte.parseByte(soapObjectResp.getProperty("lido").toString()) == 1);
+                                }
+                                listaMensagens.add(objMensagem);
+                            }
+                        }
+
+                        objMensagemItem.setMensagens(listaMensagens);
+                        listaMensagemItem.add(objMensagemItem);
+                    }catch(Exception e2){
+                        SoapObject soapObjectResp = (SoapObject) objSoapResposta.getProperty("listaRespostas");
+
+                        if(soapObjectResp != null){
+                            listaMensagens = new LinkedList<Mensagem>();
+                            if(!soapObjectResp.getProperty("codigo").toString().trim().equals("-1")) {
+                                objMensagem = new Mensagem();
+                                objMensagem.setID(Long.parseLong(soapObjectResp.getProperty("codigo").toString()));
+                                objMensagem.setIdMensagemItem(Long.parseLong(soapObjectResp.getProperty("codigoMensagemItem").toString()));
+                                objMensagem.setDataHora(fmt.parse(soapObjectResp.getProperty("dataHoraCustom").toString()));
+                                objMensagem.setMensagem(soapObjectResp.getProperty("mensagem").toString());
+                                objMensagem.setUserID(soapObjectResp.getProperty("userIdRemetente").toString());
+                                objMensagem.setLido(true);
+                                if(!objMensagem.getUserID().equals(Sistema.USER_ID)){
+                                    objMensagem.setLido(Byte.parseByte(soapObjectResp.getProperty("lido").toString()) == 1);
+                                }
+                                listaMensagens.add(objMensagem);
+                            }
+                        }
+
+                        objMensagemItem.setMensagens(listaMensagens);
+                        listaMensagemItem.add(objMensagemItem);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return listaMensagemItem;
+    }
+
+    public static void atualizarMensagemLeitura(Mensagem dados){
+
+        SoapObject objEnvio = new SoapObject(NAMESPACE_CHAT, ATUALIZAR_LEITURA);
+
+        SoapObject objSalvar = new SoapObject(NAMESPACE_CHAT, "mensagem");
+        objSalvar.addProperty("codigoMensagemItem", dados.getIdMensagemItem());
+        objSalvar.addProperty("userIdRemetente", dados.getUserID());
+
+        objEnvio.addSoapObject(objSalvar);
+
+        SoapSerializationEnvelope objEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        objEnvelope.setOutputSoapObject(objEnvio);
+        objEnvelope.implicitTypes = true;
+
+        HttpTransportSE objHTTP = new HttpTransportSE(URL_CHAT);
+
+        try{
+            objHTTP.call("urn:" + ATUALIZAR_LEITURA, objEnvelope);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void enviarMensagem(Mensagem dados){
+
+        SoapObject objEnvio = new SoapObject(NAMESPACE_CHAT, ENVIAR);
+
+        SoapObject objSalvar = new SoapObject(NAMESPACE_CHAT, "mensagem");
+        objSalvar.addProperty("codigoMensagemItem", dados.getIdMensagemItem());
+        objSalvar.addProperty("userIdRemetente", dados.getUserID());
+        objSalvar.addProperty("userIdDestinatario", dados.getDestinatario());
+        objSalvar.addProperty("mensagem", dados.getMensagem());
+
+        objEnvio.addSoapObject(objSalvar);
+
+        SoapSerializationEnvelope objEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        objEnvelope.setOutputSoapObject(objEnvio);
+        objEnvelope.implicitTypes = true;
+
+        HttpTransportSE objHTTP = new HttpTransportSE(URL_CHAT);
+
+        try{
+            objHTTP.call("urn:" + ENVIAR, objEnvelope);
         } catch(Exception e) {
             e.printStackTrace();
         }

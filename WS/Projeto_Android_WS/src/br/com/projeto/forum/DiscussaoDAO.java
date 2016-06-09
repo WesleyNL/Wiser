@@ -39,29 +39,28 @@ public class DiscussaoDAO {
 		ResultSet rst = null;
 
 		try {
-			String sql = "SELECT d.CODIGO as ID_DISCUSSAO, d.TITULO, d.DESCRICAO, d.DATA_HORA as DATA_HORA_DISCUSSAO, d.AUTOR AS AUTOR_DISCUSSAO, " + 
+			String sql = "SELECT d.CODIGO as ID_DISCUSSAO, d.TITULO, d.DESCRICAO, d.DATA_HORA as DATA_HORA_DISCUSSAO, d.AUTOR AS AUTOR_DISCUSSAO, d.SITUACAO, " + 
 						 " r.CODIGO as ID_RESPOSTA, r.DATA_HORA as DATA_HORA_RESPOSTA, r.RESPOSTA, r.AUTOR AS AUTOR_RESPOSTA " +
 						 " FROM DISCUSSAO d " +
 						 " LEFT JOIN DISCUSSAO_RESPOSTA r " +
-						 " ON d.CODIGO = r.DISCUSSAO " +
-						 " WHERE d.SITUACAO = " + Constantes.CODIGO_ATIVO;
+						 " ON d.CODIGO = r.DISCUSSAO ";
 
 			if(!idUsuario.trim().isEmpty()){
-				sql += " AND d.AUTOR = " + idUsuario;
+				sql += " WHERE d.AUTOR = " + idUsuario;
 			}else{
 				if(discussao != null && discussao.getBuscaEspecifica() != 0){
 					switch(discussao.getBuscaEspecifica()){
 					case Constantes.BUSCA_DISCUSSAO_ID:
-						sql += " AND d.CODIGO = " + discussao.getIdDiscussao();
+						sql += " WHERE d.CODIGO = " + discussao.getIdDiscussao();
 						break;
 					case Constantes.BUSCA_DISCUSSAO_TITULO:
-						sql += " AND d.TITULO LIKE '%" + discussao.getTitulo() + "%'";
+						sql += " WHERE d.TITULO LIKE '%" + discussao.getTitulo() + "%'";
 						break;
 					case Constantes.BUSCA_DISCUSSAO_DESCRICAO:
-						sql += " AND d.DESCRICAO LIKE '%" + discussao.getDescricao() + "%'";
+						sql += " WHERE d.DESCRICAO LIKE '%" + discussao.getDescricao() + "%'";
 						break;
 					case Constantes.BUSCA_DISCUSSAO_TITULO_DESCRICAO:
-						sql += " AND (d.TITULO LIKE '%" + discussao.getTitulo() + "%' OR d.DESCRICAO LIKE '%" + discussao.getDescricao() + "%')";
+						sql += " WHERE (d.TITULO LIKE '%" + discussao.getTitulo() + "%' OR d.DESCRICAO LIKE '%" + discussao.getDescricao() + "%')";
 						break;
 					}
 				}
@@ -90,6 +89,7 @@ public class DiscussaoDAO {
 					objDiscussao.setDataHora(rst.getTimestamp("DATA_HORA_DISCUSSAO"));
 					objDiscussao.setDataHoraCustom(objDiscussao.getDataHora().toString().replaceAll("-", "/"));
 					objDiscussao.setAutor(rst.getString("AUTOR_DISCUSSAO"));
+					objDiscussao.setSituacao(rst.getByte("SITUACAO"));
 					objDiscussao.setListaRespostas(listaRespostas);
 					
 					listaDiscussoes.add(objDiscussao);
@@ -138,7 +138,6 @@ public class DiscussaoDAO {
 		ResultSet rst = null;
 
 		try {
-
 			String sql = "UPDATE DISCUSSAO" +
 					     " SET SITUACAO = ?" +
 					     " WHERE AUTOR = ?" +
@@ -169,7 +168,6 @@ public class DiscussaoDAO {
 		ResultSet rst = null;
 
 		try {
-
 			String sql = "INSERT INTO DISCUSSAO" +
 					     " (TITULO, DESCRICAO, DATA_HORA, AUTOR, SITUACAO)" +
 					     " VALUES(?,?,?,?,?)";
@@ -202,7 +200,6 @@ public class DiscussaoDAO {
 		ResultSet rst = null;
 
 		try {
-
 			String sql = "INSERT INTO DISCUSSAO_RESPOSTA" +
 					     " (DISCUSSAO, RESPOSTA, DATA_HORA, AUTOR)" +
 					     " VALUES(?,?,?,?)";

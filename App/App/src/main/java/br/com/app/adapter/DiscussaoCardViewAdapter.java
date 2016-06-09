@@ -19,6 +19,7 @@ import br.com.app.activity.R;
 import br.com.app.activity.forum.discussao.ForumDiscussaoActivity;
 import br.com.app.activity.forum.minhas_discussoes.ForumMinhasDiscussoesActivity;
 import br.com.app.activity.forum.pesquisa.ForumPesquisaActivity;
+import br.com.app.activity.forum.principal.ForumPrincipalFragment;
 import br.com.app.business.forum.discussao.Discussao;
 import br.com.app.utils.FormatData;
 import br.com.app.utils.Utils;
@@ -104,6 +105,10 @@ public class DiscussaoCardViewAdapter extends RecyclerView.Adapter<DiscussaoCard
             lblDataHora = (TextView) itemLayoutView.findViewById(R.id.lblDataHora);
             btnExcluir = (Button) itemLayoutView.findViewById(R.id.btnExcluir);
             btnCompartilhar = (Button) itemLayoutView.findViewById(R.id.btnCompartilhar);
+
+            if(!(itemLayoutView.getContext() instanceof ForumMinhasDiscussoesActivity) && !(itemLayoutView.getContext() instanceof ForumPesquisaActivity)){
+                btnExcluir.setVisibility(View.INVISIBLE);
+            }
 
             View.OnClickListener btnExcluirListener = new View.OnClickListener(){
                 @Override

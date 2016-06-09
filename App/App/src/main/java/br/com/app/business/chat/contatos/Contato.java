@@ -1,7 +1,5 @@
 package br.com.app.business.chat.contatos;
 
-import android.graphics.Bitmap;
-
 import java.io.Serializable;
 
 /**

@@ -108,7 +108,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:text="@string/excluir"
+            android:text="@string/desativar"
             android:textSize="10dp"
             android:id="@+id/btnExcluir"
             android:background="@android:color/transparent"

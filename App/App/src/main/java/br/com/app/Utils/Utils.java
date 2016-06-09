@@ -11,6 +11,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
@@ -313,5 +314,9 @@ public class Utils implements LocationListener {
                 view.getContext().getString(R.string.sistema_link_playstore));
         view.getContext().startActivity(Intent.createChooser(iCompartilhar,
                 view.getContext().getString(R.string.compartilhar_aplicativo_sistema)));
+    }
+
+    public static void vibrar(Context context, long duracao){
+        ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE)).vibrate(duracao);
     }
 }

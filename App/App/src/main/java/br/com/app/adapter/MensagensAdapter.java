@@ -25,9 +25,9 @@ public class MensagensAdapter extends RecyclerView.Adapter<MensagensAdapter.View
     private final int USUARIO = 0;
     private final int CONTATO = 1;
 
-    public MensagensAdapter(Context context, List<Mensagem> mensagems) {
+    public MensagensAdapter(Context context, List<Mensagem> mensagens) {
         this.context = context;
-        this.mensagens = mensagems;
+        this.mensagens = mensagens;
     }
 
     @Override
@@ -57,6 +57,10 @@ public class MensagensAdapter extends RecyclerView.Adapter<MensagensAdapter.View
         Mensagem m = mensagens.get(position);
         holder.lblDataHora.setText(FormatData.formatDate(m.getDataHora(), FormatData.HHMM));
         holder.lblMensagem.setText(m.getMensagem().trim());
+
+        if(!m.getLido()){
+            Utils.vibrar(context, 150);
+        }
     }
 
     @Override

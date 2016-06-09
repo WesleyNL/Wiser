@@ -6,7 +6,7 @@
     tools:context=".forum.minhas_discussoes.ForumMinhasDiscussoesActivity" >
 
     <Button
-        android:text="+ Nova Discussão"
+        android:text="@string/nova_discussao"
         android:onClick="chamarNovaDiscussao"
         android:id="@+id/btnNovaDiscussao"
         android:layout_marginTop="5dp"

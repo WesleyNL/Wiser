@@ -26,7 +26,7 @@
     <string name="desativar_conta">Deactivate Account</string>
     <string name="sucesso_salvar_configuracao">The configuration was saved with success.</string>
     <string name="boas_vindas">Hi %1$s ;)</string>
-    <string name="sucesso_conta_desativada">The account was deactivate with success.</string>
+    <string name="sucesso_conta_desativada">The account was disabled with success.</string>
     <string name="usuarios_nao_encontrados">Not found users for the filters selecteds.</string>
     <string name="indisponivel_sistema">Unable to access the system.</string>
     <string name="indisponivel_configuracao">Unable to load settings.</string>
@@ -71,4 +71,7 @@
     <string name="erro_usuario_sem_discussao">You have not created discussions.</string>
     <string name="compartilhar_aplicativo_sistema">Share app using...</string>
     <string name="compartilhar_discussao_sistema">Share discussion using...</string>
+    <string name="nova_discussao">+ New Discussion</string>
+    <string name="enviar_mensagem">Send message</string>
+    <string name="desativar">Disable</string>
 </resources>

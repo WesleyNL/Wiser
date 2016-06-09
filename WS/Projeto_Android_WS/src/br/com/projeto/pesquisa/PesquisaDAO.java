@@ -34,11 +34,11 @@ public class PesquisaDAO {
 						 " WHERE l.SITUACAO = ? " +
 						 " AND l.USER_ID <> ?";
 			
-			if(procurar.getIdioma() != Constantes.VALOR_TODOS){
+			if(procurar.getIdioma() != Constantes.CODIGO_VALOR_TODOS){
 				sql += " AND IDIOMA = " + procurar.getIdioma();
 			}
 			
-			if(procurar.getFluencia() != Constantes.VALOR_TODOS){
+			if(procurar.getFluencia() != Constantes.CODIGO_VALOR_TODOS){
 				sql += " AND FLUENCIA = " + procurar.getFluencia();
 			}
 			
@@ -89,7 +89,6 @@ public class PesquisaDAO {
 		ResultSet rst = null;
 		
 		try {
-			
 			String sql = "SELECT COORDENADA_ULTIMO_ACESSO FROM USER_LOGIN" +
 						 " WHERE USER_ID = ?";
 			

@@ -13,6 +13,7 @@ public class Discussao {
     private String autor;
     private byte buscaEspecifica;
     private long contRespostas;
+    private byte situacao;
     private Vector<Resposta> listaRespostas;
 
     public long getIdDiscussao() {
@@ -79,7 +80,15 @@ public class Discussao {
         this.contRespostas = contRespostas;
     }
 
-    public Vector<Resposta> getListaRespostas() {
+    public byte getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(byte situacao) {
+		this.situacao = situacao;
+	}
+
+	public Vector<Resposta> getListaRespostas() {
         return listaRespostas;
     }
 
