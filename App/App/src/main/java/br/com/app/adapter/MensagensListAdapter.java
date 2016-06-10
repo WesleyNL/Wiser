@@ -14,10 +14,9 @@ import java.util.LinkedList;
 
 import br.com.app.activity.R;
 import br.com.app.activity.chat.mensagens.ChatMensagemActivity;
-import br.com.app.business.app.facebook.Facebook;
 import br.com.app.business.chat.contatos.Contato;
 import br.com.app.business.chat.mensagens.MensagemItem;
-import br.com.app.utils.FormatData;
+import br.com.app.utils.FuncoesData;
 import br.com.app.utils.Utils;
 import android.widget.ProgressBar;
 
@@ -50,9 +49,13 @@ public class MensagensListAdapter extends RecyclerView.Adapter<MensagensListAdap
         holder.viewSeparator.setVisibility(position == 0 ? View.INVISIBLE : View.VISIBLE);
 
         Utils.loadImageInBackground(context, m.getContato().getProfilePictureURL(), holder.imgPerfil, holder.prgBarra);
-        holder.lblDataHora.setText(FormatData.formatDate(m.getDataHora(), FormatData.HHMM));
+        holder.lblDataHora.setText(FuncoesData.formatDate(m.getDataHora(), FuncoesData.getDiferencaDataDiferenteHoje(m.getDataHora()) ? FuncoesData.HHMM : FuncoesData.DDMMYYYY_HHMM));
         holder.lblMensagens.setText(m.getMensagens().get(m.getMensagens().size() - 1).getMensagem());
-        holder.lblContMensagens.setText(m.getContMsgNaoLidas() + " não lidas");
+        holder.lblContMensagens.setText(m.getContMsgNaoLidas() + " " + context.getString(m.getContMsgNaoLidas() <= 1 ? R.string.nao_lida : R.string.nao_lidas));
+
+        if(m.getContMsgNaoLidas() != 0){
+            Utils.vibrar(context, 150);
+        }
 
         holder.setPosicao(position);
     }

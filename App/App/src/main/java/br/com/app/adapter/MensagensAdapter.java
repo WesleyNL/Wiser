@@ -6,12 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import java.util.List;
 
 import br.com.app.Sistema;
 import br.com.app.activity.R;
 import br.com.app.business.chat.mensagens.Mensagem;
-import br.com.app.utils.FormatData;
+import br.com.app.utils.FuncoesData;
 import br.com.app.utils.Utils;
 
 /**
@@ -55,7 +56,7 @@ public class MensagensAdapter extends RecyclerView.Adapter<MensagensAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Mensagem m = mensagens.get(position);
-        holder.lblDataHora.setText(FormatData.formatDate(m.getDataHora(), FormatData.HHMM));
+        holder.lblDataHora.setText(FuncoesData.formatDate(m.getDataHora(), FuncoesData.getDiferencaDataDiferenteHoje(m.getDataHora()) ? FuncoesData.HHMM : FuncoesData.DDMMYYYY_HHMM));
         holder.lblMensagem.setText(m.getMensagem().trim());
 
         if(!m.getLido()){

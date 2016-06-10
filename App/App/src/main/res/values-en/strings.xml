@@ -74,4 +74,6 @@
     <string name="nova_discussao">+ New Discussion</string>
     <string name="enviar_mensagem">Send message</string>
     <string name="desativar">Disable</string>
+    <string name="nao_lida">Unread</string>
+    <string name="nao_lidas">Unread</string>
 </resources>

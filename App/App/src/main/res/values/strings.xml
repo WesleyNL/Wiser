@@ -85,5 +85,6 @@
     <string name="compartilhar_discussao_sistema">Compartilhar discussão usando...</string>
     <string name="compartilhar_aplicativo_sistema">Compartilhar aplicativo usando...</string>
     <string name="sistema_link_playstore" translatable="false">https://play.google.com/store/apps/details?id=com.whatsapp</string> <!--exemplo-->
-
+    <string name="nao_lida">não lida</string>
+    <string name="nao_lidas">não lidas</string>
 </resources>

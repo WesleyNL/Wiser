@@ -19,9 +19,8 @@ import br.com.app.activity.R;
 import br.com.app.activity.forum.discussao.ForumDiscussaoActivity;
 import br.com.app.activity.forum.minhas_discussoes.ForumMinhasDiscussoesActivity;
 import br.com.app.activity.forum.pesquisa.ForumPesquisaActivity;
-import br.com.app.activity.forum.principal.ForumPrincipalFragment;
 import br.com.app.business.forum.discussao.Discussao;
-import br.com.app.utils.FormatData;
+import br.com.app.utils.FuncoesData;
 import br.com.app.utils.Utils;
 import android.widget.ProgressBar;
 /**
@@ -58,7 +57,7 @@ public class DiscussaoCardViewAdapter extends RecyclerView.Adapter<DiscussaoCard
         viewHolder.lblContRespostas.setText(
                 context.getString(objDiscussao.getContRespostas() == 1 ? R.string.resposta : R.string.respostas,
                         objDiscussao.getContRespostas()));
-        viewHolder.lblDataHora.setText(FormatData.formatDate(objDiscussao.getDataHora(), FormatData.DDMMYYYY_HHMMSS));
+        viewHolder.lblDataHora.setText(FuncoesData.formatDate(objDiscussao.getDataHora(), FuncoesData.DDMMYYYY_HHMMSS));
 
         if(!objDiscussao.getContato().getUserID().trim().equalsIgnoreCase(Sistema.USER_ID)){
             viewHolder.btnExcluir.setVisibility(View.INVISIBLE);

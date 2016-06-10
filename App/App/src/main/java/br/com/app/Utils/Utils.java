@@ -20,8 +20,6 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import java.io.ByteArrayOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;

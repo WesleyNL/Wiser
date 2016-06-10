@@ -19,7 +19,7 @@ import br.com.app.business.chat.contatos.Contato;
 import br.com.app.business.forum.discussao.Discussao;
 import br.com.app.business.forum.discussao.DiscussaoDAO;
 import br.com.app.business.forum.discussao.Resposta;
-import br.com.app.utils.FormatData;
+import br.com.app.utils.FuncoesData;
 import br.com.app.utils.Utils;
 
 import android.view.View;
@@ -153,7 +153,7 @@ public class ForumDiscussaoActivity extends Activity {
         lblDescricaoDiscussao.setText(objDiscussao.getDescricao());
         lblAutor.setText(objDiscussao.getContato().getFirstName());
         Utils.loadImageInBackground(this, objDiscussao.getContato().getProfilePictureURL(), imgPerfil, prgBarra);
-        lblDataHora.setText(FormatData.formatDate(objDiscussao.getDataHora(), FormatData.DDMMYYYY_HHMMSS));
+        lblDataHora.setText(FuncoesData.formatDate(objDiscussao.getDataHora(), FuncoesData.DDMMYYYY_HHMMSS));
         lblRespostas.setText(getString(objDiscussao.getContRespostas() == 1 ? R.string.resposta : R.string.respostas, objDiscussao.getContRespostas()));
         btnEnviarMensagem.setVisibility(objDiscussao.getContato().getUserID().equals(Sistema.USER_ID) ? View.INVISIBLE : View.VISIBLE);
 

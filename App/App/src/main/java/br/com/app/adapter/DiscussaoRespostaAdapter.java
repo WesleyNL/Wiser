@@ -5,7 +5,7 @@ import br.com.app.activity.R;
 import br.com.app.activity.chat.mensagens.ChatMensagemActivity;
 import br.com.app.business.chat.contatos.Contato;
 import br.com.app.business.forum.discussao.Resposta;
-import br.com.app.utils.FormatData;
+import br.com.app.utils.FuncoesData;
 import br.com.app.utils.Utils;
 
 import android.content.Context;
@@ -55,7 +55,7 @@ public class DiscussaoRespostaAdapter extends RecyclerView.Adapter<DiscussaoResp
         Utils.loadImageInBackground(context, r.getContato().getProfilePictureURL(), holder.imgPerfil, holder.prgBarra);
         holder.lblIDResposta.setText("#" + r.getIdResposta());
         holder.lblAutor.setText(r.getContato().getFirstName());
-        holder.lblDataHora.setText(FormatData.formatDate(r.getDataHora(), FormatData.DDMMYYYY_HHMMSS));
+        holder.lblDataHora.setText(FuncoesData.formatDate(r.getDataHora(), FuncoesData.DDMMYYYY_HHMMSS));
         holder.lblResposta.setText(r.getResposta());
 
         holder.btnEnviarMensagem.setOnClickListener(new View.OnClickListener() {
