@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".chat.pesquisa.ChatPesquisaFragment"
-    tools:menu="br.com.app.res.menu.menu_principal" >
+    tools:context=".encontrarusuarios.pesquisa.ChatPesquisaFragment"
+    tools:menu="br.com.wiser.res.menu.menu_principal" >
 
     <TextView
         android:text="@string/idioma"

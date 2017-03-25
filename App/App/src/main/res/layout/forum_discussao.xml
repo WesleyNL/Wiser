@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".forum.discussao.ForumDiscussaoActivity"
-    tools:menu="br.com.app.res.menu.menu_compartilhar" >
+    tools:menu="br.com.wiser.res.menu.menu_compartilhar" >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -74,19 +74,6 @@
                         android:id="@+id/lblDescricaoDiscussao"
                         android:layout_below="@id/frmImgPerfil"
                         android:inputType="textMultiLine" />
-
-                    <Button
-                        style="?android:attr/buttonStyleSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/enviar_mensagem"
-                        android:id="@+id/btnAbrirChatAutor"
-                        android:layout_below="@+id/lblTituloDiscussao"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignBottom="@+id/lblAutor"
-                        android:background="@android:color/transparent"
-                        android:textColor="#8B8989"
-                        android:visibility="visible" />
                 </RelativeLayout>
             </FrameLayout>
 

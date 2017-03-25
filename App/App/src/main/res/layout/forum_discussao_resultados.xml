@@ -110,12 +110,12 @@
             android:layout_height="25dp"
             android:text="@string/desativar"
             android:textSize="10dp"
-            android:id="@+id/btnExcluir"
+            android:id="@+id/btnDesativar"
             android:background="@android:color/transparent"
             android:layout_alignParentEnd="true"
             android:layout_below="@id/lblAutorDiscussao"
             android:textColor="@color/colorSecondaryText"
-            android:onClick="excluir"
+            android:onClick="desativar"
             android:textAllCaps="false"
             style="?android:attr/borderlessButtonStyle" />
 

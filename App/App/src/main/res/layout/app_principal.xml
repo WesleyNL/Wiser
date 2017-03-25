@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     tools:context=".app.principal.AppPrincipalActivity"
-    tools:menu="br.com.app.res.menu.menu_principal" >
+    tools:menu="br.com.wiser.res.menu.menu_principal" >
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"

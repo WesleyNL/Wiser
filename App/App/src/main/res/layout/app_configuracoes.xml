@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".app.configuracoes.AppConfiguracoesActivity">
 
     <TextView
@@ -43,7 +44,7 @@
         style="@style/AppTema.AppItemFrame" />
 
     <TextView
-        android:text="@string/status"
+        android:text="@string/app_configuracoes_item_status"
         android:id="@+id/lblStatus"
         android:layout_below="@id/imageView3"
         style="@style/AppTema.AppTextTitulo"/>
@@ -88,7 +89,7 @@
         android:onClick="desativar"
         android:layout_below="@+id/btnSalvar"
         android:layout_marginTop="10dp"
-        style="@style/AppTema.AppBotao.Atencao" />
+        style="@style/AppTema.AppBotao" />
 
     <ProgressBar
         android:layout_width="wrap_content"

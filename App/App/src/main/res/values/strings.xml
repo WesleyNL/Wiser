@@ -3,22 +3,25 @@
     <string name="facebook_app_id" translatable="false">570854019757986</string>
     <string name="facebook_user_id" translatable="false">1262642377098040</string>
 
-    <string name="title_app_configuracoes">Configurações</string>
-    <string name="title_app_sobre">Sobre</string>
-    <string name="title_app_pesquisa">Encontrar Pessoas</string>
-    <string name="title_chat_mensagens">Mensagens</string>
-    <string name="title_chat_pesquisa">Pesquisar</string>
-    <string name="title_chat_resultados">Resultados</string>
-    <string name="title_forum_discussao">Discussões</string>
-    <string name="title_forum_nova_discussao">Nova Discussão</string>
-    <string name="title_forum_minhas_discussoes">Minhas Discussões</string>
-    <string name="title_forum_pesquisa">Pesquisar</string>
-    <string name="title_forum_principal">Fórum</string>
-    <string name="title_forum_resultados">Resultados</string>
+    <string name="app_configuracoes_title">Configurações</string>
+    <string name="app_configuracoes_item_status">Status</string>
+    <string name="app_sobre_title">Sobre</string>
+    <string name="app_sobre_item_versao">Versão %1$s</string>
+    <string name="app_sobre_item_copyright" translatable="false">© 2016-2016 FATEC CPB</string>
+    <string name="app_pesquisa_title">Encontrar Pessoas</string>
+    <string name="chat_mensagens_title">Mensagens</string>
+    <string name="chat_pesquisa_title">Pesquisar</string>
+    <string name="chat_resultados_title">Resultados</string>
+    <string name="forum_discussao_title">Discussões</string>
+    <string name="forum_novadiscussao_title">Nova Discussão</string>
+    <string name="forum_minhasdiscussoes_title">Minhas Discussões</string>
+    <string name="forum_pesquisa_title">Pesquisar</string>
+    <string name="forum_principal_title">Fórum</string>
+    <string name="forum_resultados_title">Resultados</string>
 
-    <string name="menu_configuracoes">Configurações</string>
-    <string name="menu_sobre">Sobre</string>
-    <string name="menu_sair">Desconectar</string>
+    <string name="menu_configuracoes_title">Configurações</string>
+    <string name="menu_sobre_title">Sobre</string>
+    <string name="menu_sair_title">Desconectar</string>
 
     <string name="confirmar">Confirmar</string>
     <string name="procurar">Procurar</string>
@@ -46,15 +49,16 @@
     <string name="usuario">Usuário</string>
     <string name="idioma">Idioma</string>
     <string name="fluencia">Fluência</string>
-    <string name="status">Status</string>
+
     <string name="distancia">Distância</string>
     <string name="resultado">Resultado</string>
     <string name="resposta">%1$s Resposta</string>
     <string name="respostas">%1$s Respostas</string>
     <string name="boas_vindas">Olá %1$s ;)</string>
-    <string name="versao">Versão %1$s</string>
 
-    <string name="indisponivel_sistema">Não foi possível inicializar o sistema.</string>
+
+
+    <string name="falha_login">Login Falhou. Tente novamente!</string>
     <string name="indisponivel_configuracao">Não foi possível carregar as configurações.</string>
     <string name="erro_desativar_conta">Um erro ocorreu ao desativar a conta.</string>
     <string name="erro_salvar_configuracao">Um erro ocorreu ao salvar a configuração.</string>

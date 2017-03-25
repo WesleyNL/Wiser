@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.app.activity"
+    package="br.com.wiser.activity"
     android:versionCode="1"
     android:revisionCode="0"
     android:versionName="1.0" >
@@ -48,7 +48,7 @@
         <!-- Activity da Tela Configurações do App -->
         <activity
             android:name=".app.configuracoes.AppConfiguracoesActivity"
-            android:label="@string/title_app_configuracoes"
+            android:label="@string/app_configuracoes_title"
             android:screenOrientation="portrait" />
 
         <!-- Activity da Tela Login do App -->
@@ -66,43 +66,43 @@
         <!-- Activity da Tela Sobre do App -->
         <activity
             android:name=".app.sobre.AppSobreActivity"
-            android:label="@string/title_app_sobre"
+            android:label="@string/app_sobre_title"
             android:screenOrientation="portrait" />
 
-        <!-- Activity da Tela de Mensagens do Chat  -->
+        <!-- Activity da Tela de Conversas do Chat  -->
         <activity
-            android:name=".chat.mensagens.ChatMensagemActivity"
-            android:label="@string/title_chat_resultados"
+            android:name=".chat.mensagens.ChatMensagensActivity"
+            android:label="@string/chat_resultados_title"
             android:screenOrientation="portrait" />
 
         <!-- Activity da Tela de Resultados do Chat  -->
         <activity
-            android:name=".chat.resultados.ChatResultadosActivity"
-            android:label="@string/title_chat_resultados"
+            android:name=".encontrarusuarios.resultados.ChatResultadosActivity"
+            android:label="@string/chat_resultados_title"
             android:screenOrientation="portrait" />
 
         <!-- Activity da Tela de Discussões do Forum -->
         <activity
             android:name=".forum.discussao.ForumDiscussaoActivity"
-            android:label="@string/title_forum_discussao"
+            android:label="@string/forum_discussao_title"
             android:screenOrientation="portrait" />
 
         <!-- Activity da Tela de Discussões do Usuário do Forum -->
         <activity
             android:name=".forum.minhas_discussoes.ForumMinhasDiscussoesActivity"
-            android:label="@string/title_forum_minhas_discussoes"
+            android:label="@string/forum_minhasdiscussoes_title"
             android:screenOrientation="portrait" />
 
         <!-- Activity da Tela de Nova Discussão do Forum -->
         <activity
             android:name=".forum.nova_discussao.ForumNovaDiscussaoActivity"
-            android:label="@string/title_forum_nova_discussao"
+            android:label="@string/forum_novadiscussao_title"
             android:screenOrientation="portrait" />
 
         <!-- Activity da Tela de Pesquisa do Forum -->
         <activity
             android:name=".forum.pesquisa.ForumPesquisaActivity"
-            android:label="@string/title_forum_pesquisa"
+            android:label="@string/forum_pesquisa_title"
             android:screenOrientation="portrait" />
 
     </application>

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".forum.principal.ForumPrincipalFragment"
-    tools:menu="br.com.app.res.menu.menu_principal" >
+    tools:menu="br.com.wiser.res.menu.menu_principal" >
 
     <Button
         android:layout_width="wrap_content"

@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/versao"
+        android:text="@string/app_sobre_item_versao"
         android:id="@+id/lblVersao"
         android:layout_below="@+id/lblAppName"
         android:layout_centerHorizontal="true"
@@ -50,7 +50,7 @@
 
     <TextView
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="© 2016-2016 FATEC CPB"
+        android:text="@string/app_sobre_item_copyright"
         android:id="@+id/lblSobreRodape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

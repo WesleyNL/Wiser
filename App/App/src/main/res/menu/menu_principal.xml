@@ -3,18 +3,18 @@
 
     <item
         android:id="@+id/itmMinhasDiscussoes"
-        android:title="@string/title_forum_minhas_discussoes" />
+        android:title="@string/forum_minhasdiscussoes_title" />
 
     <item
         android:id="@+id/itmConfiguracoes"
-        android:title="@string/menu_configuracoes" />
+        android:title="@string/menu_configuracoes_title" />
 
     <item
         android:id="@+id/itmSobre"
-        android:title="@string/menu_sobre" />
+        android:title="@string/menu_sobre_title" />
 
     <item
         android:id="@+id/itmSair"
-        android:title="@string/menu_sair" />
+        android:title="@string/menu_sair_title" />
 
 </menu>

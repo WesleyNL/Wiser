@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_app_sobre">About</string>
-    <string name="menu_configuracoes">Settings</string>
-    <string name="menu_sair">Logout</string>
-    <string name="menu_sobre">About</string>
-    <string name="title_app_configuracoes">Settings</string>
-    <string name="title_chat_resultados">Contacts</string>
+    <string name="app_sobre_title">About</string>
+    <string name="menu_configuracoes_title">Settings</string>
+    <string name="menu_sair_title">Logout</string>
+    <string name="menu_sobre_title">About</string>
+    <string name="app_configuracoes_title">Settings</string>
+    <string name="chat_resultados_title">Results</string>
     <string name="usuario">User</string>
-    <string name="versao">Version %1$s</string>
+    <string name="app_sobre_item_versao">Version %1$s</string>
     <string name="necessario_permitir">Wiser requires Location permission!</string>
     <string name="nao">No</string>
     <string name="sim">Yes</string>
@@ -19,7 +19,7 @@
     <string name="procurar">Search</string>
     <string name="entrar_com_facebook">Log in with Facebook</string>
     <string name="confirmar">Confirm</string>
-    <string name="status">Status</string>
+    <string name="app_configuracoes_item_status">Status</string>
     <string name="distancia">Distance</string>
     <string name="idioma">Language</string>
     <string name="fluencia">Fluency</string>
@@ -28,7 +28,7 @@
     <string name="boas_vindas">Hi %1$s ;)</string>
     <string name="sucesso_conta_desativada">The account was disabled with success.</string>
     <string name="usuarios_nao_encontrados">Not found users for the filters selecteds.</string>
-    <string name="indisponivel_sistema">Unable to access the system.</string>
+    <string name="falha_login">Login Failed. Try Again!</string>
     <string name="indisponivel_configuracao">Unable to load settings.</string>
     <string name="fazer_agora">You want to do this now?</string>
     <string name="erro_salvar_configuracao">An error occurred while saving settings.</string>
@@ -36,13 +36,13 @@
     <string name="confirmar_salvar">Do you want to Save?</string>
     <string name="confirmar_desativar_conta">Do you really want to disable this account?</string>
     <string name="configuracoes_nao_personalizadas">You are not customize your settings!</string>
-    <string name="title_forum_resultados">Results</string>
-    <string name="title_forum_pesquisa">Search</string>
-    <string name="title_forum_nova_discussao">New Discussion</string>
-    <string name="title_forum_discussao">Discussion</string>
-    <string name="title_chat_pesquisa">Search</string>
-    <string name="title_chat_mensagens">Messages</string>
-    <string name="title_forum_principal">Forum</string>
+    <string name="forum_resultados_title">Results</string>
+    <string name="forum_pesquisa_title">Search</string>
+    <string name="forum_novadiscussao_title">New Discussion</string>
+    <string name="forum_discussao_title">Discussion</string>
+    <string name="chat_pesquisa_title">Search</string>
+    <string name="chat_mensagens_title">Messages</string>
+    <string name="forum_principal_title">Forum</string>
     <string name="resultados_para">Results for \'%1$s\'</string>
     <string name="discussao_encontrada">Found Discussion</string>
     <string name="discussoes_encontradas">Found Discussions</string>
@@ -54,9 +54,9 @@
     <string name="respostas">%1$s Anwers</string>
     <string name="sucesso_criar_discussao">The discussion was created with sucess.</string>
     <string name="sucesso_discussao_excluida">The discussion was deleted with sucess.</string>
-    <string name="title_forum_minhas_discussoes">My Discussions</string>
+    <string name="forum_minhasdiscussoes_title">My Discussions</string>
     <string name="confirmar_excluir_discussao">Do you really want to delete this discussion?</string>
-    <string name="title_app_pesquisa">Search People</string>
+    <string name="app_pesquisa_title">Search People</string>
     <string name="atualizar">Refresh</string>
     <string name="compartilhar">Share</string>
     <string name="descricao">Description</string>

@@ -29,7 +29,7 @@ public class Inicializar implements ServletContextListener{
 		
 		System.out.println(dateFormat.format(new Date()));
 		
-		Sistema.PATH_CONFIG = arg0.getServletContext().getRealPath("WEB-INF\\classes\\br\\com\\projeto\\projeto.config.ini"); //Classes
+		Sistema.PATH_CONFIG = arg0.getServletContext().getRealPath("") + "WEB-INF\\classes\\br\\com\\projeto\\projeto.config.ini"; //Classes
 		
 		inicializarParametros();
 		inicializarThreadDesativarData();
@@ -46,5 +46,8 @@ public class Inicializar implements ServletContextListener{
 		ThreadDesativarData thread = new ThreadDesativarData();
 		threadDD = new Thread(thread);
 		threadDD.start();
+	}
+	
+	public static void main(String[] args) {
 	}
 }
